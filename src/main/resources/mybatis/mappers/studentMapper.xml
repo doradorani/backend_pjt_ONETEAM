@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oneteam.dormease.user.student.IStudentMapper">
+    <insert id="insertNewStudent" parameterType="com.oneteam.dormease.user.student.StudentDto">
+        insert into
+            student (
+                     id, password, name, phone, mail, gender, address, school_name, grade, class_no, eigen_no, reg_date, mod_date
+        ) values (
+                    #{id}, #{password}, #{name}, #{phone}, #{mail}, #{gender}, #{address}, #{schoolName}, #{grade}, #{classNo}, #{eigenNo}, now(), now())
+    </insert>
+</mapper>

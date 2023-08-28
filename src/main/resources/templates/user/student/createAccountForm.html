@@ -5,7 +5,7 @@
 
     </title>
 
-    <script th:src="@{/js/student/createAcccountForm.js}" type="text/javascript"></script>
+    <script th:src="@{/js/student/createAccountForm.js}" type="text/javascript"></script>
 
 </head>
 <body>
@@ -28,6 +28,9 @@
                 <input type = "text" name = "id" placeholder="아이디"><br>
                 <input type = "password" name = "password" placeholder="비밀번호"><br>
                 <input type = "password" name = "password_again" placeholder="비밀번호 확인"><br>
+                <input type = "text" name = "name" placeholder="이름"><br>
+                핸드폰&nbsp;
+                <input type = "hidden" name = "phone">
                 <select name = "phone1">
                     <option value="">---선택해주세요---</option>
                     <option value="010">010</option>
@@ -35,8 +38,10 @@
                     <option value="016">016</option>
                     <option value="019">019</option>
                 </select>&nbsp;- &nbsp;
-                <input type= "text" name = "phone2" oninput="onInputCreateAccountForm();"> &nbsp;- &nbsp;
-                <input type = "text" name = "phone3" oninput="onInputCreateAccountForm();"><br>
+                <input type= "text" name = "phone2" oninput="filterKey();"> &nbsp;- &nbsp;
+                <input type = "text" name = "phone3" oninput="filterKey();"><br>
+                메일&nbsp;
+                <input type = "hidden" name = "mail">
                 <input type = "text" name = "mail1" placeholder="메일"> @
                 <select name="mail2">
                     <option value="">---선택해주세요---</option>
@@ -44,26 +49,38 @@
                     <option value="naver.com">naver.com</option>
                     <option value="daum.net">daum.net</option>
                 </select><br>
+                주소 &nbsp;
+                <input type = "text" name = "address" placeholder="주소 입력하세요"><br>
+                학교 이름 &nbsp;
                 <select name = "schoolName">
                     <option value="">---선택해주세요----</option>
                     <option value="덕문여자고등학교">덕문여자고등학교</option>
                     <option value="창원남고등학교">창원남고등학교</option>
-                </select>
+                </select><br>
+                성별 &nbsp;
+                <select name = "gender">
+                    <option value="">---선택해주세요----</option>
+                    <option value="1">남자</option>
+                    <option value="0">여자</option>
+                </select><br>
+                학년 &nbsp;
                 <select name = "grade">
                     <option value="">---선택해주세요----</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                </select>
-                <select name = "class">
+                </select><br>
+                반 &nbsp;
+                <select name = "classNo">
                     <option value="">---선택해주세요----</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                </select>
-                <input type="text" name="eigenNo" oninput="onInputCreateAccountForm();">
-                <input type = "button" value="register" onclick="createAccountForm();">
+                </select><br>
+                번호 &nbsp;
+                <input type="text" name="eigenNo" oninput="filterKey();"><br>
+                <input type = "button" value="register" onclick="createAccountConfirm();">
                 <input type = "reset" value="reset">
             </form>
 
