@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 public class HomeController {
-    @RequestMapping(value = {"", "/"})
+    @RequestMapping(value = {"/user", "/user/"})
     public String home() {
         log.info("home");
 
