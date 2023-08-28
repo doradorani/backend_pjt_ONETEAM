@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="~{/include/title.html::title}">
+
+    </title>
+
+    <script th:src="@{/js/student/loginForm.js}" type="text/javascript"></script>
+
+</head>
+<body>
+
+<header th:replace="~{/include/headerNavFooter.html::header}">
+</header>
+
+
+<nav th:replace="~{/include/headerNavFooter.html::nav}">
+
+</nav>
+
+<section>
+    <div id = "sectionWrap">
+        <div class="word">
+            로그인
+        </div>
+        <div class = "loginForm">
+            <form th:action = "@{/user/student/loginConfirm}" method="post" name = "loginForm">
+                <input type = "text" name = "id" placeholder="아이디"><br>
+                <input type = "password" name = "password" placeholder="비밀번호"><br>
+                <input type = "button" value="login" onclick="loginConfirm();">
+                <input type = "reset" value="reset">
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<footer th:replace="~{/include/headerNavFooter.html::footer}">
+
+</footer>
+
+</body>
+</html>

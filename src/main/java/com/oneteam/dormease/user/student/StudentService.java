@@ -21,4 +21,23 @@ public class StudentService {
 
         return result;
     }
+
+    public StudentDto loginConfirm(StudentDto studentDto) {
+        log.info("loginConfirm()");
+
+        StudentDto loginedStudentDto = studentMapper.selectStudentByID(studentDto.getId());
+        System.out.println(loginedStudentDto.getId());
+
+        if(loginedStudentDto != null) {
+            if (!passwordEncoder.matches(studentDto.getPassword(), loginedStudentDto.getPassword())) {
+                loginedStudentDto = null;
+            }
+
+        }
+
+        System.out.println(loginedStudentDto.getId());
+
+        return loginedStudentDto;
+
+    }
 }
