@@ -15,7 +15,7 @@ public class ParentsController {
     public String createAccountForm(){
         log.info("createAccountForm()");
 
-        String nextPage = "/";
+        String nextPage = "/parents/createAccountForm";
 
         return nextPage;
 
@@ -27,8 +27,8 @@ public class ParentsController {
     public String loginConfirm(){
         log.info("loginConfirm()");
 
-        String nextPage = "/parent/";
+        String nextPage = "";
 
-        return "";
+        return nextPage;
     }
 }

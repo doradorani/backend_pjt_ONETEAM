@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
-@RestController
+@Controller
 public class HomeController {
-    @RequestMapping(value = {"/user", "/user/"})
+    @RequestMapping(value = {"", "/"})
     public String home() {
         log.info("home");
 
-        return "home";
+        return "Home";
     }
 }
