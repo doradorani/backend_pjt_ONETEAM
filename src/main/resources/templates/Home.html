@@ -5,10 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+    <div class="wrap" th:if="${session.loginedStudentDto == null}">
+        <a th:href="@{/user/student/createAccountForm}">회원가입</a>
+        <a th:href="@{/user/student/loginForm}">로그인</a>
+    </div>
+    <div class="wrap" th:unless="${session.loginedStudentDto == null}">
+        <a th:href="@{/user/student/modifyForm}">회원 수정</a>
+        <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
+    </div>
 
-    <a th:href="@{/user/student/createAccountForm}">회원가입</a>
-    <a th:href="@{/user/student/loginForm}">로그인</a>
-    <a th:href="@{/user/student/modifyForm}">회원 수정</a>
-    <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
 </body>
 </html>
