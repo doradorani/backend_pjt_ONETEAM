@@ -1,8 +1,18 @@
 package com.oneteam.dormease.board;
 
+import com.oneteam.dormease.user.student.StudentDto;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Log4j2
 @Service
 public class BoardService {
+
+    @Autowired
+    IBoardMapper boardMapper;
+    public int writeContentConfirm(StudentDto loginedStudentDto, BoardDto boardDto) {
+        log.info("writeContentConfirm()");
+
+        return boardMapper.insertNewContent(loginedStudentDto, boardDto);
+    }
 }
