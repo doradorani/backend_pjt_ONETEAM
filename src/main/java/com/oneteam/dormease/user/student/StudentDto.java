@@ -10,6 +10,7 @@ public class StudentDto {
     private String phone;           // COMMENT '학생 전화번호'
     private String mail;            // COMMENT '학생 메일'
     private int gender;             // COMMENT '학생 성별'
+    private String name;            // COMMENT '학생 이름'
     private String address;         // COMMENT '학생 주소'
     private String parent;          // COMMENT '부모'
     private int school_no;          // COMMENT '학교 번호'

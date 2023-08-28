@@ -1,0 +1,28 @@
+
+  <title th:replace="~{/include/title.html::title}">
+
+  </title>
+  <script th:inline="javascript">
+
+    console.log('login result');
+
+    let loginedStudentDto = [[${session.loginedStudentDto}]];
+
+    console.log(loginedStudentDto.id);
+    console.log(loginedStudentDto.name);
+
+    if (loginedStudentDto == null ) {
+
+      alert('정상적으로 로그인 되지않았습니다.');
+      location.href="/user/student/loginForm";
+
+    } else {
+
+      alert('정상적으로 로그인 되었습니다.');
+      location.href="/";
+
+
+    }
+
+
+  </script>

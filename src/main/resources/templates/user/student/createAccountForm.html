@@ -23,7 +23,7 @@
         <div class="word">
             회 원 가 입
         </div>
-        <div class = "create_account_form">
+        <div class = "createAccountForm">
             <form th:action = "@{/user/student/createAccountConfirm}" method="post" name = "createAccountForm">
                 <input type = "text" name = "id" placeholder="아이디"><br>
                 <input type = "password" name = "password" placeholder="비밀번호"><br>
@@ -52,7 +52,7 @@
                 주소 &nbsp;
                 <input type = "text" name = "address" placeholder="주소 입력하세요"><br>
                 학교 이름 &nbsp;
-                <select name = "schoolName">
+                <select name = "school_name">
                     <option value="">---선택해주세요----</option>
                     <option value="덕문여자고등학교">덕문여자고등학교</option>
                     <option value="창원남고등학교">창원남고등학교</option>
@@ -71,7 +71,7 @@
                     <option value="3">3</option>
                 </select><br>
                 반 &nbsp;
-                <select name = "classNo">
+                <select name = "class_no">
                     <option value="">---선택해주세요----</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -79,7 +79,7 @@
                     <option value="4">4</option>
                 </select><br>
                 번호 &nbsp;
-                <input type="text" name="eigenNo" oninput="filterKey();"><br>
+                <input type="text" name="eigen_no" oninput="filterKey();"><br>
                 <input type = "button" value="register" onclick="createAccountConfirm();">
                 <input type = "reset" value="reset">
             </form>

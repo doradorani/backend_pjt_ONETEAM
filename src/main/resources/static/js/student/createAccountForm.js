@@ -44,18 +44,18 @@ function createAccountConfirm() {
     } else if(form.mail2.value == ''){
         alert("도메인을 입력해주세요!");
         form.mail2.focus();
-    } else if(form.schoolName.value == ''){
+    } else if(form.school_name.value == ''){
         alert("학교 이름을 선택해주세요!");
-        form.schoolName.focus();
+        form.school_name.focus();
     } else if(form.grade.value == ''){
         alert("학년을 선택해주세요!");
         form.grade.focus();
-    } else if(form.classNo.value == ''){
+    } else if(form.class_no.value == ''){
         alert("반을 입력해주세요!");
-        form.class.focus();
-    } else if(form.eigenNo.value == ''){
+        form.class_no.focus();
+    } else if(form.eigen_no.value == ''){
         alert("번호를 입력해주세요!");
-        form.eigenNo.focus();
+        form.eigen_no.focus();
     } else if(form.address.value == ''){
         alert("주소를 입력해주세요!");
         form.address.focus();
