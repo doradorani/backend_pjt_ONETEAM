@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="~{/include/title.html::title}">
+
+    </title>
+
+    <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{/include/modifyAccountFormJs.html::js}" type="text/javascript"></script>
+
+
+</head>
+<body>
+
+<header th:replace="~{/include/headerNavFooter.html::header}">
+</header>
+
+
+<nav th:replace="~{/include/headerNavFooter.html::nav}">
+
+</nav>
+
+<section>
+    <div id = "sectionWrap">
+        <div class="word">
+            회 원 수 정
+        </div>
+        <div class = "modifyAccountForm">
+            <form th:action = "@{/user/student/modifyAccountForm}" method="post" name = "modifyAccountForm">
+                <input type = "hidden" name = "no" th:value="${loginedStudentDto.no}">
+                <input type = "text" name = "id" th:value="${loginedStudentDto.id}" readonly disabled><br>
+                <input type = "password" name = "password" value="*****" readonly disabled><br>
+                <input type = "text" name = "name" placeholder="이름" th:value="${loginedStudentDto.name}"><br>
+                핸드폰&nbsp;
+                <input type = "hidden" name = "phone">
+                <select id="phone1" name = "phone1">
+                    <option value="">---선택해주세요---</option>
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="016">016</option>
+                    <option value="016">017</option>
+                    <option value="019">019</option>
+                </select>&nbsp;- &nbsp;
+                <input type= "text" name = "phone2" oninput="filterKey();"> &nbsp;- &nbsp;
+                <input type = "text" name = "phone3" oninput="filterKey();"><br>
+                메일&nbsp;
+                <input type = "hidden" name = "mail">
+                <input type = "text" name = "mail1" placeholder="메일"> @
+                <select name="mail2">
+                    <option value="">---선택해주세요---</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="daum.net">daum.net</option>
+                </select><br>
+                주소 &nbsp;
+                <input type = "text" name = "address" placeholder="주소 입력하세요" th:value="${loginedStudentDto.address}"><br>
+                학교 이름 &nbsp;
+                <select name = "school_name">
+                    <option value="">---선택해주세요----</option>
+                    <option value="덕문여자고등학교" th:selected="${loginedStudentDto.school_name == '덕문여자고등학교'}">덕문여자고등학교</option>
+                    <option value="창원남고등학교" th:selected="${loginedStudentDto.school_name == '창원남고등학교'}">창원남고등학교</option>
+                    <option value="대암고등학교" th:selected="${loginedStudentDto.school_name == '대암고등학교'}">대암고등학교</option>
+                </select><br>
+                성별 &nbsp;
+                <select name = "gender">
+                    <option value="">---선택해주세요----</option>
+                    <option value="1" th:selected="${loginedStudentDto.gender == 1}">남자</option>
+                    <option value="0" th:selected="${loginedStudentDto.gender == 0}">여자</option>
+                </select><br>
+                학년 &nbsp;
+                <select name = "grade">
+                    <option value="">---선택해주세요----</option>
+                    <option value="1" th:selected="${loginedStudentDto.gender == 1}">1</option>
+                    <option value="2" th:selected="${loginedStudentDto.gender == 2}">2</option>
+                    <option value="3" th:selected="${loginedStudentDto.gender == 3}">3</option>
+                </select><br>
+                반 &nbsp;
+                <select name = "class_no">
+                    <option value="">---선택해주세요----</option>
+                    <option value="1" th:selected="${loginedStudentDto.gender == 1}">1</option>
+                    <option value="2" th:selected="${loginedStudentDto.gender == 2}">2</option>
+                    <option value="3" th:selected="${loginedStudentDto.gender == 3}">3</option>
+                    <option value="4" th:selected="${loginedStudentDto.gender == 4}">4</option>
+                </select><br>
+                번호 &nbsp;
+                <input type="text" name="eigen_no" oninput="filterKey();" th:value="${loginedStudentDto.eigen_no}"><br>
+                <input type = "button" value="modify" onclick="modifyAccountConfirm();">
+                <input type = "reset" value="reset">
+                <br>
+                <input class= "delete" type = "button" value="delete" th:data-no="${loginedStudentDto.no}">
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<footer th:replace="~{/include/headerNavFooter.html::footer}">
+
+</footer>
+
+</body>
+</html>

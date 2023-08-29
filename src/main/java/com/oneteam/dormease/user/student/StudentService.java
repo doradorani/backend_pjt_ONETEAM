@@ -40,4 +40,13 @@ public class StudentService {
         return loginedStudentDto;
 
     }
+
+    public int deleteConfirm(int no) {
+        log.info("deleteConfirm()");
+
+        int result = studentMapper.deleteStudentByNo(no);
+
+        return result;
+
+    }
 }

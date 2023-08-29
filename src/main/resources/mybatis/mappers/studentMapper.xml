@@ -18,4 +18,10 @@
         where
             id = #{id}
     </select>
+    <delete id="deleteStudentByNo" parameterType="Integer">
+        delete from
+            student
+        where
+            no = #{no}
+    </delete>
 </mapper>
