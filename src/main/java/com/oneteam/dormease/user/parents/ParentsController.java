@@ -55,10 +55,10 @@ public class ParentsController {
 
         String nextPage = "/user/parents/loginResult";
 
-        ParentsDto loginedparentsDto = parentsService.loginConfirm(parentsDto);
+        ParentsDto loginedParentsDto = parentsService.loginConfirm(parentsDto);
 
-        if(loginedparentsDto != null){
-            session.setAttribute("loginedparentsDto", loginedparentsDto);
+        if(loginedParentsDto != null){
+            session.setAttribute("loginedParentsDto", loginedParentsDto);
             session.setMaxInactiveInterval(30*60);
         }
 
@@ -75,9 +75,9 @@ public class ParentsController {
 
         String nextPage = "/user/parents/modifyAccountForm";
 
-        ParentsDto loginedparentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
+        ParentsDto loginedParentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
 
-        model.addAttribute("loginedparentsDto", loginedparentsDto);
+        model.addAttribute("loginedparentsDto", loginedParentsDto);
 
         return nextPage;
     }
@@ -88,9 +88,9 @@ public class ParentsController {
 
         String nextPage = "/user/parents/modifyAccountResult";
 
-        ParentsDto loginedparentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
+        ParentsDto loginedParentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
 
-        model.addAttribute("loginedparentsDto", loginedparentsDto);
+        model.addAttribute("loginedparentsDto", loginedParentsDto);
 
         return nextPage;
     }

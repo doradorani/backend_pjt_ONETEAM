@@ -6,9 +6,9 @@
     <insert id="insertNewStudent" parameterType="com.oneteam.dormease.user.student.StudentDto">
         insert into
             student (
-                     id, password, name, phone, mail, gender, address, school_name, grade, class_no, eigen_no, reg_date, mod_date
+                     id, password, name, phone, mail, gender, zip_code, address, address_detail1, address_detail2, school_name, grade, class_no, eigen_no, reg_date, mod_date
         ) values (
-                    #{id}, #{password}, #{name}, #{phone}, #{mail}, #{gender}, #{address}, #{school_name}, #{grade}, #{class_no}, #{eigen_no}, now(), now())
+                    #{id}, #{password}, #{name}, #{phone}, #{mail}, #{gender}, #{zip_code}, #{address}, #{address_detail1}, #{address_detail2}, #{school_name}, #{grade}, #{class_no}, #{eigen_no}, now(), now())
     </insert>
     <select id="selectStudentByID" parameterType="String" resultType="com.oneteam.dormease.user.student.StudentDto">
         select
