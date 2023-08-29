@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
@@ -26,11 +27,12 @@ public class BoardController {
         return nextpage;
     }
 
-    @GetMapping("/writeContentConfirm")
+    @PostMapping("/writeContentConfirm")
     public String writeContentConfirm(HttpSession session, Model model, BoardDto boardDto) {
         log.info("writeContentConfirm()");
 
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
+        log.info("loginedStudentDto===>" + loginedStudentDto);
 
         int result = boardService.writeContentConfirm(loginedStudentDto, boardDto);
 

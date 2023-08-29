@@ -8,7 +8,7 @@
   <link rel="stylesheet" th:href="@{/css/writeContentForm.css}">
 
 <!--  <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>-->
-<!--  <script th:src="@{/js/content_write_form.js}" type="text/javascript"></script>-->
+  <script th:src="@{/js/board/writeContentConfirm.js}" type="text/javascript"></script>
 </head>
 <body>
 
@@ -24,9 +24,9 @@
 
     <div class="content_list">
       <form th:action="@{/board/writeContentConfirm}" th:object="${postForm}" name="writeContentForm" method="post">
-        <input type="text" class="content_title" name="b_title" placeholder="제목을 입력하세요">
+        <input type="text" class="content_title" name="title" placeholder="제목을 입력하세요">
         <br>
-        <textarea id="editor" name="b_content"></textarea>
+        <textarea id="editor" name="content"></textarea>
 <!--        <textarea id="editor" name="b_content" th:field="*{content}"></textarea>-->
 <!--        <script>-->
 <!--          var ckeditor_config = {-->
@@ -38,7 +38,7 @@
 <!--          CKEDITOR.replace("contents", ckeditor_config);-->
 <!--        </script>-->
         <div class="button-container">
-          <input type="button" value="Write" onclick="writeContent()">
+          <input type="button" value="Write" onclick="writeContentConfirm()">
           <input type="button" value="Cancel" onclick="location.href='/blog/content_list_form';">
         </div>
       </form>
@@ -47,10 +47,13 @@
 
 </section>
 
-<script src="/webjars/ckeditor/4.16.1/standard/ckeditor.js"></script>
+<script src="/webjars/ckeditor/4.16.1/full/ckeditor.js"></script>
 
 <script th:inline="javascript">
-  CKEDITOR.replace('editor');
+  // CKEDITOR.replace('editor');
+  CKEDITOR.replace( 'editor', {
+    filebrowserUploadUrl: '/boardController/writeContentConfirm'
+  });
 </script>
 
 </body>
