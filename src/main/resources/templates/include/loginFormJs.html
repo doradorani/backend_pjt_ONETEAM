@@ -1,0 +1,105 @@
+<script th:fragment="js" type="text/javascript">
+
+  $(document).ready(function() {
+    console.log('DOCUMENT READY!!');
+
+      init_event();
+
+  });
+
+  function init_event() {
+    console.log("init CALLED!!!");
+
+    let isStudent = true;
+
+    $("#sectionWrap div.loginForm  input:radio[name='student']").on('click', function (){
+        console.log("student CLICK HANDLER!!!");
+
+        $("input:radio[name='student']").prop('checked', true);
+        $("input:radio[name='parents']").prop('checked', false);
+
+        isStudent = true;
+    });
+
+    $("#sectionWrap div.loginForm input:radio[name='parents']").on('click', function (){
+        console.log("parents CLICK HANDLER!!!");
+
+        $("input:radio[name='student']").prop('checked', false);
+        $("input:radio[name='parents']").prop('checked', true);
+
+        isStudent = false;
+    });
+
+    $("#sectionWrap div.loginForm > input[value='login']").on('click', function (){
+        console.log("login CLICK HANDLER!!!");
+
+        if(!isStudent){
+            let formElement = $("#loginForm");
+            formElement.attr("action","/user/parents/loginConfirm");
+        }
+
+        loginConfirm();
+    });
+
+}
+
+  function loginConfirm() {
+      console.log("loginConfirm() CALLED!!!");
+
+      let form = document.loginForm;
+
+      if(form.id.value == ''){
+          alert("아이디를 입력해주세요!");
+          form.id.focus();
+      } else if(form.password.value == ''){
+          alert("비밀번호를 입력해주세요!");
+          form.password.focus();
+      } else {
+          form.submit();
+      }
+
+  }
+
+
+
+// AJAX START
+
+  function ajax_deleteAccount(no) {
+      console.log("ajax_deleteAccount");
+
+      msgDto = {
+          'no': no,
+      }
+
+      $.ajax({
+          url: '/user/student/deleteConfirm',
+          type: 'GET',
+          data: msgDto,
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
+          success: function(data) {
+              console.log('AJAX SUCCESS - ajax_deleteAccount()');
+
+              let result = data.result;
+
+              if(result > 0) {
+                  alert("탈퇴를 성공적으로 했습니다.");
+                  location.href = "/";
+              } else {
+                  alert("탈퇴를 실패했습니다.");
+                  location.href = "redirect:/user/student/modifyAccountForm";
+              }
+
+          },
+          error: function(data) {
+              console.log('AJAX ERROR - ajax_deleteAccount()');
+
+          }
+      });
+
+
+  }
+
+
+
+</script>
