@@ -4,6 +4,8 @@ import lombok.Data;
 @Data
 public class ParentsDto {
     private int no;                 // COMMENT '학부모 번호'
+    private String id;              // COMMENT '학부모 아이디'
+    private String pw;              // COMMENT '학부모 비밀번호'
     private int student_no;         // COMMENT '학생 번호'
     private int relation;           // COMMENT '학부모 관계'
     private String phone;           // COMMENT '학부모 전화 번호'

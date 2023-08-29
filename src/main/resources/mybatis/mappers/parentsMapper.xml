@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oneteam.dormease.user.parents.IParentsMapper">
+    <insert id="insertNewParent">
+        insert into
+            parents
+        () values ()
+    </insert>
+    <select id="selectParentByID">
+        select
+            *
+        from
+            parents
+        where id = #{id}
+    </select>
+    <delete id="deleteParentByNo">
+        delete from
+            parents
+        where
+            no = #{no}
+    </delete>
+</mapper>
