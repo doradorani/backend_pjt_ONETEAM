@@ -5,9 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -90,6 +91,7 @@ public class StudentController {
 
         return nextPage;
     }
+
     @PostMapping("/modifyAccountConfirm")
     public String modifyAccountConfirm(HttpSession session, Model model){
         log.info("modifyAccountConfirm()");
@@ -117,6 +119,22 @@ public class StudentController {
         session.removeAttribute("loginedStudentDto");
 
         return nextPage;
+    }
+
+    /*
+     * 회원 탈퇴
+     */
+    @GetMapping("/deleteConfirm")
+    @ResponseBody
+    public Object deleteConfirm(@RequestParam int no){
+        log.info("deleteConfirm()");
+
+        int result = studentService.deleteConfirm(no);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("result", result);
+
+        return map;
     }
 
 

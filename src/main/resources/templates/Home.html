@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>
 </head>
 <body>
     <div class="wrap" th:if="${session.loginedStudentDto == null}">
@@ -10,14 +12,9 @@
         <a th:href="@{/user/student/loginForm}">로그인</a>
     </div>
     <div class="wrap" th:unless="${session.loginedStudentDto == null}">
-        <a th:href="@{/user/student/modifyForm}">회원 수정</a>
+        <a th:href="@{/user/student/modifyAccountForm}">회원 수정</a>
         <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
     </div>
-
-    <a th:href="@{/user/student/createAccountForm}">회원가입</a>
-    <a th:href="@{/user/student/loginForm}">로그인</a>
-    <a th:href="@{/user/student/modifyForm}">회원 수정</a>
-    <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
 
     <a th:href="@{/board/writeContentForm}">게시판 작성</a>
 
