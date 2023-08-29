@@ -49,15 +49,6 @@ public class StudentController {
     /*
      * 로그인
      */
-    @GetMapping("/loginForm")
-    public String loginForm(){
-        log.info("loginForm()");
-
-        String nextPage = "/user/student/loginForm";
-
-        return nextPage;
-
-    }
 
     @PostMapping("/loginConfirm")
     public String loginConfirm(StudentDto studentDto, HttpSession session) {
