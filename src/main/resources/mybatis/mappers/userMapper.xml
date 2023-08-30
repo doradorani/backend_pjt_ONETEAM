@@ -15,4 +15,36 @@
         where
             id = #{id}
     </select>
+    <select id="selectStudentByNo" parameterType="String" resultType="com.oneteam.dormease.user.student.StudentDto">
+        select
+            *
+        from
+            student
+        where
+            no = #{no}
+    </select>
+    <select id="selectParentByNo" parameterType="String" resultType="com.oneteam.dormease.user.parents.ParentsDto">
+        select
+            *
+        from
+            parents
+        where
+            no = #{no}
+    </select>
+    <update id="updateStudentPassword" parameterType="String">
+    update
+        student
+    set
+        password = #{password}
+    where
+        no = #{no}
+    </update>
+    <update id="updateParentPassword" parameterType="String">
+        update
+            parents
+        set
+            password = #{password}
+        where
+            no = #{no}
+    </update>
 </mapper>

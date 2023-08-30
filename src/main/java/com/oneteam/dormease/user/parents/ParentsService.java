@@ -30,6 +30,8 @@ public class ParentsService {
         if(loginedParentsDto != null){
             if(!passwordEncoder.matches(parentsDto.getPassword(), loginedParentsDto.getPassword())){
                 loginedParentsDto = null;
+            }else {
+                loginedParentsDto.setPassword(null);
             }
         }
 

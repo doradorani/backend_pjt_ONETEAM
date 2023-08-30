@@ -37,11 +37,11 @@ public class StudentService {
         if(loginedStudentDto != null) {
             if (!passwordEncoder.matches(studentDto.getPassword(), loginedStudentDto.getPassword())) {
                 loginedStudentDto = null;
+            } else {
+                loginedStudentDto.setPassword(null);
             }
 
         }
-
-        System.out.println(loginedStudentDto.getId());
 
         return loginedStudentDto;
 

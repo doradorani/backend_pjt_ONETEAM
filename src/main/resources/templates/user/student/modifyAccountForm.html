@@ -7,7 +7,7 @@
 
     <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-    <script th:replace="~{/include/modifyAccountFormJs.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/student/modifyAccountFormJs.html::js}" type="text/javascript"></script>
 
 
 </head>
@@ -27,10 +27,11 @@
             회 원 수 정
         </div>
         <div class = "modifyAccountForm">
-            <form th:action = "@{/user/student/modifyAccountForm}" method="post" name = "modifyAccountForm">
+            <form th:action = "@{/user/student/modifyAccountConfirm}" method="post" name = "modifyAccountForm">
                 <input type = "hidden" name = "no" th:value="${loginedStudentDto.no}">
                 <input type = "text" name = "id" th:value="${loginedStudentDto.id}" readonly disabled><br>
-                <input type = "password" name = "password" value="*****" readonly disabled><br>
+                <input type = "password" name = "password" value="*****" readonly disabled>&nbsp;
+                <input type = "button" id = "updatePassword" value = "비밀번호 수정" th:data-no = "${loginedStudentDto.no}"> <br>
                 <input type = "text" name = "name" placeholder="이름" th:value="${loginedStudentDto.name}"><br>
                 핸드폰&nbsp;
                 <input type = "hidden" name = "phone">
