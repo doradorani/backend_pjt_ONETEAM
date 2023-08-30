@@ -1,14 +1,29 @@
 <header th:fragment="header">
-<!--    <div class="wrap" th:if="${session.loginedStudentDto == null}">-->
-<!--        <a th:href="@{/user/student/createAccountForm}">회원가입</a>-->
-<!--        <a th:href="@{/user/student/loginForm}">로그인</a>-->
-<!--    </div>-->
-<!--    <div class="wrap" th:unless="${session.loginedStudentDto == null}">-->
-<!--        <a th:href="@{/user/student/modifyForm}">회원 수정</a>-->
-<!--        <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>-->
-<!--    </div>-->
-
-<!--    <a th:href="@{/board/writeContentForm}">게시판 작성</a>-->
+    <div id="headerWrap">
+        <div class="headerContainer">
+            <a th:href="@{/}">
+                <img src="/imgs/no_background_logo_test.png">
+            </a>
+            <div class="schoolName" th:if="${session.loginedStudentDto != null || session.loginedParentsDto != null}">
+                <a th:text="${session.loginedStudentDto.school_name}"></a>
+            </div>
+            <div class="headerMenu">
+                <input type="radio" name="headerMenu" value="홈">홈
+                <input type="radio" name="headerMenu" value="게시판">게시판
+                <input type="radio" name="headerMenu" value="외출">외출
+                <input type="radio" name="headerMenu" value="매점">매점
+                <input type="radio" name="headerMenu" value="세탁">세탁
+                <input type="radio" name="headerMenu" value="내 정보">내 정보
+            </div>
+            <div class="memberWrap" th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
+                <a th:href="@{/user/member/loginForm}">로그인</a>
+            </div>
+            <div class="memberWrap" th:if="${session.loginedStudentDto != null || session.loginedParentsDto != null}">
+                <a th:if="${session.loginedStudentDto != null}" th:href="@{/user/student/logoutConfirm}">로그아웃</a>
+                <a th:if="${session.loginedParentsDto != null}" th:href="@{/user/parents/logoutConfirm}">로그아웃</a>
+            </div>
+        </div>
+    </div>
 </header>
 
 <nav th:fragment="nav">
