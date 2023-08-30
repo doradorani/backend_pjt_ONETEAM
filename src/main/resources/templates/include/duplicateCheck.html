@@ -30,10 +30,10 @@
   }
 
   function filterKey(){
-        console.log("filterKey() CALLED!!!");
+    console.log("filterKey() CALLED!!!");
 
-        let filterNum = $(this).value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-        $(this).value(filterNum);
+    let filterNum = $(this).value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+    $(this).value(filterNum);
   }
 
   function createAccountConfirm() {

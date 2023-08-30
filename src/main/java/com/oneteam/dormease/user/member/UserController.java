@@ -1,12 +1,11 @@
 package com.oneteam.dormease.user.member;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -46,5 +45,60 @@ public class UserController {
         return map;
 
     }
+
+
+    /*
+     * 비밀번호 수정 폼
+     */
+
+    @GetMapping("/updatePasswordForm")
+    public String updatePasswordForm(@RequestParam int no, @RequestParam boolean isStudent, Model model) {
+        log.info("updatePasswordForm()");
+
+        String nextPage = "/user/member/updatePasswordForm";
+
+        model.addAttribute("no", no);
+        model.addAttribute("isStudent", isStudent);
+
+        return nextPage;
+
+    }
+
+    /*
+     * 비밀번호 수정 확인
+     */
+    @PostMapping("/currentPasswordCheck")
+    @ResponseBody
+    public Object currentPasswordCheck(@RequestBody Map<String, String> msgDto) {
+        log.info("currentPasswordCheck()");
+
+        boolean isStudent = Boolean.parseBoolean(msgDto.get("isStudent"));
+
+        Map<String, Object> map = userService.currentPasswordCheck(msgDto.get("currentPassword"), msgDto.get("no"),isStudent);
+
+        return map;
+
+    }/*
+     * 비밀번호 수정 확인
+     */
+    @PostMapping("/updatePasswordConfirm")
+    public String updatePassword(@RequestParam("no") String no, @RequestParam String newPassword, @RequestParam boolean isStudent) {
+        log.info("updatePassword()");
+
+        int result = userService.updatePassword(no, newPassword, isStudent);
+
+        String nextPage = "";
+
+        if(result > 0){
+             nextPage = "redirect:/";
+        } else {
+            nextPage = "redirect:/user/member/loginForm";
+        }
+
+        return nextPage;
+
+    }
+
+
 
 }
