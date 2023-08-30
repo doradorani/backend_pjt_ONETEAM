@@ -18,3 +18,4 @@ public class BoardDto {
     private int board_no;           // COMMENT '업로드 된 게시판 보드 번호'
     private int board_attach_file;  // COMMENT '첨부파일에 추가되는 파일'
 }
+
