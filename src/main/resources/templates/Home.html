@@ -36,10 +36,11 @@
         <div class="privacy-container">
             <div class="login-container">
                 <h2>Login to Cozy Nest</h2>
-                <form th:if="${session.loginedStudentDto == null}">
+                <form th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
                     <button type="button" onclick="location.href='/user/loginForm';">Cozy Nest 로그인</button>
                     <span><a href="#none">비밀번호 찾기</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span><a th:href="@{/user/student/createAccountForm}">회원가입</a></span>
+                    <span><a th:href="@{/user/student/createAccountForm}">학생회원가입</a></span>
+                    <span><a th:href="@{/user/parents/createAccountForm}">학부모회원가입</a></span>
                 </form>
             </div>
             <div class="point-container">
@@ -48,9 +49,13 @@
             <div>
 
             </div>
-            <div class="wrap" th:unless="${session.loginedStudentDto == null}">
-                <a th:href="@{/user/student/modifyForm}">회원 수정</a>
+            <div class="wrap" th:if="${session.loginedStudentDto != null}">
+                <a th:href="@{/user/student/modifyAccountForm}">회원 수정</a>
                 <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
+            </div>
+            <div class="wrap" th:if="${session.loginedParentsDto != null}">
+                <a th:href="@{/user/parents/modifyAccountForm}">회원 수정</a>
+                <a th:href="@{/user/parents/logoutConfirm}">로그아웃</a>
             </div>
             <a th:href="@{/board/writeContentForm}">게시판 작성</a>
         </div>

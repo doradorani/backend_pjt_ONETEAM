@@ -6,7 +6,9 @@
     <insert id="insertNewParent">
         insert into
             parents
-        () values ()
+        (
+            id, password, student_no, relation, phone, mail, zip_code, address, address_detail1, address_detail2, reg_date, mod_date
+        ) values (#{id}, #{password}, #{student_no}, #{relation}, #{phone}, #{mail}, #{zip_code}, #{address}, #{address_detail1}, #{address_detail2},now(), now())
     </insert>
     <select id="selectParentByID">
         select

@@ -6,15 +6,15 @@
 
     console.log('login result');
 
-    let loginedStudentDto = [[${session.loginedStudentDto}]];
+    let loginedParentsDto = [[${session.loginedParentsDto}]];
 
-    console.log(loginedStudentDto.id);
-    console.log(loginedStudentDto.name);
+    console.log(loginedParentsDto.id);
+    console.log(loginedParentsDto.name);
 
-    if (loginedStudentDto == null ) {
+    if (loginedParentsDto == null ) {
 
       alert('정상적으로 로그인 되지않았습니다.');
-      location.href="/user/student/loginForm";
+      location.href="/user/loginForm";
 
     } else {
 
