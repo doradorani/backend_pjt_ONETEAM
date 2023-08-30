@@ -14,4 +14,24 @@
 
     </insert>
 
+    <select id="selectAllFreeBoardContent" parameterType="int">
+
+        SELECT
+            f.*,
+            s.name
+        AS
+            student_name
+        FROM
+            free_board f
+        INNER JOIN
+            student s
+        ON
+            f.student_no = s.no
+        WHERE
+            f.school_no = #{schoolNo}
+        AND
+            f.category_no = 1
+
+    </select>
+
 </mapper>
