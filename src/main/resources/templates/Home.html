@@ -3,64 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 
-<!--    <header th:replace="~{/include/header_nav_footer.html::header}">-->
-<!--    </header>-->
+    <header th:replace="~{/include/headerNavFooter.html::header}">
+    </header>
 
-<section>
-    <div class="section-wrap">
-        <div class="info-container">
-            <div class="flex">
-                <div class="notice-container">
-                    <h2>Notice</h2>
+    <section>
+        <div class="section-wrap">
+            <div class="info-container">
+                <div class="flex">
+                    <div class="notice-container">
+                        <h2>Notice</h2>
+                    </div>
+                    <div class="timetable-container">
+                        <h2>Timetable</h2>
+                    </div>
                 </div>
-                <div class="timetable-container">
-                    <h2>Timetable</h2>
+                <div class="ad-container">
+                    <h2>광고 광고 광고 광고</h2>
+                </div>
+                <div class="flex">
+                    <div class="eng-word-container">
+                        <h2>English Word</h2>
+                    </div>
+                    <div class="menu-container">
+                        <h2>Menu</h2>
+                    </div>
                 </div>
             </div>
-            <div class="ad-container">
-                <h2>광고 광고 광고 광고</h2>
-            </div>
-            <div class="flex">
-                <div class="eng-word-container">
-                    <h2>English Word</h2>
+            <div class="privacy-container">
+                <div class="login-container">
+                    <h2>Login to Cozy Nest</h2>
+                    <form th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
+                        <button type="button" onclick="location.href='/user/member/loginForm';">Cozy Nest 로그인</button>
+                        <span><a href="#none">비밀번호 찾기</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span><a th:href="@{/user/student/createAccountForm}">학생회원가입</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span><a th:href="@{/user/parents/createAccountForm}">학부모회원가입</a></span>
+                    </form>
                 </div>
-                <div class="menu-container">
-                    <h2>Menu</h2>
+                <div class="point-container">
+                    <h2>나의 상벌점 현황</h2>
                 </div>
+                <div>
+
+                </div>
+                <div class="wrap" th:if="${session.loginedStudentDto != null}">
+                    <a th:href="@{/user/student/modifyAccountForm}">회원 수정</a>
+                    <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
+                </div>
+                <div class="wrap" th:if="${session.loginedParentsDto != null}">
+                    <a th:href="@{/user/parents/modifyAccountForm}">회원 수정</a>
+                    <a th:href="@{/user/parents/logoutConfirm}">로그아웃</a>
+                </div>
+                <a th:href="@{/board/freeBoardListForm}">자유 게시판</a>
+                <a th:href="@{/board/writeContentForm}">게시판 작성</a>
             </div>
         </div>
-        <div class="privacy-container">
-            <div class="login-container">
-                <h2>Login to Cozy Nest</h2>
-                <form th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
-                    <button type="button" onclick="location.href='/user/member/loginForm';">Cozy Nest 로그인</button>
-                    <span><a href="#none">비밀번호 찾기</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span><a th:href="@{/user/student/createAccountForm}">학생회원가입</a></span>
-                    <span><a th:href="@{/user/parents/createAccountForm}">학부모회원가입</a></span>
-                </form>
-            </div>
-            <div class="point-container">
-                <h2>나의 상벌🐝점 현황</h2>
-            </div>
-            <div>
-
-            </div>
-            <div class="wrap" th:if="${session.loginedStudentDto != null}">
-                <a th:href="@{/user/student/modifyAccountForm}">회원 수정</a>
-                <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
-            </div>
-            <div class="wrap" th:if="${session.loginedParentsDto != null}">
-                <a th:href="@{/user/parents/modifyAccountForm}">회원 수정</a>
-                <a th:href="@{/user/parents/logoutConfirm}">로그아웃</a>
-            </div>
-            <a th:href="@{/board/writeContentForm}">게시판 작성</a>
-        </div>
-    </div>
-</section>
+    </section>
 <!--    <div class="wrap" th:if="${session.loginedStudentDto == null}">-->
 <!--        <a th:href="@{/user/student/createAccountForm}">회원가입</a>-->
 <!--        <a th:href="@{/user/student/loginForm}">로그인</a>-->
