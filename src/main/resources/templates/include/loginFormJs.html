@@ -3,11 +3,11 @@
   $(document).ready(function() {
     console.log('DOCUMENT READY!!');
 
-      init_event();
+      initEvent();
 
   });
 
-  function init_event() {
+  function initEvent() {
     console.log("init CALLED!!!");
 
     let isStudent = true;
@@ -37,8 +37,6 @@
             formElement.action = "/user/parents/loginConfirm";
         }
 
-        console.log(formElement.action);
-
         loginConfirm();
     });
 
@@ -64,42 +62,6 @@
 
 
 // AJAX START
-
-  // function ajax_deleteAccount(no) {
-  //     console.log("ajax_deleteAccount");
-  //
-  //     msgDto = {
-  //         'no': no,
-  //     }
-  //
-  //     $.ajax({
-  //         url: '/user/student/deleteConfirm',
-  //         type: 'GET',
-  //         data: msgDto,
-  //         contentType: 'application/json; charset=utf-8',
-  //         dataType: 'json',
-  //         success: function(data) {
-  //             console.log('AJAX SUCCESS - ajax_deleteAccount()');
-  //
-  //             let result = data.result;
-  //
-  //             if(result > 0) {
-  //                 alert("탈퇴를 성공적으로 했습니다.");
-  //                 location.href = "/";
-  //             } else {
-  //                 alert("탈퇴를 실패했습니다.");
-  //                 location.href = "redirect:/user/student/modifyAccountForm";
-  //             }
-  //
-  //         },
-  //         error: function(data) {
-  //             console.log('AJAX ERROR - ajax_deleteAccount()');
-  //
-  //         }
-  //     });
-  //
-  //
-  // }
 
 
 
