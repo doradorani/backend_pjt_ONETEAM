@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -15,11 +16,17 @@ public class BoardService {
 
     @Autowired
     IBoardMapper boardMapper;
+
+    public List<BoardDto> getAllFreeBoardContent(int schoolNo) {
+        log.info("getAllContent()");
+
+        return boardMapper.selectAllFreeBoardContent(schoolNo);
+    }
     public int writeContentConfirm(StudentDto loginedStudentDto, BoardDto boardDto) {
         log.info("writeContentConfirm()");
 
-        log.info("loginedStudentDto==>" + loginedStudentDto);
-        log.info("boardDto===========>" + boardDto);
+//        log.info("loginedStudentDto==>" + loginedStudentDto);
+//        log.info("boardDto===========>" + boardDto);
 
         Map<String, Object> boardDtoMap = new HashMap<>();
         boardDtoMap.put("studentDto", loginedStudentDto);
@@ -27,4 +34,6 @@ public class BoardService {
 
         return boardMapper.insertNewContent(boardDtoMap);
     }
+
+
 }

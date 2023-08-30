@@ -4,7 +4,7 @@
             <a th:href="@{/}">
                 <img src="/imgs/no_background_logo_test.png">
             </a>
-            <div class="schoolName" th:if="${session.loginedStudentDto != null || session.loginedParentsDto != null}">
+            <div class="schoolName" th:if="${session.loginedStudentDto != null}">
                 <a th:text="${session.loginedStudentDto.school_name}"></a>
             </div>
             <div class="headerMenu">

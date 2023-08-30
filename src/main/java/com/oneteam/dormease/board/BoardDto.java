@@ -7,6 +7,8 @@ public class BoardDto {
     private int no;                 // COMMENT '글 번호'
     private int school_no;          // COMMENT '학교 번호'
     private int student_no;         // COMMENT '학생 번호'
+    private int class_no;           // COMMENT '반 번호'
+    private String student_name;    // COMMENT '학생 이름'
     private int category_no;        // COMMENT '카테고리 번호'
     private String title;           // COMMENT '글 제목'
     private String content;         // COMMENT '글 내용'

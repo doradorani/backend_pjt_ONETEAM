@@ -3,8 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
 </head>
 <body>
+
+    <header th:replace="~{/include/headerNavFooter.html::header}">
+    </header>
+
+    <section>
+        <div id="section_wrap">
+            <form>
+                <div class="search-container">
+                    <select name="search_no">
+                        <option value='1'>제목으로 검색</option>
+                        <option value='2'>내용으로 검색</option>
+                        <option value='3'>작성자로 검색</option>
+                    </select>
+                    <input type="text" name="search_word">&nbsp;&nbsp;
+                    <input type="button" value="search">
+                </div>
+            </form>
+
+            <div class="content_list">
+                <form>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="boardDto : ${boardDtos}">
+                            <td th:text="${boardDto.no}"></td>
+                            <td>
+                                <a th:href="@{/blog/content_detail_form(no=${boardDto.no},hit=${boardDto.hit})}" th:text="${boardDto.title}"></a>
+                            </td>
+                            <td th:text="${boardDto.student_name}"></td>
+                            <td th:text="${#strings.substring(boardDto.reg_date, 0, 10)}"></td>
+                            <td th:text="${boardDto.hit}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <input type="button" value="write" onclick="location.href='/board/writeContentForm';">&nbsp;&nbsp;
+                </form>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>

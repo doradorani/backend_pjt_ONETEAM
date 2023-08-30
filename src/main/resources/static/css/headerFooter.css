@@ -1,0 +1,31 @@
+#headerWrap {
+    width: 100%;
+    background-color: white;
+    display: block;
+}
+
+.headerContainer {
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: white;
+    color: black; /* 텍스트 색상 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 1300px;
+    max-width: 1300px;
+}
+
+.headerContainer img {
+    width: 100px;
+    height: auto;
+}
+
+.headerMenu {
+    display: flex;
+    gap: 10px;
+}
+
+.memberWrap {
+    margin-left: auto;
+}

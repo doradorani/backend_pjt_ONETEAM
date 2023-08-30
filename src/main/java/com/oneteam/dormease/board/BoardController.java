@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Log4j2
 @Controller
 @RequestMapping("/board")
@@ -17,6 +19,23 @@ public class BoardController {
 
     @Autowired
     BoardService boardService;
+
+    @GetMapping("/freeBoardListForm")
+    public String freeBoardListForm(HttpSession session, Model model) {
+        log.info("freeBoardListForm()");
+
+        StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
+        int schoolNo = loginedStudentDto.getSchool_no();
+        List<BoardDto> boardDtos = boardService.getAllFreeBoardContent(schoolNo);
+
+//        System.out.println("=====>" + boardDtos);
+
+        String nextPage = "/board/freeBoardListForm";
+
+        model.addAttribute("boardDtos", boardDtos);
+
+        return nextPage;
+    }
 
     @GetMapping("/writeContentForm")
     public String writeContentForm() {
