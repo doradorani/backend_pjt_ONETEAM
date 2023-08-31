@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="~{/include/title.html::title}">
+
+    </title>
+
+    <script th:src="@{/js/student/createAccountForm.js}" type="text/javascript"></script>
+    <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{/include/student/leaveOutFormJs.html::js}" type="text/javascript"></script>
+
+</head>
+<body>
+
+<header th:replace="~{/include/headerNavFooter.html::header}">
+</header>
+
+
+<nav th:replace="~{/include/headerNavFooter.html::nav}">
+
+</nav>
+
+<section>
+    <div id = "sectionWrap">
+        <div class="word">
+            외 박 신 청
+        </div>
+        <div class = "leaveOutForm">
+            <form th:action = "@{/user/student/leaveOutConfirm}" method="post" name = "leaveOutForm">
+                <input type="text" name="school_no" th:value="${session.loginedStudentDto.school_no}"><br>
+                <input type="text" name="dormitory" th:value="${session.loginedStudentDto.dormitory}"><br>
+                <input type="text" name="student_no" th:value="${session.loginedStudentDto.no}"><br>
+                <input type="text" name="student_id" th:value="${session.loginedStudentDto.id}"><br>
+                <input type="text" name="student_name" th:value="${session.loginedStudentDto.name}"><sbr>
+                <input type="text" name="student_grade" th:value="${session.loginedStudentDto.grade}"><br>
+                <input type="text" name="content" ><br>
+                <input type="date" name="start_date" ><br>
+                <input type="date" name="end_date" ><br>
+                <input type = "button" value="register" onclick="leaveOutConfirm();">
+                <input type = "reset" value="reset">
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<footer th:replace="~{/include/headerNavFooter.html::footer}">
+
+</footer>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/postCodeApi.js}" type="text/javascript"></script>
+
+
+
+</body>
+</html>

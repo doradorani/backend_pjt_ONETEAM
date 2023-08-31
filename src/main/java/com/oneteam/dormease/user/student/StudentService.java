@@ -1,13 +1,10 @@
 package com.oneteam.dormease.user.student;
 
-import com.oneteam.dormease.user.parents.IParentsMapper;
+import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Log4j2
 @Service
@@ -32,7 +29,6 @@ public class StudentService {
         log.info("loginConfirm()");
 
         StudentDto loginedStudentDto = studentMapper.selectStudentByID(studentDto.getId());
-        System.out.println(loginedStudentDto.getId());
 
         if(loginedStudentDto != null) {
             if (!passwordEncoder.matches(studentDto.getPassword(), loginedStudentDto.getPassword())) {
@@ -57,4 +53,11 @@ public class StudentService {
     }
 
 
+    public int leaveOutConfirm(LeavePassDto leavePassDto) {
+        log.info("leaveOutConfirm()");
+
+        int result = studentMapper.insertNewLeaveOut(leavePassDto);
+
+        return result;
+    }
 }

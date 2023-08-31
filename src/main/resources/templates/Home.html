@@ -53,6 +53,7 @@
                 <div class="wrap" th:if="${session.loginedStudentDto != null}">
                     <a th:href="@{/user/student/modifyAccountForm}">회원 수정</a>
                     <a th:href="@{/user/student/logoutConfirm}">로그아웃</a>
+                    <a th:href="@{/user/student/leaveOutForm}">외박신청</a>
                 </div>
                 <div class="wrap" th:if="${session.loginedParentsDto != null}">
                     <a th:href="@{/user/parents/modifyAccountForm}">회원 수정</a>

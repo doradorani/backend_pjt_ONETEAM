@@ -1,5 +1,6 @@
 package com.oneteam.dormease.user.student;
 
+import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,19 +52,23 @@ public class StudentController {
      */
 
     @PostMapping("/loginConfirm")
-    public String loginConfirm(StudentDto studentDto, HttpSession session) {
+    @ResponseBody
+    public Object loginConfirm(StudentDto studentDto, HttpSession session) {
         log.info("loginConfirm()");
 
-        String nextPage = "/user/student/loginResult";
-
         StudentDto loginedStudentDto = studentService.loginConfirm(studentDto);
+        Map<String, Object> map = new HashMap<>();
 
         if(loginedStudentDto != null){
             session.setAttribute("loginedStudentDto", loginedStudentDto);
             session.setMaxInactiveInterval(30*60);
+
+            map.put("result", true);
+        } else {
+            map.put("result", false);
         }
 
-        return nextPage;
+        return map;
 
     }
 
@@ -126,6 +131,35 @@ public class StudentController {
         map.put("result", result);
 
         return map;
+    }
+    
+    /*
+     * 외박 신청 폼
+     */
+    @GetMapping("/leaveOutForm")
+    public String leaveOutForm() {
+        log.info("leaveOutForm()");
+
+        String nextPage = "/user/student/leaveOutForm";
+
+        return nextPage;
+    }
+    /*
+     * 외박 신청 컨펌
+     */
+    @PostMapping("/leaveOutConfirm")
+    public String leaveOutConfirm(LeavePassDto leavePassDto) {
+        log.info("leaveOutConfirm()");
+
+        String nextPage = "/user/student/leaveOutList";
+        nextPage = "Home";
+
+        int result = studentService.leaveOutConfirm(leavePassDto);
+        if(result <= 0){
+            nextPage = "redirect:/user/student/leaveOutForm";
+        }
+
+        return nextPage;
     }
 
 
