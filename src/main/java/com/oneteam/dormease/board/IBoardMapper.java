@@ -1,8 +1,6 @@
 package com.oneteam.dormease.board;
 
-import com.oneteam.dormease.user.student.StudentDto;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -13,4 +11,12 @@ public interface IBoardMapper {
     int insertNewContent(Map<String, Object> boardDtoMap);
 
     List<BoardDto> selectAllFreeBoardContent(int schoolNo);
+
+    int updateContentHit(int no);
+
+    BoardDto selectDetailContent(int no);
+
+    int updateContent(BoardDto boardDto);
+
+    int updateContentForDelete(int no);
 }

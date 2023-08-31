@@ -40,7 +40,8 @@
                         <tr th:each="boardDto : ${boardDtos}">
                             <td th:text="${boardDto.no}"></td>
                             <td>
-                                <a th:href="@{/blog/content_detail_form(no=${boardDto.no},hit=${boardDto.hit})}" th:text="${boardDto.title}"></a>
+<!--                                <a th:href="@{/board/detailContentForm(no=${boardDto.no},hit=${boardDto.hit})}" th:text="${boardDto.title}"></a>-->
+                                <a th:href="@{/board/detailContentForm(no=${boardDto.no})}" th:text="${boardDto.title}"></a>
                             </td>
                             <td th:text="${boardDto.student_name}"></td>
                             <td th:text="${#strings.substring(boardDto.reg_date, 0, 10)}"></td>
