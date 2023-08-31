@@ -1,0 +1,41 @@
+<script th:fragment="js" type="text/javascript">
+
+  $(document).ready(function() {
+    console.log('DOCUMENT READY!!');
+
+
+      initEvent();
+
+  });
+
+  function initEvent() {
+    console.log("init CALLED!!!");
+
+      let now_utc = Date.now();
+      let gap = new Date().getTimezoneOffset()*60000 - 7*24*60*60*1000;
+      let minStartDate = new Date(now_utc - gap).toISOString().split("T")[0];
+
+      $("input[name='start_date']").attr("min", minStartDate);
+}
+
+  function leaveOutConfirm() {
+      console.log("leaveOutConfirm() CALLED!!!");
+
+      let form = document.leaveOutForm;
+
+      if(form.content.value == ''){
+          alert("출타 사유를 입력해주세요!");
+          form.content.focus();
+      } else if(form.start_date.value == ''){
+          alert("출타 날짜를 입력해주세요!");
+          form.start_date.focus();
+      } else {
+         form.submit();
+      }
+
+  }
+
+
+// AJAX START
+
+</script>

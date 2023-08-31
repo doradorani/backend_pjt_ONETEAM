@@ -32,17 +32,12 @@
 
     $("#sectionWrap div.loginForm input[value='login']").on('click', function (){
         console.log("login CLICK HANDLER!!!");
-        let formElement = document.loginForm;
-        if(!isStudent){
-            formElement.action = "/user/parents/loginConfirm";
-        }
-
-        loginConfirm();
+        loginConfirm(isStudent);
     });
 
 }
 
-  function loginConfirm() {
+  function loginConfirm(isStudent) {
       console.log("loginConfirm() CALLED!!!");
 
       let form = document.loginForm;
@@ -54,7 +49,8 @@
           alert("비밀번호를 입력해주세요!");
           form.password.focus();
       } else {
-          form.submit();
+          ajax_loginConfirm(form.id.value, form.password.value, isStudent);
+
       }
 
   }
@@ -62,7 +58,60 @@
 
 
 // AJAX START
+  function ajax_loginConfirm(id, password, isStudent){
+      console.log("ajax_loginConfirm() CALLED!!!");
 
+      let formData = new FormData($("form.loginForm")[0]);
+      formData.append("id", id);
+      formData.append("password", password);
+      console.log(id + ":"+ password);
+
+
+      let goToUrl = "";
+      if(isStudent){
+          goToUrl = "/user/student/loginConfirm";
+      } else {
+          goToUrl = "/user/parents/loginConfirm";
+      }
+
+      $.ajax({
+          url: goToUrl,
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(data) {
+              console.log('AJAX SUCCESS - ajax_loginConfirm()');
+
+              $("div.loginConfirmResult").children().remove();
+
+              let result = data.result;
+              if(result){
+                  alert("성공적으로 로그인되었습니다.");
+
+                  location.href= "/";
+
+              } else {
+                  let appendTag = "<span>아이디와 비밀번호가 맞지 않습니다!</span>";
+
+                  $("div.loginConfirmResult").append(appendTag);
+              }
+
+
+          },
+          error: function(data) {
+              console.log('AJAX ERROR - ajax_loginConfirm()');
+
+              $("div.loginConfirmResult").children().remove();
+
+              let appendTag = "<span>서버 에러입니다. 다시 시도핵주세요</span>";
+
+              $("div.loginConfirmResult").append(appendTag);
+
+          }
+      });
+
+  }
 
 
 </script>
