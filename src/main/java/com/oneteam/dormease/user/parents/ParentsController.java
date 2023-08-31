@@ -50,19 +50,22 @@ public class ParentsController {
      * 로그인
      */
     @PostMapping("/loginConfirm")
-    public String loginConfirm(ParentsDto parentsDto, HttpSession session) {
+    @ResponseBody
+    public Object loginConfirm(ParentsDto parentsDto, HttpSession session) {
         log.info("loginConfirm()");
 
-        String nextPage = "/user/parents/loginResult";
-
         ParentsDto loginedParentsDto = parentsService.loginConfirm(parentsDto);
+
+        Map<String, Object> map = new HashMap<>();
 
         if(loginedParentsDto != null){
             session.setAttribute("loginedParentsDto", loginedParentsDto);
             session.setMaxInactiveInterval(30*60);
+            map.put("result", true);
+        } else {
+            map.put("result", false);
         }
-
-        return nextPage;
+    return map;
 
     }
 

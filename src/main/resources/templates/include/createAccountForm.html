@@ -19,8 +19,7 @@
         if(form.id.value == ''){
             alert("아이디를 입력해주세요!");
             form.id.focus();
-        } else {
-
+        } else{
             let id = form.id.value;
 
             ajax_idDuplicationCheck(id);
@@ -33,7 +32,7 @@
         console.log("filterKey() CALLED!!!");
 
         let filterNum = $(this).value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-        $(this).value(filterNum);
+        $(this).val(filterNum);
   }
 
   function createAccountConfirm() {
@@ -56,9 +55,6 @@
     } else if(form.name.value == ''){
       alert("이름을 입력해주세요!");
       form.name.focus();
-    } else if(form.gender.value == ''){
-      alert("성별을 선택해주세요!");
-      form.gender.focus();
     } else if(form.phone1.value == ''){
       alert("핸드폰 번호를 입력해주세요!");
       form.phone1.focus();
@@ -83,12 +79,21 @@
     } else if(form.class_no.value == ''){
       alert("반을 입력해주세요!");
       form.class_no.focus();
-    } else if(form.eigen_no.value == ''){
-      alert("번호를 입력해주세요!");
-      form.eigen_no.focus();
+    } else if(form.student_no.value == ''){
+      alert("학생 이름을 입력해주세요!");
+      form.student_no.focus();
+    }  else if(form.zip_code.value == ''){
+      alert("우편번호를 입력해주세요!");
+      form.zip_code.focus();
     } else if(form.address.value == ''){
       alert("주소를 입력해주세요!");
       form.address.focus();
+    } else if(form.address_detail1.value == ''){
+      alert("주소를 입력해주세요!");
+      form.address.focus();
+    } else if(form.relation.value == ''){
+      alert("관계를 입력해주세요!");
+      form.relation.focus();
     } else if(!idDuplicationCheck){
       alert("아이디 중복체크를 해주세요!");
     } else {
@@ -127,6 +132,7 @@
                   appendTag += "아이디가 중복입니다.";
               } else {
                   appendTag += "사용가능한 아이디입니다.";
+                  idDuplicationCheck = true;
               }
               appendTag += "</span>";
 
