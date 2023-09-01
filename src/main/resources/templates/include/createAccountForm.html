@@ -110,7 +110,7 @@
 
   function ajax_idDuplicationCheck(id){
       console.log("ajax_idDuplicationCheck() CALLED!!!");
-
+    let a = 1;
       msgDto={
           'id': id,
       }
@@ -127,7 +127,7 @@
               let isDuplicateID = data.isDuplicateID;
               $("#duplicationResult").children().remove();
               let appendTag = "<span>";
-
+                a= isDuplicateID;
               if(isDuplicateID) {
                   appendTag += "아이디가 중복입니다.";
               } else {
@@ -143,5 +143,6 @@
               console.log('AJAX ERROR - ajax_idDuplicationCheck()');
           }
       });
+      return a;
   }
 </script>
