@@ -9,8 +9,11 @@
   <link rel="stylesheet" th:href="@{/css/content_write_form.css}">
   <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
 
-<!--  <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>-->
+  <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+  <script th:replace="~{/include/board/replyJs.html::js}" type="text/javascript"></script>
   <script th:src="@{/js/board/modifyContentConfirm.js}" type="text/javascript"></script>
+
+<!--  <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>-->
 
 </head>
 <body>
@@ -30,7 +33,7 @@
 
     <div class="content_list">
       <form th:action="@{/board/modifyContentForm}" name="detailContentForm" method="post">
-        <input type="hidden" name="no" th:value="${boardDto.no}">
+        <input type="hidden" name="board_no" th:value="${boardDto.no}">
 
         <span>글번호</span> &nbsp;
         <span th:text="${boardDto.no}"></span>&nbsp;
@@ -54,8 +57,20 @@
         </div>
       </form>
     </div>
-    <input type="text" value="">
-    <input type="button" value="작성">
+    <div class="write_reply_container">
+      <input type="text" name="comment" value="">
+      <input type="button" value="작성">
+    </div>
+    <div class="reply_list">
+      <ul th:each="replyDto : ${replyDtos}">
+        <li th:text="${replyDto.student_name}">
+          <a><span>대댓글</span></a>
+          <a><span>좋아요</span></a>
+        </li>
+        <li th:text="${replyDto.student_name}"></li>
+        <li th:text="${replyDto.mod_date}"></li>
+      </ul>
+    </div>
   </div>
 
 </section>

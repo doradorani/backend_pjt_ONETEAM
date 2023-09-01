@@ -7,23 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
 @Log4j2
 @Controller
+@RequestMapping("/reply")
 public class ReplyController {
 
     @Autowired
     ReplyService replyService;
 
     @PostMapping("/registReply")
-    public Object registReply(HttpSession session, @RequestBody Map<String, String> replyMap) {
+    @ResponseBody
+    public Object registReply(@RequestBody ReplyDto replyDto,HttpSession session) {
         log.info("registReply()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-        replyMap.put("student_name", loginedStudentDto.getName());
+        replyDto.setSchool_no(loginedStudentDto.getSchool_no());
+        replyDto.setStudent_no(loginedStudentDto.getNo());
 
-//        return replyService.registReply(replyMap);
-        return null;
+        return replyService.registReply(replyDto);
     }
 }
