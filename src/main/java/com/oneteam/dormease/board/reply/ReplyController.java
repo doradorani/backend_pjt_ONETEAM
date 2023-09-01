@@ -20,9 +20,7 @@ public class ReplyController {
     @PostMapping("/registReply")
     public Object registReply(HttpSession session, @RequestBody Map<String, String> replyMap) {
         log.info("registReply()");
-
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-
         replyMap.put("student_name", loginedStudentDto.getName());
 
 //        return replyService.registReply(replyMap);
