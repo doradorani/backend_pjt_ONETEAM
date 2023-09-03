@@ -35,15 +35,9 @@ public class UploadFileService {
 			e.printStackTrace();
 		}
 
-//		System.out.println("fileOriName" + fileOriName);
-//		System.out.println("fileExtension" + fileExtension);
-//		System.out.println("uploadDir" + uploadDir);
-//		System.out.println("uniqueName" + uniqueName);
-//		System.out.println("saveFile" + saveFile);
-
 		if (result) {
 			log.info("FILE UPLOAD SUCCESS!!");
-			uploadFileDto.setBoard_attach_file(uniqueName);
+			uploadFileDto.setBoard_attach_file(uniqueName + fileExtension);
 			uploadFileDto.setOri_file_name(fileOriName);
 			uploadFileDto.setDir_name(uploadDir);
 			

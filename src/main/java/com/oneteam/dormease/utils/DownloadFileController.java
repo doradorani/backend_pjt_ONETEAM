@@ -31,23 +31,24 @@ public class DownloadFileController {
         try {
             // 파일 경로 생성
             Path filePath = Paths.get(DOWNLOAD_DIR+"/"+student_no).resolve(board_attach_file).normalize();
+            System.out.println("filePath ====>" + filePath);
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists() && resource.isReadable()) {
                 // 파일이 존재하고 읽을 수 있는 경우 다운로드 응답 생성
-                log.info("[DownloadFileController] 파일 존재");
+                log.info("파일 존재");
                 return ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_OCTET_STREAM)
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; file=\"" + resource.getFile() + "\"")
                         .body(resource);
             } else {
                 // 파일이 존재하지 않거나 읽을 수 없는 경우 404 에러 응답
-                log.info("[DownloadFileController] 파일 없음");
+                log.info("파일 없음");
                 return ResponseEntity.notFound().build();
             }
         } catch (MalformedURLException e) {
             // 파일 경로 변환 실패 시 400 에러 응답
-            log.info("[DownloadFileController] 파일 경로 변환 실패");
+            log.info("파일 경로 변환 실패");
             return ResponseEntity.badRequest().build();
 
         } catch (IOException e) {
