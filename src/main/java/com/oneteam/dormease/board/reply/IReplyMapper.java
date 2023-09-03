@@ -10,5 +10,5 @@ public interface IReplyMapper {
 
     int insertReply(ReplyDto replyDto);
 
-    List<ReplyDto> selectReplies(ReplyDto replyDto);
+    List<ReplyDto> selectReplies(int no);
 }

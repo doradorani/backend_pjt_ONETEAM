@@ -57,6 +57,9 @@ dependencies {
 
 	// CK editor
 	implementation group: 'org.webjars', name: 'ckeditor', version: '4.16.1'
+
+	// CONTROL FILE
+	implementation 'commons-io:commons-io:2.6'
 }
 
 tasks.named('test') {

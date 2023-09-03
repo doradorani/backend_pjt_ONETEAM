@@ -26,7 +26,7 @@ public class ReplyService {
 
         if (result > 0) {
             log.info("REGIST COMMENT SUCCESS!!");
-            replyDtos = iReplyMapper.selectReplies(replyDto);
+            replyDtos = iReplyMapper.selectReplies(replyDto.getBoard_no());
         } else {
             log.info("REGIST COMMENT FAIL!!");
         }

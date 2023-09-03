@@ -18,9 +18,16 @@
     <select id="selectReplies" parameterType="com.oneteam.dormease.board.reply.ReplyDto">
 
         SELECT
-            *
+            r.*,
+            s.name
+        AS
+            student_name
         FROM
-            reply
+            reply r
+        INNER JOIN
+            student s
+        ON
+            r.student_no = s.no
         WHERE
             board_no = #{board_no}
         ORDER BY no DESC

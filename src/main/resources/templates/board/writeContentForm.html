@@ -23,23 +23,75 @@
     </div>
 
     <div class="content_list">
-      <form th:action="@{/board/writeContentConfirm}" th:object="${postForm}" name="writeContentForm" method="post">
+      <form th:action="@{/board/writeContentConfirm}"
+            th:object="${postForm}"
+            name="writeContentForm"
+            method="post"
+            enctype="multipart/form-data">
         <input type="text" class="content_title" name="title" placeholder="제목을 입력하세요">
         <br>
         <textarea id="editor" name="content"></textarea>
-<!--        <textarea id="editor" name="b_content" th:field="*{content}"></textarea>-->
-<!--        <script>-->
-<!--          var ckeditor_config = {-->
-<!--            filebrowserUploadMethod :'form',-->
-<!--            filebrowserUploadUrl: "/admin/post/imageUpload",-->
-<!--            extraPlugins : 'autogrow',-->
-<!--          };-->
+        <input type="file" name="files" id="fileInput"
+               multiple="multiple" style="display:block;"
+               accept=" application/vnd.ms-excel,
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                        text/plain,
+                        image/*,
+                        text/html,
+                        audio/*,
+                        .pdf">
+        <label for="fileInput">SELECT FILE(S)</label>
+        <input type="button" value="Delete" onclick="deleteFiles()">
+        <div id="fileInfo" ></div>
+        <script>
+          var maxFiles = 5; // 최대 첨부 파일 개수
+          var selectedFiles = []; // 선택한 파일 목록
+          var fileInput = document.getElementById("fileInput");
+          var fileInfo = document.getElementById("fileInfo");
 
-<!--          CKEDITOR.replace("contents", ckeditor_config);-->
-<!--        </script>-->
+          document.getElementById("fileInput").addEventListener("change", function () {
+
+            fileInfo.replaceChildren();
+            selectedFiles = [];
+            for (var i = 0; i < fileInput.files.length; i++) {
+              var file = fileInput.files[i];
+              if (selectedFiles.length >= maxFiles) {
+                alert("최대 " + maxFiles + "개의 파일까지 첨부할 수 있습니다.");
+                fileInput.value = ""; // 파일 선택 초기화
+                fileInfo.replaceChildren();
+                return;
+              }
+              selectedFiles.push(file);
+              var fileName = file.name;
+              var fileSize = formatBytes(file.size);
+              var fileItem = document.createElement("li");
+              fileItem.textContent = fileName + " (" + fileSize + ")";
+              fileInfo.appendChild(fileItem);
+            }
+          });
+          function deleteFiles() {
+            console.log("deleteFiles() CALLED!!")
+            if (selectedFiles != null) {
+              selectedFiles = [];
+              fileInput.value = "";
+              fileInfo.replaceChildren();
+            }
+          }
+          function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+          }
+        </script>
         <div class="button-container">
           <input type="button" value="Write" onclick="writeContentConfirm()">
-          <input type="button" value="Cancel" onclick="location.href='/blog/content_list_form';">
+          <input type="button" value="Cancel" onclick="location.href='/board/freeBoardListForm';">
         </div>
       </form>
     </div>
