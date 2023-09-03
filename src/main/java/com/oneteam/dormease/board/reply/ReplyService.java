@@ -11,22 +11,23 @@ import java.util.Map;
 @Log4j2
 @Service
 public class ReplyService {
-
-    @Autowired
-    IReplyMapper iReplyMapper;
+    private final IReplyMapper replyMapper;
+    public ReplyService (IReplyMapper replyMapper) {
+        this.replyMapper = replyMapper;
+    }
 
     public Object registReply(ReplyDto replyDto) {
         log.info("registReply()");
 
         Map<String, Object> resultMap = new HashMap<>();
         System.out.println("=====>" + replyDto);
-        int result = iReplyMapper.insertReply(replyDto);
+        int result = replyMapper.insertReply(replyDto);
         List<ReplyDto> replyDtos = null;
 
 
         if (result > 0) {
             log.info("REGIST COMMENT SUCCESS!!");
-            replyDtos = iReplyMapper.selectReplies(replyDto.getBoard_no());
+            replyDtos = replyMapper.selectReplies(replyDto.getBoard_no());
         } else {
             log.info("REGIST COMMENT FAIL!!");
         }

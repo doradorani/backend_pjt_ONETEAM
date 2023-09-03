@@ -13,12 +13,12 @@ import java.util.Map;
 @Log4j2
 @Service
 public class UserService {
-
-    @Autowired
-    IUserMapper userMapper;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
+    private final IUserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    public UserService(IUserMapper userMapper, PasswordEncoder passwordEncoder) {
+        this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Map<String, Object> idDuplicationCheck(String id) {
         log.info("idDuplicationCheck()");

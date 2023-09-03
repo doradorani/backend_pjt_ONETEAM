@@ -16,9 +16,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/reply")
 public class ReplyController {
-
-    @Autowired
-    ReplyService replyService;
+    private final ReplyService replyService;
+    public ReplyController(ReplyService replyService) {
+        this.replyService = replyService;
+    }
 
     @PostMapping("/registReply")
     @ResponseBody

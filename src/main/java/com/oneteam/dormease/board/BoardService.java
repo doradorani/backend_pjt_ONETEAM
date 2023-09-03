@@ -16,11 +16,12 @@ import java.util.Map;
 @Log4j2
 @Service
 public class BoardService {
-
-    @Autowired
-    IBoardMapper boardMapper;
-    @Autowired
-    IReplyMapper replyMapper;
+    private final IBoardMapper boardMapper;
+    private final IReplyMapper replyMapper;
+    public BoardService (IBoardMapper boardMapper, IReplyMapper replyMapper) {
+        this.boardMapper = boardMapper;
+        this.replyMapper = replyMapper;
+    }
 
     private static int FREE_BOARD_CATEGORY_NO = 1;
 
@@ -69,10 +70,17 @@ public class BoardService {
         return boardMapper.insertNewContent(boardDtoMap);
     }
 
-    public BoardDto getdetailContentForModify(int no) {
+    public Map<String, Object> getdetailContentForModify(int no) {
         log.info("getdetailContentForModify()");
+        Map<String, Object> boardAndReplyMap = new HashMap();
+        BoardDto boardDto = boardMapper.selectDetailContent(no);
+        System.out.println("111111111111");
+        List<UploadFileDto> uploadedFiles = boardMapper.selectUploadedFiles(no);
+        System.out.println("2222222222");
+        boardAndReplyMap.put("boardDto", boardDto);
+        boardAndReplyMap.put("uploadedFiles", uploadedFiles);
 
-        return boardMapper.selectDetailContent(no);
+        return boardAndReplyMap;
     }
 
     public int modifyContentConfirm(BoardDto boardDto) {

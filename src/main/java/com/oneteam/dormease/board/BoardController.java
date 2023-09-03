@@ -1,5 +1,6 @@
 package com.oneteam.dormease.board;
 
+import com.oneteam.dormease.board.reply.ReplyService;
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.UploadFileService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +22,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+    private final BoardService boardService;
+    private final UploadFileService uploadFileService;
+    public BoardController(BoardService boardService, UploadFileService uploadFileService) {
+        this.boardService = boardService;
+        this.uploadFileService = uploadFileService;
+    }
 
-    @Autowired
-    BoardService boardService;
-
-    @Autowired
-    UploadFileService uploadFileService;
-
+    /*
+     * 자유 게시판 게시글 리스트 페이지
+     */
     @GetMapping("/freeBoardListForm")
     public String freeBoardListForm(HttpSession session, Model model) {
         log.info("freeBoardListForm()");
@@ -39,6 +44,9 @@ public class BoardController {
         return nextPage;
     }
 
+    /*
+     * 게시글 디테일 페이지
+     */
     @GetMapping("/detailContentForm")
     public String detailContentForm(@RequestParam("no") int no, Model model) {
         log.info("detailContentForm()");
@@ -49,6 +57,9 @@ public class BoardController {
         return nextPage;
     }
 
+    /*
+     * 게시글 작성 페이지
+     */
     @GetMapping("/writeContentForm")
     public String writeContentForm() {
         log.info("writeContentForm()");
@@ -57,6 +68,9 @@ public class BoardController {
         return nextpage;
     }
 
+    /*
+     * 게시글 작성 컨펌
+     */
     @PostMapping("/writeContentConfirm")
     public String writeContentConfirm(@RequestParam(value = "files", required = false)  List<MultipartFile> files,
                                       HttpSession session,
@@ -94,16 +108,22 @@ public class BoardController {
         return nextpage;
     }
 
+    /*
+     * 게시글 수정 페이지
+     */
     @PostMapping("/modifyContentForm")
-    public String modifyContentForm(@RequestParam("no") int no, Model model) {
+    public String modifyContentForm(@RequestParam(value = "board_no", required = false) int no, Model model) {
         log.info("modifyContentForm()");
         String nextPage = "board/modifyContentForm";
-        BoardDto boardDto = boardService.getdetailContentForModify(no);
-        model.addAttribute("boardDto", boardDto);
+        Map<String, Object> boardAndReplyMap = boardService.getdetailContentForModify(no);
+        model.addAttribute("boardAndReplyMap", boardAndReplyMap);
 
         return nextPage;
     }
 
+    /*
+     * 게시글 수정 컨펌
+     */
     @PostMapping("/modifyContentConfirm")
     public String modifyContentConfirm(BoardDto boardDto, Model model) {
         log.info("modifyContentConfirm()");
@@ -114,6 +134,9 @@ public class BoardController {
         return nextPage;
     }
 
+    /*
+     * 게시글 삭제 컨펌
+     */
     @GetMapping("/deleteContentConfirm")
     public String deleteContentConfirm(int no, Model model) {
         log.info("deleteContentConfirm()");

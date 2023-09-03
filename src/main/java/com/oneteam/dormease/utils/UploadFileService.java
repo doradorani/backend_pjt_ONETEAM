@@ -47,9 +47,6 @@ public class UploadFileService {
 			log.info("FILE UPLOAD FAIL!!");
 			
 			return null;
-			
 		}
-		
 	}
-	
 }

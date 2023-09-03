@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Service
 public class ParentsService {
+    private final IParentsMapper parentsMapper;
+    private final PasswordEncoder passwordEncoder;
+    public ParentsService (IParentsMapper parentsMapper, PasswordEncoder passwordEncoder) {
+        this.parentsMapper = parentsMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    @Autowired
-    IParentsMapper parentsMapper;
-    @Autowired
-    PasswordEncoder passwordEncoder;
     public int createAccountConfirm(ParentsDto parentsDto) {
         log.info("createAccountConfirm()");
 
