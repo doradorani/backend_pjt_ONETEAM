@@ -41,6 +41,7 @@
         <hr>
         <br>
         <textarea id="editor" name="content" th:text="${boardDto.content}"></textarea>
+        <input type="file" name="board_attach_file" placeholder="SELECT IMAGE FILE">
         <div class="button-container">
           <input type="submit" value="Modify" onclick="modifyContentConfirm()">
           <input type="submit" value="Delete" onclick="deleteContentConfirm()">
