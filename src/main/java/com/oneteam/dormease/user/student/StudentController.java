@@ -36,6 +36,7 @@ public class StudentController {
     @PostMapping("/createAccountConfirm")
     public String createAccountConfirm(StudentDto studentDto, Model model) {
         log.info("createAccountConfirm()");
+        log.info("school_no{}", studentDto.getSchool_no());
 
         String nextPage = "user/student/createAccountResult";
 

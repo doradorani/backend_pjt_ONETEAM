@@ -15,7 +15,7 @@ public interface IBoardMapper {
 
     int selectCurrentBoardNo(int no);
 
-    List<BoardDto> selectAllFreeBoardContent(int schoolNo);
+    List<BoardDto> selectAllFreeBoardContent(String schoolNo);
 
     int updateContentHit(int no);
 

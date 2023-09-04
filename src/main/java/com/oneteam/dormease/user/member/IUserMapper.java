@@ -2,12 +2,16 @@ package com.oneteam.dormease.user.member;
 
 import com.oneteam.dormease.user.member.sms.SmsDTO;
 import com.oneteam.dormease.user.parents.ParentsDto;
+import com.oneteam.dormease.user.school.SchoolDto;
 import com.oneteam.dormease.user.student.StudentDto;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface IUserMapper {
     boolean selectDuplicateByID(String id);
+    List<SchoolDto> selectSchoolsByName(String name);
 
     StudentDto selectStudentByNo(String no);
 
@@ -24,4 +28,6 @@ public interface IUserMapper {
     StudentDto selectStudentBySmsDto(SmsDTO smsDTO);
 
     ParentsDto selectParentBySmsDto(SmsDTO smsDTO);
+
+
 }

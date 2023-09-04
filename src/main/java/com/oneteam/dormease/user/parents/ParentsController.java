@@ -1,5 +1,6 @@
 package com.oneteam.dormease.user.parents;
 
+import com.oneteam.dormease.user.student.StudentDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,17 @@ public class ParentsController {
     public String createAccountForm() {
         log.info("createAccountForm()");
 
-        String nextPage = "/user/parents/createAccountForm";
+        String nextPage = "user/parents/createAccountForm";
 
         return nextPage;
+
+    }
+    @GetMapping("/searchStudents")
+    @ResponseBody
+    public Object searchStudents(StudentDto studentDto) {
+        log.info("searchStudents()");
+
+        return parentsService.searchStudents(studentDto);
 
     }
 
@@ -39,7 +48,7 @@ public class ParentsController {
     public String createAccountConfirm(ParentsDto parentsDto, Model model) {
         log.info("createAccountConfirm()");
 
-        String nextPage = "/user/parents/createAccountResult";
+        String nextPage = "user/parents/createAccountResult";
 
         int result = parentsService.createAccountConfirm(parentsDto);
 

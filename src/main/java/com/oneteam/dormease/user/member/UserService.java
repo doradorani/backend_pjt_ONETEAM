@@ -2,12 +2,14 @@ package com.oneteam.dormease.user.member;
 
 import com.oneteam.dormease.user.member.sms.SmsDTO;
 import com.oneteam.dormease.user.parents.ParentsDto;
+import com.oneteam.dormease.user.school.SchoolDto;
 import com.oneteam.dormease.user.student.StudentDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -21,7 +23,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Map<String, Object> idDuplicationCheck(String id) {
+    public Map<String, Object> checkIdDuplication(String id) {
         log.info("idDuplicationCheck()");
         boolean isDuplicateID = userMapper.selectDuplicateByID(id);
         Map<String, Object> map = new HashMap<>();
@@ -102,5 +104,15 @@ public class UserService {
         map.put("result", result);
 
         return map;
+    }
+
+    public Object searchSchoolName(String name) {
+        log.info("searchSchoolName()");
+        Map<String, Object> map = new HashMap<>();
+        List<SchoolDto> schoolDtos =  userMapper.selectSchoolsByName(name);
+        map.put("schoolDtos", schoolDtos);
+
+        return map;
+
     }
 }

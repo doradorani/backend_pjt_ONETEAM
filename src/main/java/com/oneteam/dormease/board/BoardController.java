@@ -36,7 +36,7 @@ public class BoardController {
     public String freeBoardListForm(HttpSession session, Model model) {
         log.info("freeBoardListForm()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-        int schoolNo = loginedStudentDto.getSchool_no();
+        String schoolNo = loginedStudentDto.getSchool_no();
         List<BoardDto> boardDtos = boardService.getAllFreeBoardContent(schoolNo);
         String nextPage = "board/freeBoardListForm";
         model.addAttribute("boardDtos", boardDtos);

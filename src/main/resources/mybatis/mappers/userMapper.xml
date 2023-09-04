@@ -15,6 +15,16 @@
               FROM admin) a
         WHERE id = #{id}
     </select>
+    <select id="selectSchoolsByName" parameterType="String">
+        SELECT DISTINCT
+            info.*,
+            excel.address
+        FROM schoolInfo info
+        JOIN school_Excel excel
+        ON info.zip_code = excel.zip_code
+        WHERE info.school_name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY info.school_name ASC;
+    </select>
     <select id="selectStudentByNo" parameterType="String">
         SELECT *
         FROM student
@@ -42,7 +52,7 @@
     </update>
     <update id="updateParentPassword" parameterType="String">
         UPDATE
-            parents
+        parents
         SET password = #{password}
         <where>
             <if test="no != 0">

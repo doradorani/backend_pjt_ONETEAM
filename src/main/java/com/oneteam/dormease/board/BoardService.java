@@ -25,7 +25,7 @@ public class BoardService {
 
     private static int FREE_BOARD_CATEGORY_NO = 1;
 
-    public List<BoardDto> getAllFreeBoardContent(int schoolNo) {
+    public List<BoardDto> getAllFreeBoardContent(String schoolNo) {
         log.info("getAllFreeBoardContent()");
 
         return boardMapper.selectAllFreeBoardContent(schoolNo);
