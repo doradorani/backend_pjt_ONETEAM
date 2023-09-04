@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SmsDTO {
     private @SQLInjectionSafe int no;
+    private @SQLInjectionSafe String id;
     private @SQLInjectionSafe String name;
     private @SQLInjectionSafe boolean isStudent;
     private @SQLInjectionSafe String to;

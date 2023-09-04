@@ -13,15 +13,15 @@ public interface IUserMapper {
 
     ParentsDto selectParentByNo(String no);
 
-    int updateStudentPassword(String no, String password);
+    int updateStudentPassword(String no, String id, String password);
 
-    int updateParentPassword(String no, String password);
+    int updateParentPassword(String no, String id,String password);
 
-    boolean updateStudentAuthNoByNameAndPhone(SmsDTO smsDTO);
+    boolean updateStudentAuthNoBySmsDto(SmsDTO smsDTO);
 
-    boolean updateParentAuthNoByNameAndPhone(SmsDTO smsDTO);
+    boolean updateParentAuthNoBySmsDto(SmsDTO smsDTO);
 
-    StudentDto selectStudentByNameAndPhone(SmsDTO smsDTO);
+    StudentDto selectStudentBySmsDto(SmsDTO smsDTO);
 
-    ParentsDto selectParentByNameAndPhone(SmsDTO smsDTO);
+    ParentsDto selectParentBySmsDto(SmsDTO smsDTO);
 }

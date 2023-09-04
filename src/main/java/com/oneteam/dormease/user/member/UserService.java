@@ -15,6 +15,7 @@ import java.util.Map;
 public class UserService {
     private final IUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
     public UserService(IUserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
@@ -55,9 +56,9 @@ public class UserService {
         String password = passwordEncoder.encode(newPassword);
         int result = -1;
         if (isStudent) {
-            result = userMapper.updateStudentPassword(no, password);
+            result = userMapper.updateStudentPassword(no,"0", password);
         } else {
-            result = userMapper.updateParentPassword(no, password);
+            result = userMapper.updateParentPassword(no, "0", password);
         }
         return result;
     }
@@ -68,23 +69,13 @@ public class UserService {
         String id = "";
         Map<String, Object> map = new HashMap<>();
         if (smsDTO.isStudent()) {
-            StudentDto studentDto = userMapper.selectStudentByNameAndPhone(smsDTO);
-            if(studentDto == null){
-                map.put("result", false);
-                map.put("dto", false);
-            } else {
-                encodedAuthNo = studentDto.getAuth_no();
-                id = studentDto.getId();
-            }
+            StudentDto studentDto = userMapper.selectStudentBySmsDto(smsDTO);
+            encodedAuthNo = studentDto.getAuth_no();
+            id = studentDto.getId();
         } else {
-            ParentsDto parentsDto = userMapper.selectParentByNameAndPhone(smsDTO);
-            if(parentsDto == null){
-                map.put("result", false);
-                map.put("dto", false);
-            } else {
-                encodedAuthNo = parentsDto.getAuth_no();
-                id = parentsDto.getId();
-            }
+            ParentsDto parentsDto = userMapper.selectParentBySmsDto(smsDTO);
+            encodedAuthNo = parentsDto.getAuth_no();
+            id = parentsDto.getId();
         }
         if (!passwordEncoder.matches(smsDTO.getContent(), encodedAuthNo)) {
             map.put("result", false);
@@ -104,9 +95,9 @@ public class UserService {
         smsDTO.setContent(null);
 
         if (smsDTO.isStudent()) {
-            result = userMapper.updateStudentAuthNoByNameAndPhone(smsDTO);
+            result = userMapper.updateStudentAuthNoBySmsDto(smsDTO);
         } else {
-            result = userMapper.updateParentAuthNoByNameAndPhone(smsDTO);
+            result = userMapper.updateParentAuthNoBySmsDto(smsDTO);
         }
         map.put("result", result);
 

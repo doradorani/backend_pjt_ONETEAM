@@ -9,7 +9,10 @@
               FROM student
               UNION
               SELECT id
-              FROM parents) a
+              FROM parents
+              UNION
+              SELECT id
+              FROM admin) a
         WHERE id = #{id}
     </select>
     <select id="selectStudentByNo" parameterType="String">
@@ -26,42 +29,74 @@
     </select>
     <update id="updateStudentPassword" parameterType="String">
         UPDATE
-            student
+        student
         set password = #{password}
-        WHERE
-            no = #{no}
+        <where>
+            <if test="no != 0">
+                no = #{no}
+            </if>
+            <if test="id != 0">
+                id = #{id}
+            </if>
+        </where>
     </update>
     <update id="updateParentPassword" parameterType="String">
         UPDATE
             parents
         SET password = #{password}
-        WHERE
-            no = #{no}
+        <where>
+            <if test="no != 0">
+                no = #{no}
+            </if>
+            <if test="id != 0">
+                id = #{id}
+            </if>
+        </where>
     </update>
-    <update id="updateStudentAuthNoByNameAndPhone" parameterType="com.oneteam.dormease.user.member.sms.SmsDTO">
+    <update id="updateStudentAuthNoBySmsDto" parameterType="SmsDTO">
         UPDATE
-            student
+        student
         SET auth_no = #{content}
-        WHERE name = #{name}
-          AND phone = #{to}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
     </update>
-    <update id="updateParentAuthNoByNameAndPhone" parameterType="com.oneteam.dormease.user.member.sms.SmsDTO">
+    <update id="updateParentAuthNoBySmsDto" parameterType="SmsDTO">
         UPDATE
-            parents
+        parents
         SET auth_no = #{content}
-        WHERE name = #{name}
-          AND phone = #{to}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
     </update>
-    <select id="selectStudentByNameAndPhone" parameterType="com.oneteam.dormease.user.member.sms.SmsDTO">
+    <select id="selectStudentBySmsDto" parameterType="SmsDTO">
         SELECT *
         FROM student
-        WHERE name = #{name}
-          AND phone = #{to}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
     </select>
-    <select id="selectParentByNameAndPhone" parameterType="com.oneteam.dormease.user.member.sms.SmsDTO">
+    <select id="selectParentBySmsDto" parameterType="SmsDTO">
         SELECT *
         FROM parents
-        WHERE name = #{name}
-          AND phone = #{to}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
     </select>
 </mapper>

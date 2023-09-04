@@ -4,10 +4,7 @@ package com.oneteam.dormease.user.member.sms;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -27,18 +24,19 @@ public class SmsController {
 
     @PostMapping("/sendAuthenticationMessage")
     @ResponseBody
-    public Object sendAuthenticationMessage(SmsDTO smsDTO) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+    public Object sendAuthenticationMessage(SmsDTO smsDTO, @RequestParam boolean isStudent) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         log.info("sendAuthenticationMessage()");
+        smsDTO.setStudent(isStudent);
 
         return smsService.sendAuthenticationMessage(smsDTO);
 
     }
-    @PostMapping("/sendIDMessage")
+    @PostMapping("/sendMessage")
     @ResponseBody
-    public Object sendIDMessage(SmsDTO smsDTO) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
-        log.info("sendIDMessage()");
-
-        return smsService.sendIDMessage(smsDTO);
+    public Object sendMessage(SmsDTO smsDTO, @RequestParam(required = false) boolean isStudent) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+        log.info("sendMessage()");
+        smsDTO.setStudent(isStudent);
+        return smsService.sendMessage(smsDTO);
 
     }
 

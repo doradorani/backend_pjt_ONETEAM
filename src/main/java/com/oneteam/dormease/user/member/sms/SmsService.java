@@ -3,7 +3,7 @@ package com.oneteam.dormease.user.member.sms;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oneteam.dormease.user.member.IUserMapper;
-import com.oneteam.dormease.utils.Generate6Digit;
+import com.oneteam.dormease.utils.GenerateCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -34,6 +34,8 @@ public class SmsService {
 
     private final IUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
+    private final String doesNotExistDataInDatabase = "1";
 
     @Value("${naver-cloud-sms.accessKey}")
     private String accessKey;
@@ -78,71 +80,90 @@ public class SmsService {
 
         return encodeBase64String;
 
-        }
+    }
 
-        private HttpHeaders makeHeader() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-            log.info("makeHeader()");
-            Long time = System.currentTimeMillis();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("x-ncp-apigw-timestamp", time.toString());
-            headers.set("x-ncp-iam-access-key", accessKey);
-            headers.set("x-ncp-apigw-signature-v2", makeSignature(time));
+    private HttpHeaders makeHeader() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        log.info("makeHeader()");
+        Long time = System.currentTimeMillis();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-ncp-apigw-timestamp", time.toString());
+        headers.set("x-ncp-iam-access-key", accessKey);
+        headers.set("x-ncp-apigw-signature-v2", makeSignature(time));
 
-            return headers;
+        return headers;
 
-        }
+    }
 
-        private SmsResponseDTO buildRequestDto (SmsDTO smsDTO, HttpHeaders headers) throws JsonProcessingException, URISyntaxException {
-            List<SmsDTO> messages = new ArrayList<>();
-            messages.add(smsDTO);
+    private SmsResponseDTO buildRequestDto(SmsDTO smsDTO, HttpHeaders headers) throws JsonProcessingException, URISyntaxException {
+        List<SmsDTO> messages = new ArrayList<>();
+        messages.add(smsDTO);
 
-            SmsRequestDTO request = SmsRequestDTO.builder()
-                    .type("SMS")
-                    .contentType("COMM")
-                    .countryCode("82")
-                    .from(phone)
-                    .content(smsDTO.getContent())
-                    .messages(messages)
-                    .build();
+        SmsRequestDTO request = SmsRequestDTO.builder()
+                .type("SMS")
+                .contentType("COMM")
+                .countryCode("82")
+                .from(phone)
+                .content(smsDTO.getContent())
+                .messages(messages)
+                .build();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            String body = objectMapper.writeValueAsString(request);
-            HttpEntity<String> httpBody = new HttpEntity<>(body, headers);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(request);
+        HttpEntity<String> httpBody = new HttpEntity<>(body, headers);
 
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-            SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDTO.class);
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        SmsResponseDTO response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + serviceId + "/messages"), httpBody, SmsResponseDTO.class);
 
-            return response;
-        }
+        return response;
+    }
 
 
-    public SmsResponseDTO sendAuthenticationMessage(SmsDTO smsDTO) throws JsonProcessingException, RestClientException, URISyntaxException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+    public Object sendAuthenticationMessage(SmsDTO smsDTO) throws JsonProcessingException, RestClientException, URISyntaxException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         log.info("sendAuthenticationMessage()");
 
-        HttpHeaders headers = makeHeader();
-
-        String authNo = Generate6Digit.generateAuthNo();
+        String authNo = GenerateCode.generateAuthNo();
         smsDTO.setContent(passwordEncoder.encode(authNo));
 
-        if(smsDTO.isStudent()){
-            userMapper.updateStudentAuthNoByNameAndPhone(smsDTO);
+        if (smsDTO.isStudent()) {
+            if (userMapper.selectStudentBySmsDto(smsDTO) != null) {
+                userMapper.updateStudentAuthNoBySmsDto(smsDTO);
+            } else {
+                return doesNotExistDataInDatabase;
+            }
         } else {
-            userMapper.updateParentAuthNoByNameAndPhone(smsDTO);
+            if (userMapper.selectParentBySmsDto(smsDTO) != null) {
+                userMapper.updateParentAuthNoBySmsDto(smsDTO);
+            } else {
+                return doesNotExistDataInDatabase;
+            }
+
         }
-        smsDTO.setContent("인증번호 ["+ authNo + "]");
+        HttpHeaders headers = makeHeader();
+
+
+        smsDTO.setContent("인증번호 [" + authNo + "]");
         SmsResponseDTO response = buildRequestDto(smsDTO, headers);
 
         return response;
 
     }
 
-    public Object sendIDMessage(SmsDTO smsDTO) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException, JsonProcessingException {
-        log.info("sendIDMessage()");
+    public Object sendMessage(SmsDTO smsDTO) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException, JsonProcessingException {
+        log.info("sendMessage()");
         HttpHeaders headers = makeHeader();
-        smsDTO.setContent("아이디는 "+ smsDTO.getContent() + "입니다.");
-        log.info("content{}", smsDTO.getContent());
+        if(!smsDTO.getContent().equals("null")) {
+            smsDTO.setContent("아이디는 " + smsDTO.getContent() + "입니다.");
+        } else {
+            String password =  GenerateCode.generateRamdomPassword();
+            if(smsDTO.isStudent()){
+                userMapper.updateStudentPassword("0", smsDTO.getId(),passwordEncoder.encode(password));
+            } else {
+                userMapper.updateParentPassword("0", smsDTO.getId(),passwordEncoder.encode(password));
+            }
+            smsDTO.setContent("임시 비밀번호는 "+ password + "입니다.");
+        }
         SmsResponseDTO response = buildRequestDto(smsDTO, headers);
 
         return response;
