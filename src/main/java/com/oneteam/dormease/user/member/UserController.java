@@ -14,11 +14,10 @@ import java.util.Map;
 @Log4j2
 @RequestMapping("/user/member")
 public class UserController {
-
-
-    @Autowired
-    UserService userService;
-
+    private final UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /*
      * 로그인 폼

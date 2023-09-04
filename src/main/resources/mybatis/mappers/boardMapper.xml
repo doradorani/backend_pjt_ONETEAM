@@ -8,11 +8,34 @@
 
         INSERT INTO
             free_board (
-            school_no, student_no, category_no, title, content, reg_date, mod_date
-        ) VALUES (
+            school_no, student_no, category_no, title, content, reg_date, mod_date )
+        VALUES (
             #{studentDto.school_no}, #{studentDto.no}, 1, #{boardDto.title}, #{boardDto.content}, NOW(), NOW())
 
     </insert>
+
+    <insert id="insertNewFile" parameterType="java.util.List">
+
+        INSERT INTO
+        free_board_upload_file (
+        board_no, ori_file_name, board_attach_file, dir_name)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+        (#{item.board_no}, #{item.ori_file_name}, #{item.board_attach_file}, #{item.dir_name})
+        </foreach>
+
+    </insert>
+
+    <select id="selectCurrentBoardNo" parameterType="Integer">
+
+        SELECT
+            no
+        from
+            free_board
+        ORDER BY no DESC
+        LIMIT 1
+
+    </select>
 
     <select id="selectAllFreeBoardContent" parameterType="Integer">
 
@@ -36,18 +59,7 @@
 
     </select>
 
-    <update id="updateContentHit" parameterType="Integer">
-
-        UPDATE
-            free_board
-        SET
-            hit = hit+1
-        WHERE
-            no = #{no}
-
-    </update>
-
-    <select id="selectDetailContent" parameterType="map">
+    <select id="selectDetailContent" parameterType="int">
 
         SELECT
             f.*,
@@ -64,8 +76,35 @@
             f.no = #{no}
         AND
             f.category_no = 1
+        AND
+            f.status = 1
 
     </select>
+
+    <select id="selectUploadedFiles" parameterType="int">
+
+        SELECT
+            *
+        FROM
+            free_board_upload_file
+        WHERE
+            board_no = #{no}
+        ORDER BY no ASC
+
+    </select>
+
+    <update id="updateContentHit" parameterType="Integer">
+
+        UPDATE
+            free_board
+        SET
+            hit = hit+1
+        WHERE
+            no = #{no}
+
+    </update>
+
+
 
     <update id="updateContent" parameterType="com.oneteam.dormease.board.BoardDto">
 

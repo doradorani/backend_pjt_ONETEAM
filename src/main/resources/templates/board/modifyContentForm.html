@@ -24,27 +24,95 @@
 
     <div class="content_list">
       <form th:action="@{/board/modifyContentConfirm}" th:object="${postForm}" name="modifyContentForm" method="post">
-        <input type="hidden" name="no" th:value="${boardDto.no}">
-        <input type="hidden" name="mod_date" th:value="${boardDto.mod_date}">
+        <input type="hidden" name="board_no" th:value="${boardAndReplyMap.boardDto.no}">
+        <input type="hidden" name="student_no" th:value="${boardAndReplyMap.boardDto.student_no}">
+        <input type="hidden" name="mod_date" th:value="${boardAndReplyMap.boardDto.mod_date}">
+<!--        <input type="hidden" name="no" th:value="${boardDto.no}">-->
         <span>글번호</span> &nbsp;
-        <span th:text="${boardDto.no}"></span>&nbsp;
+        <span th:text="${boardAndReplyMap.boardDto.no}"></span>&nbsp;
         <span>작성일</span> &nbsp;
-          <span th:text="${#strings.substring(boardDto.reg_date, 0, 10)}"></span>
-          <span> | 수정일</span> &nbsp;
-          <span th:text="${#strings.substring(boardDto.mod_date, 0, 10)}"></span>
+        <span th:text="${#strings.substring(boardAndReplyMap.boardDto.reg_date, 0, 10)}"></span>
+        <span> | 수정일</span> &nbsp;
+        <span th:text="${#strings.substring(boardAndReplyMap.boardDto.mod_date, 0, 10)}"></span>
         <span> | 작성자</span> &nbsp;
-        <span th:text="${boardDto.student_name}"></span>&nbsp;
+        <span th:text="${boardAndReplyMap.boardDto.student_name}"></span>&nbsp;
         <span> | 조회수</span> &nbsp;
-        <span th:text="${boardDto.hit}"></span>
+        <span th:text="${boardAndReplyMap.boardDto.hit}"></span>
         <hr>
-        <input name="title" th:value="${boardDto.title}" placeholder="제목을 입력하세요">
+        <input name="title" th:value="${boardAndReplyMap.boardDto.title}" placeholder="제목을 입력하세요">
         <hr>
         <br>
-        <textarea id="editor" name="content" th:text="${boardDto.content}"></textarea>
+        <textarea id="editor" name="content" th:text="${boardAndReplyMap.boardDto.content}"></textarea>
+        <input type="file" name="files" id="fileInput"
+               multiple="multiple" style="display:block;"
+               accept=" application/vnd.ms-excel,
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                        text/plain,
+                        image/*,
+                        text/html,
+                        audio/*,
+                        .pdf">
+        <label for="fileInput">SELECT FILE(S)</label>
+        <input type="button" value="Delete" onclick="deleteFiles()">
+        <div id="uploadFileList">
+          <ul th:each="uploadedFile : ${boardAndReplyMap.uploadedFiles}">
+            <input type="hidden" name="board_attach_file" th:value="${uploadedFile.board_attach_file}">
+            <a th:href="@{/download(file=${uploadedFile.board_attach_file}, student_no=${boardAndReplyMap.boardDto.student_no})}"
+               th:download="${uploadedFile.ori_file_name}">
+              <li th:text="${uploadedFile.ori_file_name}"></li>
+            </a>
+          </ul>
+        </div>
+        <script>
+          var maxFiles = 5; // 최대 첨부 파일 개수
+          var selectedFiles = []; // 선택한 파일 목록
+          var fileInput = document.getElementById("fileInput");
+          var uploadFileList = document.getElementById("uploadFileList");
+
+          document.getElementById("fileInput").addEventListener("change", function () {
+
+            uploadFileList.replaceChildren();
+            selectedFiles = [];
+            for (var i = 0; i < fileInput.files.length; i++) {
+              var file = fileInput.files[i];
+              if (selectedFiles.length >= maxFiles) {
+                alert("최대 " + maxFiles + "개의 파일까지 첨부할 수 있습니다.");
+                fileInput.value = ""; // 파일 선택 초기화
+                uploadFileList.replaceChildren();
+                return;
+              }
+              selectedFiles.push(file);
+              var fileName = file.name;
+              var fileSize = formatBytes(file.size);
+              var fileItem = document.createElement("li");
+              fileItem.textContent = fileName + " (" + fileSize + ")";
+              uploadFileList.appendChild(fileItem);
+            }
+          });
+          function deleteFiles() {
+            console.log("deleteFiles() CALLED!!")
+            if (selectedFiles != null) {
+              selectedFiles = [];
+              fileInput.value = "";
+              uploadFileList.replaceChildren();
+            }
+          }
+          function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+          }
+        </script>
         <div class="button-container">
-          <input type="submit" value="Modify" onclick="modifyContentConfirm()">
-          <input type="submit" value="Delete" onclick="deleteContentConfirm()">
-          <input type="button" value="Cancel" onclick="location.href='/board/freeBoardListForm';">
+          <input type="submit" value="수정" onclick="modifyContentConfirm()">
+          <input type="submit" value="삭제" onclick="deleteContentConfirm()">
+          <input type="button" value="목록" onclick="location.href='/board/freeBoardListForm';">
         </div>
       </form>
     </div>

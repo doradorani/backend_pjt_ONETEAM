@@ -1,10 +1,14 @@
 package com.oneteam.dormease.board;
 
+import com.oneteam.dormease.board.reply.IReplyMapper;
+import com.oneteam.dormease.board.reply.ReplyDto;
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.utils.UploadFileDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +16,12 @@ import java.util.Map;
 @Log4j2
 @Service
 public class BoardService {
-
-    @Autowired
-    IBoardMapper boardMapper;
+    private final IBoardMapper boardMapper;
+    private final IReplyMapper replyMapper;
+    public BoardService (IBoardMapper boardMapper, IReplyMapper replyMapper) {
+        this.boardMapper = boardMapper;
+        this.replyMapper = replyMapper;
+    }
 
     private static int FREE_BOARD_CATEGORY_NO = 1;
 
@@ -23,34 +30,57 @@ public class BoardService {
 
         return boardMapper.selectAllFreeBoardContent(schoolNo);
     }
-    public int writeContentConfirm(StudentDto loginedStudentDto, BoardDto boardDto) {
-        log.info("writeContentConfirm()");
 
+    public Map<String, Object> getdetailContent(int no) {
+        log.info("getdetailContent()");
+
+        BoardDto boardDto = new BoardDto();
+        List<ReplyDto> replyDtos = new ArrayList<>();
+        List<UploadFileDto> uploadedFiles = new ArrayList<>();
+        Map<String, Object> boardAndReplyMap = new HashMap();
+        int result = boardMapper.updateContentHit(no);
+
+        if (result > 0) {
+            boardDto = boardMapper.selectDetailContent(no);
+            replyDtos = replyMapper.selectReplies(no);
+            uploadedFiles = boardMapper.selectUploadedFiles(no);
+        }
+        boardAndReplyMap.put("boardDto", boardDto);
+        boardAndReplyMap.put("replyDtos", replyDtos);
+        boardAndReplyMap.put("uploadedFiles", uploadedFiles);
+
+        return boardAndReplyMap;
+    }
+
+    public int writeContentConfirm(StudentDto loginedStudentDto, BoardDto boardDto, List<UploadFileDto> uploadedFileDtos) {
+        log.info("writeContentConfirm()");
         Map<String, Object> boardDtoMap = new HashMap<>();
         // 자유게시판 카테고리 번호 DTO에 추가
         boardDto.setCategory_no(FREE_BOARD_CATEGORY_NO);
         boardDtoMap.put("studentDto", loginedStudentDto);
         boardDtoMap.put("boardDto", boardDto);
 
+        if (uploadedFileDtos.get(0).getBoard_attach_file() != null) {
+            int currentFreeBoardNo = boardMapper.selectCurrentBoardNo(FREE_BOARD_CATEGORY_NO);
+            for (int i = 0 ; i < uploadedFileDtos.size() ; i++) {
+                uploadedFileDtos.get(i).setBoard_no(currentFreeBoardNo + 1);
+            }
+            boardMapper.insertNewFile(uploadedFileDtos);
+        }
         return boardMapper.insertNewContent(boardDtoMap);
     }
 
-    public BoardDto getdetailContent(int no) {
-        log.info("getdetailContent()");
-
-        BoardDto boardDto = new BoardDto();
-        int result = boardMapper.updateContentHit(no);
-
-        if (result > 0) {
-            boardDto = boardMapper.selectDetailContent(no);
-        }
-        return boardDto;
-    }
-
-    public BoardDto getdetailContentForModify(int no) {
+    public Map<String, Object> getdetailContentForModify(int no) {
         log.info("getdetailContentForModify()");
+        Map<String, Object> boardAndReplyMap = new HashMap();
+        BoardDto boardDto = boardMapper.selectDetailContent(no);
+        System.out.println("111111111111");
+        List<UploadFileDto> uploadedFiles = boardMapper.selectUploadedFiles(no);
+        System.out.println("2222222222");
+        boardAndReplyMap.put("boardDto", boardDto);
+        boardAndReplyMap.put("uploadedFiles", uploadedFiles);
 
-        return boardMapper.selectDetailContent(no);
+        return boardAndReplyMap;
     }
 
     public int modifyContentConfirm(BoardDto boardDto) {

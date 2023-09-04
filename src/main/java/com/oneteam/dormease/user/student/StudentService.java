@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Service
 public class StudentService {
-
-    @Autowired
-    IStudentMapper studentMapper;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final IStudentMapper studentMapper;
+    private final PasswordEncoder passwordEncoder;
+    public StudentService(IStudentMapper studentMapper, PasswordEncoder passwordEncoder) {
+        this.studentMapper = studentMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public int createAccountConfirm(StudentDto studentDto) {
         log.info("createAccountConfirm()");
