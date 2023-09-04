@@ -1,54 +1,58 @@
 plugins {
-	id 'java'
-	id 'war'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.3'
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.3'
 }
 
 group = 'com.oneteam'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	// Thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	// Spring Web
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// Spring DevTools
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	// Spring Security
-	implementation "org.springframework.boot:spring-boot-starter-security"
-	// mysql
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	// lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	// mybatis
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
-	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
-	// SQL Injection
-	implementation 'com.github.rkpunjal.sqlsafe:sql-injection-safe:1.0.2'
-	// Tomcat
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	//
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// CK editor
-	implementation group: 'org.webjars', name: 'ckeditor', version: '4.16.1'
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Spring DevTools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // Spring Security
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    // mysql
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
+    // SQL Injection
+    implementation 'com.github.rkpunjal.sqlsafe:sql-injection-safe:1.0.2'
+    // Tomcat
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    //
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // CK editor
+    implementation group: 'org.webjars', name: 'ckeditor', version: '4.16.1'
+
+    // HTTPCOMPONENTS (NAVER CLOUD SMS)
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

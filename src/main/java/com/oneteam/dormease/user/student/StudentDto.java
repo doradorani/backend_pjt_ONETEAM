@@ -7,6 +7,7 @@ import lombok.Data;
 public class StudentDto {
     private @SQLInjectionSafe int no;                 // COMMENT '학생 번호'
     private @SQLInjectionSafe String id;              // COMMENT '학생 아이디'
+    private @SQLInjectionSafe String auth_no;            // COMMENT '인증번호'
     private @SQLInjectionSafe String password;        // COMMENT '학생 비밀번호'
     private @SQLInjectionSafe String phone;           // COMMENT '학생 전화번호'
     private @SQLInjectionSafe String mail;            // COMMENT '학생 메일'

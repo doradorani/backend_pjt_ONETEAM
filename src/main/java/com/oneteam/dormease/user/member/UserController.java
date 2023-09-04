@@ -1,5 +1,6 @@
 package com.oneteam.dormease.user.member;
 
+import com.oneteam.dormease.user.member.sms.SmsDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,8 @@ public class UserController {
 
         return map;
 
-    }/*
+    }
+    /*
      * 비밀번호 수정 확인
      */
     @PostMapping("/updatePasswordConfirm")
@@ -96,6 +98,43 @@ public class UserController {
         }
 
         return nextPage;
+
+    }
+
+    /*
+     * 아이디 찾기 폼
+     */
+    @GetMapping("/findIDForm")
+    public String findIDForm() {
+        log.info("findIDForm()");
+        String nextPage = "user/member/findIDForm";
+
+        return nextPage;
+
+    }
+    /*
+     * 아이디 찾기 폼
+     */
+    @PostMapping("/matchAuthentication")
+    @ResponseBody
+    public Object matchAuthentication(SmsDTO smsDTO) {
+        log.info("matchAuthentication()");
+        Map<String, Object> map = userService.matchAuthentication(smsDTO);
+
+        return map;
+
+    }
+   /*
+     * 아이디 찾기 폼
+     */
+    @PostMapping("/invalidateAuthenticationNumber")
+    @ResponseBody
+    public Object invalidateAuthenticationNumber(SmsDTO smsDTO) {
+        log.info("invalidateAuthenticationNumber()");
+
+        Map<String, Object> map = userService.invalidateAuthenticationNumber(smsDTO);
+
+        return map;
 
     }
 

@@ -6,6 +6,8 @@ import lombok.Data;
 public class ParentsDto {
     private @SQLInjectionSafe int no;                  // COMMENT '학부모 번호'
     private @SQLInjectionSafe String id;               // COMMENT '학부모 아이디'
+    private @SQLInjectionSafe String auth_no;          // COMMENT '인증번호'
+    private @SQLInjectionSafe String name;             // COMMENT '학부모 이름'
     private @SQLInjectionSafe String password;         // COMMENT '학부모 비밀번호'
     private @SQLInjectionSafe int student_no;          // COMMENT '학생 번호'
     private @SQLInjectionSafe int relation;            // COMMENT '학부모 관계'
