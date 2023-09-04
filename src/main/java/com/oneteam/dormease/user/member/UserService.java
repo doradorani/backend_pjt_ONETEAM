@@ -24,7 +24,7 @@ public class UserService {
     }
 
     public Map<String, Object> checkIdDuplication(String id) {
-        log.info("idDuplicationCheck()");
+        log.info("checkIdDuplication()");
         boolean isDuplicateID = userMapper.selectDuplicateByID(id);
         Map<String, Object> map = new HashMap<>();
         map.put("isDuplicateID", isDuplicateID);
@@ -32,8 +32,8 @@ public class UserService {
         return map;
     }
 
-    public Map<String, Object> currentPasswordCheck(String currentPassword, String no, boolean isStudent) {
-        log.info("currentPasswordCheck()");
+    public Map<String, Object> checkCurrentPassword(String currentPassword, String no, boolean isStudent) {
+        log.info("checkCurrentPassword()");
         boolean check = false;
         if (isStudent) {
             StudentDto studentDto = userMapper.selectStudentByNo(no);

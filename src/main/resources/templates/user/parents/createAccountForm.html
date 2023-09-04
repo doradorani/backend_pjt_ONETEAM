@@ -26,7 +26,7 @@
         <div class = "createAccountForm">
             <form th:action = "@{/user/parents/createAccountConfirm}" method="post" name = "createAccountForm">
                 <input type = "text" name = "id" placeholder="아이디">
-                <input type = "button" id = "duplicationCheck" value = "아이디 중복 체크"><br>
+                <input type = "button" id = "checkDuplication" value = "아이디 중복 체크"><br>
                 <p id="duplicationResult"></p>
                 <input type = "password" name = "password" placeholder="비밀번호"><br>
                 <input type = "password" name = "password_again" placeholder="비밀번호 확인"><br>
@@ -62,7 +62,7 @@
                 <select name = "school_no">
                     <option value="">---선택해주세요----</option>
                 </select>
-                <input type="hidden"name="school_name"><br>
+                <input type="hidden" name="school_name"><br>
                 학년 &nbsp;
                 <select name = "grade">
                     <option value="">---선택해주세요----</option>
@@ -73,6 +73,16 @@
                 반 &nbsp;
                 <select name = "class_no">
                     <option value="">---선택해주세요----</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select><br>
                 학생 이름
                 <select name = "student_no">

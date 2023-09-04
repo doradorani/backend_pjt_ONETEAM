@@ -76,14 +76,14 @@ public class UserController {
     /*
      * 비밀번호 수정 확인
      */
-    @PostMapping("/currentPasswordCheck")
+    @PostMapping("/checkCurrentPassword")
     @ResponseBody
-    public Object currentPasswordCheck(@RequestBody Map<String, String> msgDto) {
-        log.info("currentPasswordCheck()");
+    public Object checkCurrentPassword(@RequestBody Map<String, String> msgDto) {
+        log.info("checkCurrentPassword()");
 
         boolean isStudent = Boolean.parseBoolean(msgDto.get("isStudent"));
 
-        Map<String, Object> map = userService.currentPasswordCheck(msgDto.get("currentPassword"), msgDto.get("no"),isStudent);
+        Map<String, Object> map = userService.checkCurrentPassword(msgDto.get("currentPassword"), msgDto.get("no"),isStudent);
 
         return map;
 
