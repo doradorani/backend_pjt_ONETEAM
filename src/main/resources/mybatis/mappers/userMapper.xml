@@ -4,47 +4,99 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oneteam.dormease.user.member.IUserMapper">
     <select id="selectDuplicateByID" parameterType="String" resultType="boolean">
-        select
-            count(*)
-        from
-            (select id
-         from student
-         union
-         select id
-         from parents) a
-        where
-            id = #{id}
+        SELECT count(*)
+        FROM (SELECT id
+              FROM student
+              UNION
+              SELECT id
+              FROM parents
+              UNION
+              SELECT id
+              FROM admin) a
+        WHERE id = #{id}
     </select>
-    <select id="selectStudentByNo" parameterType="String" resultType="com.oneteam.dormease.user.student.StudentDto">
-        select
-            *
-        from
-            student
-        where
+    <select id="selectStudentByNo" parameterType="String">
+        SELECT *
+        FROM student
+        WHERE
             no = #{no}
     </select>
-    <select id="selectParentByNo" parameterType="String" resultType="com.oneteam.dormease.user.parents.ParentsDto">
-        select
-            *
-        from
-            parents
-        where
+    <select id="selectParentByNo" parameterType="String">
+        SELECT *
+        FROM parents
+        WHERE
             no = #{no}
     </select>
     <update id="updateStudentPassword" parameterType="String">
-    update
+        UPDATE
         student
-    set
-        password = #{password}
-    where
-        no = #{no}
+        set password = #{password}
+        <where>
+            <if test="no != 0">
+                no = #{no}
+            </if>
+            <if test="id != 0">
+                id = #{id}
+            </if>
+        </where>
     </update>
     <update id="updateParentPassword" parameterType="String">
-        update
+        UPDATE
             parents
-        set
-            password = #{password}
-        where
-            no = #{no}
+        SET password = #{password}
+        <where>
+            <if test="no != 0">
+                no = #{no}
+            </if>
+            <if test="id != 0">
+                id = #{id}
+            </if>
+        </where>
     </update>
+    <update id="updateStudentAuthNoBySmsDto" parameterType="SmsDTO">
+        UPDATE
+        student
+        SET auth_no = #{content}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </update>
+    <update id="updateParentAuthNoBySmsDto" parameterType="SmsDTO">
+        UPDATE
+        parents
+        SET auth_no = #{content}
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </update>
+    <select id="selectStudentBySmsDto" parameterType="SmsDTO">
+        SELECT *
+        FROM student
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </select>
+    <select id="selectParentBySmsDto" parameterType="SmsDTO">
+        SELECT *
+        FROM parents
+        <where>
+            name = #{name}
+            AND phone = #{to}
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </select>
 </mapper>

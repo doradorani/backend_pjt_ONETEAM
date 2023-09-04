@@ -3,7 +3,6 @@ package com.oneteam.dormease.user.student;
 import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class StudentController {
     public String createAccountForm() {
         log.info("createAccountForm()");
 
-        String nextPage = "/user/student/createAccountForm";
+        String nextPage = "user/student/createAccountForm";
 
         return nextPage;
 
@@ -38,7 +37,7 @@ public class StudentController {
     public String createAccountConfirm(StudentDto studentDto, Model model) {
         log.info("createAccountConfirm()");
 
-        String nextPage = "/user/student/createAccountResult";
+        String nextPage = "user/student/createAccountResult";
 
         int result = studentService.createAccountConfirm(studentDto);
 
@@ -80,7 +79,7 @@ public class StudentController {
     public String modifyAccountForm(HttpSession session, Model model){
         log.info("modifyAccountForm()");
 
-        String nextPage = "/user/student/modifyAccountForm";
+        String nextPage = "user/student/modifyAccountForm";
 
         StudentDto loginedStudentDto = (StudentDto)session.getAttribute("loginedStudentDto");
 
@@ -93,7 +92,7 @@ public class StudentController {
     public String modifyAccountConfirm(HttpSession session, Model model){
         log.info("modifyAccountConfirm()");
 
-        String nextPage = "/user/student/modifyAccountResult";
+        String nextPage = "user/student/modifyAccountResult";
 
         StudentDto loginedStudentDto = (StudentDto)session.getAttribute("loginedStudentDto");
 
@@ -141,7 +140,7 @@ public class StudentController {
     public String leaveOutForm() {
         log.info("leaveOutForm()");
 
-        String nextPage = "/user/student/leaveOutForm";
+        String nextPage = "user/student/leaveOutForm";
 
         return nextPage;
     }

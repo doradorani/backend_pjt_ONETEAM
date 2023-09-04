@@ -1,8 +1,7 @@
 package com.oneteam.dormease.user.member;
 
-import jakarta.servlet.http.HttpSession;
+import com.oneteam.dormease.user.member.sms.SmsDTO;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,11 +76,12 @@ public class UserController {
 
         return map;
 
-    }/*
+    }
+    /*
      * 비밀번호 수정 확인
      */
     @PostMapping("/updatePasswordConfirm")
-    public String updatePassword(@RequestParam("no") String no, @RequestParam String newPassword, @RequestParam boolean isStudent) {
+    public String updatePassword(@RequestParam(value = "no", required = false) String no, @RequestParam String newPassword, @RequestParam boolean isStudent) {
         log.info("updatePassword()");
 
         int result = userService.updatePassword(no, newPassword, isStudent);
@@ -97,6 +97,56 @@ public class UserController {
         return nextPage;
 
     }
+
+    /*
+     * 아이디 찾기 폼
+     */
+    @GetMapping("/findIDForm")
+    public String findIDForm() {
+        log.info("findIDForm()");
+        String nextPage = "user/member/findIDForm";
+
+        return nextPage;
+
+    }
+    /*
+     * 비밀번호 찾기 폼
+     */
+    @GetMapping("/findPasswordForm")
+    public String findPasswordForm() {
+        log.info("findPasswordForm()");
+        String nextPage = "user/member/findPasswordForm";
+
+        return nextPage;
+
+    }
+    /*
+     * 인증번호 확인
+     */
+    @PostMapping("/matchAuthentication")
+    @ResponseBody
+    public Object matchAuthentication(SmsDTO smsDTO, @RequestParam boolean isStudent) {
+        log.info("matchAuthentication()");
+        smsDTO.setStudent(isStudent);
+        Map<String, Object> map = userService.matchAuthentication(smsDTO);
+
+        return map;
+
+    }
+   /*
+     * 인증번호 무효화
+     */
+    @PostMapping("/invalidateAuthenticationNumber")
+    @ResponseBody
+    public Object invalidateAuthenticationNumber(SmsDTO smsDTO, @RequestParam boolean isStudent) {
+        log.info("invalidateAuthenticationNumber()");
+        smsDTO.setStudent(isStudent);
+        Map<String, Object> map = userService.invalidateAuthenticationNumber(smsDTO);
+
+        return map;
+
+    }
+   
 
 
 
