@@ -15,9 +15,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user/student")
 public class StudentController {
-
-    @Autowired
-    StudentService studentService;
+    private final StudentService studentService;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
     
     /*
      *  회원 가입

@@ -11,17 +11,4 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ApiController {
 
-    @Autowired
-    ApiService apiService;
-
-    @Scheduled(cron = "")
-    @RequestMapping(value = "apitest", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object callApi() {
-        log.info("callApi()");
-
-        StringBuilder result = new StringBuilder();
-
-
-        return "Object";
-    }
 }

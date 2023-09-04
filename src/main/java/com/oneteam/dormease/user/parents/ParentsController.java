@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.spring6.processor.SpringObjectTagProcessor;
 
+import javax.swing.text.html.parser.Parser;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +16,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user/parents")
 public class ParentsController {
-
-    @Autowired
-    ParentsService parentsService;
+    private final ParentsService parentsService;
+    public ParentsController (ParentsService parentsService) {
+        this.parentsService = parentsService;
+    }
 
     /*
      *  회원 가입
