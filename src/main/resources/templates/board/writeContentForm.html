@@ -45,6 +45,7 @@
         <div id="fileInfo" ></div>
         <script>
           var maxFiles = 5; // 최대 첨부 파일 개수
+          var maxFileSize = 25600000; // 최대 파일 크기 (25MB)
           var selectedFiles = []; // 선택한 파일 목록
           var fileInput = document.getElementById("fileInput");
           var fileInfo = document.getElementById("fileInfo");
@@ -55,8 +56,16 @@
             selectedFiles = [];
             for (var i = 0; i < fileInput.files.length; i++) {
               var file = fileInput.files[i];
+              // 최대 업로드 파일 개수 확인
               if (selectedFiles.length >= maxFiles) {
                 alert("최대 " + maxFiles + "개의 파일까지 첨부할 수 있습니다.");
+                fileInput.value = ""; // 파일 선택 초기화
+                fileInfo.replaceChildren();
+                return;
+              }
+              // 업로드 파일 용량 확인
+              if (file.size > maxFileSize) {
+                alert("파일 크기는 " + formatBytes(maxFileSize) + "를 초과할 수 없습니다.");
                 fileInput.value = ""; // 파일 선택 초기화
                 fileInfo.replaceChildren();
                 return;
