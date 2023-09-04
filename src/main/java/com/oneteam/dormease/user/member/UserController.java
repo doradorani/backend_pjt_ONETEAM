@@ -18,27 +18,38 @@ public class UserController {
     }
 
     /*
-     * 로그인 폼
+     * 학교 이름 검색
      */
 
+    @GetMapping("/searchSchoolName")
+    @ResponseBody
+    public Object searchSchoolName(@RequestParam String name){
+        log.info("searchSchoolName()");
+
+       return userService.searchSchoolName(name);
+
+    }
+    /*
+     * 로그인 폼
+     */
 
     @GetMapping("/loginForm")
     public String loginForm(){
         log.info("loginForm()");
 
-        return "/user/loginForm";
+        return "user/loginForm";
     }
 
     /*
      * 아이디 중복 여부 체크
      */
 
-    @GetMapping("/idDuplicationCheck")
+    @GetMapping("/checkIdDuplication")
     @ResponseBody
-    public Object idDuplicationCheck(@RequestParam String id) {
-        log.info("idDuplicationCheck()");
+    public Object checkIdDuplication(@RequestParam String id) {
+        log.info("checkIdDuplication()");
 
-        Map<String, Object> map = userService.idDuplicationCheck(id);
+        Map<String, Object> map = userService.checkIdDuplication(id);
 
         return map;
 
@@ -65,14 +76,14 @@ public class UserController {
     /*
      * 비밀번호 수정 확인
      */
-    @PostMapping("/currentPasswordCheck")
+    @PostMapping("/checkCurrentPassword")
     @ResponseBody
-    public Object currentPasswordCheck(@RequestBody Map<String, String> msgDto) {
-        log.info("currentPasswordCheck()");
+    public Object checkCurrentPassword(@RequestBody Map<String, String> msgDto) {
+        log.info("checkCurrentPassword()");
 
         boolean isStudent = Boolean.parseBoolean(msgDto.get("isStudent"));
 
-        Map<String, Object> map = userService.currentPasswordCheck(msgDto.get("currentPassword"), msgDto.get("no"),isStudent);
+        Map<String, Object> map = userService.checkCurrentPassword(msgDto.get("currentPassword"), msgDto.get("no"),isStudent);
 
         return map;
 

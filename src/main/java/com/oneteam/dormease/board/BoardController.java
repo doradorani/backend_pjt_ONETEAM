@@ -40,7 +40,7 @@ public class BoardController {
                                     @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("freeBoardListForm()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-        int schoolNo = loginedStudentDto.getSchool_no();
+        int schoolNo = Integer.parseInt(loginedStudentDto.getSchool_no());
         Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
         String nextPage = "board/freeBoardListForm";
 

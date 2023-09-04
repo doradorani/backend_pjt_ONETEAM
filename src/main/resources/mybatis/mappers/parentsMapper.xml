@@ -10,6 +10,21 @@
             id, password, student_no, relation, phone, mail, zip_code, address, address_detail1, address_detail2, reg_date, mod_date
         ) values (#{id}, #{password}, #{student_no}, #{relation}, #{phone}, #{mail}, #{zip_code}, #{address}, #{address_detail1}, #{address_detail2},now(), now())
     </insert>
+    <select id="selectStudents">
+        SELECT
+            *
+        FROM
+            student
+        <where>
+            school_name = #{school_name}
+            <if test="grade != null">
+                AND grade = #{grade}
+            </if>
+            <if test="class_no != null">
+                AND class_no = #{class_no}
+            </if>
+        </where>
+    </select>
     <select id="selectParentByID">
         select
             *

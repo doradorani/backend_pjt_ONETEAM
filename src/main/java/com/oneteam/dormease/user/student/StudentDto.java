@@ -18,7 +18,7 @@ public class StudentDto {
     private @SQLInjectionSafe String address_detail1; // COMMENT '학생 상세 주소1'
     private @SQLInjectionSafe String address_detail2; // COMMENT '학생 상세 주소2'
     private @SQLInjectionSafe String parent;          // COMMENT '부모'
-    private @SQLInjectionSafe int school_no;          // COMMENT '학교 번호'
+    private @SQLInjectionSafe String school_no;       // COMMENT '학교 번호'
     private @SQLInjectionSafe String school_name;     // COMMENT '학교 이름'
     private @SQLInjectionSafe int grade;              // COMMENT '학생 학년'
     private @SQLInjectionSafe int class_no;           // COMMENT '학생 반'
