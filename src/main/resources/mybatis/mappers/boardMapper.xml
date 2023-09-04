@@ -37,6 +37,7 @@
 
     </select>
 
+
     <select id="selectAllFreeBoardContent" parameterType="Integer">
 
         SELECT
@@ -56,6 +57,8 @@
             f.category_no = 1
         AND
             f.status = 1
+        LIMIT
+            #{criteria.pageNum}, #{criteria.skip}
 
     </select>
 
@@ -93,6 +96,19 @@
 
     </select>
 
+
+    <select id="selectUploadedFilesForModify" parameterType="int">
+
+        SELECT
+            *
+        FROM
+            free_board_upload_file
+        WHERE
+            board_no = #{no}
+        ORDER BY no ASC
+
+    </select>
+
     <update id="updateContentHit" parameterType="Integer">
 
         UPDATE
@@ -104,7 +120,14 @@
 
     </update>
 
+    <delete id="deleteFilesForModify" parameterType="Integer">
 
+        DELETE FROM
+            free_board_upload_file
+        WHERE
+            board_no = #{board_no}
+
+    </delete>
 
     <update id="updateContent" parameterType="com.oneteam.dormease.board.BoardDto">
 
@@ -130,4 +153,12 @@
 
     </update>
 
+    <select id="selectCountOfContent" parameterType="Integer" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            free_board
+        WHERE
+            school_no = #{schoolNo}
+    </select>
 </mapper>

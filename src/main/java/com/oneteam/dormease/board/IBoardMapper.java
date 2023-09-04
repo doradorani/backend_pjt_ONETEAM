@@ -1,6 +1,7 @@
 package com.oneteam.dormease.board;
 
 import com.oneteam.dormease.utils.UploadFileDto;
+import com.oneteam.dormease.utils.pagination.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,11 +12,11 @@ public interface IBoardMapper {
 
     int insertNewContent(Map<String, Object> boardDtoMap);
 
-    void insertNewFile(List<UploadFileDto> UploadFileDtos);
+    int insertNewFile(List<UploadFileDto> UploadFileDtos);
 
     int selectCurrentBoardNo(int no);
 
-    List<BoardDto> selectAllFreeBoardContent(String schoolNo);
+    List<BoardDto> selectAllFreeBoardContent(int schoolNo, Criteria criteria);
 
     int updateContentHit(int no);
 
@@ -23,8 +24,11 @@ public interface IBoardMapper {
 
     List<UploadFileDto> selectUploadedFiles(int no);
 
+    int deleteFilesForModify(int boardNoForModify);
+
     int updateContent(BoardDto boardDto);
 
     int updateContentForDelete(int no);
 
+    int selectCountOfContent(int schoolNo);
 }
