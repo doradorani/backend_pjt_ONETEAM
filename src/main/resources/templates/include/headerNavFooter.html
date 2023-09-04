@@ -8,12 +8,12 @@
                 <a th:text="${session.loginedStudentDto.school_name}"></a>
             </div>
             <div class="headerMenu">
-                <input type="radio" name="headerMenu" value="홈">홈
-                <input type="radio" name="headerMenu" value="게시판">게시판
-                <input type="radio" name="headerMenu" value="외출">외출
-                <input type="radio" name="headerMenu" value="매점">매점
-                <input type="radio" name="headerMenu" value="세탁">세탁
-                <input type="radio" name="headerMenu" value="내 정보">내 정보
+                <input type="radio" id="home" name="headerMenu" value="홈"><label for="home">홈</label>
+                <input type="radio" id="notice" name="headerMenu" value="게시판"><label for="notice">공지사항</label>
+                <input type="radio" id="leavePass" name="headerMenu" value="외출"><label for="leavePass">외박신청</label>
+                <input type="radio" id="shop" name="headerMenu" value="매점"><label for="shop">매점</label>
+                <input type="radio" id="board" name="headerMenu" value="세탁"><label for="board">자유게시판</label>
+                <input type="radio" id="myInfo" name="headerMenu" value="내 정보"><label for="myInfo">내 정보</label>
             </div>
             <div class="memberWrap" th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
                 <a th:href="@{/user/member/loginForm}">로그인</a>

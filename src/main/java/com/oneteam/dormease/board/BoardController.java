@@ -4,6 +4,8 @@ import com.oneteam.dormease.board.reply.ReplyService;
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.UploadFileService;
+import com.oneteam.dormease.utils.pagination.PageDefine;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -33,13 +35,20 @@ public class BoardController {
      * 자유 게시판 게시글 리스트 페이지
      */
     @GetMapping("/freeBoardListForm")
-    public String freeBoardListForm(HttpSession session, Model model) {
+    public String freeBoardListForm(HttpSession session, Model model,
+                                    @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("freeBoardListForm()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
         int schoolNo = loginedStudentDto.getSchool_no();
-        List<BoardDto> boardDtos = boardService.getAllFreeBoardContent(schoolNo);
+        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
         String nextPage = "board/freeBoardListForm";
+
+        List<BoardDto> boardDtos = (List<BoardDto>) resultMap.get("boardDtos");
+        PageMakerDto pageMakerDto = (PageMakerDto) resultMap.get("pageMakerDto");
+
         model.addAttribute("boardDtos", boardDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
 
         return nextPage;
     }
@@ -78,12 +87,11 @@ public class BoardController {
                                       BoardDto boardDto) {
         log.info("writeContentConfirm()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-//        UploadFileDto uploadedfileDto = null;
         int result = -1;
 
         try {
             List<UploadFileDto> uploadedFileDtos = new ArrayList<>();
-            if (files != null || !files.isEmpty()) {
+            if (files != null && !files.isEmpty()) {
                 for (MultipartFile file : files) {
                     String fileOriName = file.getOriginalFilename();
                     // SAVE FILES
@@ -125,10 +133,37 @@ public class BoardController {
      * 게시글 수정 컨펌
      */
     @PostMapping("/modifyContentConfirm")
-    public String modifyContentConfirm(BoardDto boardDto, Model model) {
+    public String modifyContentConfirm(@RequestParam(value = "files", required = false)  List<MultipartFile> files,
+                                       @RequestParam(value = "board_attach_file", required = false) List<String> board_attach_file,
+                                       HttpSession session,
+                                       BoardDto boardDto,
+                                       Model model) {
         log.info("modifyContentConfirm()");
+        StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
         String nextPage = "board/modifyContentResult";
-        int result = boardService.modifyContentConfirm(boardDto);
+        int result = -1;
+        if (loginedStudentDto.getNo() == boardDto.getStudent_no()) {
+            try {
+                List<UploadFileDto> uploadedFileDtos = new ArrayList<>();
+                if (files != null && !files.isEmpty()) {
+                    for (MultipartFile file : files) {
+                        String fileOriName = file.getOriginalFilename();
+                        // SAVE FILES
+                        if (fileOriName != "") {
+                            UploadFileDto uploadedFileDto = uploadFileService.upload(loginedStudentDto.getId(), file);
+                            uploadedFileDto.setBoard_attach_file(uploadedFileDto.getBoard_attach_file());
+                            if (uploadedFileDto != null) {
+                                // 업로드된 파일 정보를 리스트에 추가
+                                uploadedFileDtos.add(uploadedFileDto);
+                            }
+                        }
+                    }
+                }
+                result = boardService.modifyContentConfirm(boardDto, uploadedFileDtos, board_attach_file);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
         model.addAttribute("result", result);
 
         return nextPage;
@@ -138,7 +173,7 @@ public class BoardController {
      * 게시글 삭제 컨펌
      */
     @GetMapping("/deleteContentConfirm")
-    public String deleteContentConfirm(int no, Model model) {
+    public String deleteContentConfirm(@RequestParam(value = "board_no", required = false) int no, Model model) {
         log.info("deleteContentConfirm()");
         String nextPage = "board/deleteContentResult";
         int result = boardService.deleteContentConfirm(no);

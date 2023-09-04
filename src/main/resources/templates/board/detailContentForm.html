@@ -61,7 +61,7 @@
           </ul>
         </div>
         <div class="button-container">
-          <input type="submit" value="수정">
+          <input type="submit" value="수정" th:if="${session.loginedStudentDto.no==boardAndReplyMap.boardDto.student_no}">
           <input type="submit" value="삭제" onclick="deleteContentConfirm()">
           <input type="button" value="취소" onclick="location.href='/board/freeBoardListForm';">
         </div>

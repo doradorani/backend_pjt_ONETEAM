@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:replace="~{/include/title.html::title}">
+    <title th:replace="~{/include/title.html::title}"></title>
 
-    </title>
+    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
+    <link rel="stylesheet" th:href="@{/css/user/loginForm.css}">
+
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
     <script th:replace="~{/include/member/loginFormJs.html::js}" type="text/javascript"></script>
-
-
 </head>
 <body>
 
-<header th:replace="~{/include/headerNavFooter.html::header}">
-</header>
-
-
-<nav th:replace="~{/include/headerNavFooter.html::nav}">
-
-</nav>
-
 <section>
     <div id = "sectionWrap">
-        <div class="word">
-            로그인
+        <div class="logo">
+            <a th:href="@{/}">
+            <img src="/imgs/no_background_logo_test.png" >
+            </a>
         </div>
-        <div class ="loginConfirmResult"></div>
-        <div class = "loginForm">
-            <form th:action="@{/user/student/loginConfirm}" method="post" id = "loginForm" name = "loginForm">
-                <label><input type="radio" name="student" value="학생" checked="checked">학생</label>&nbsp;
-                <label><input type="radio" name="parents" value="학부모" >학부모</label><br>
+        <form th:action="@{/user/student/loginConfirm}" method="post" id = "loginForm" name = "loginForm">
+            <div class = "loginForm">
+<!--                <ul>-->
+<!--                    <li>학생 로그인</li>-->
+<!--                    <li>학부모 로그인</li>-->
+<!--                </ul>-->
+                <span><label><input type="radio" name="student" value="학생" checked="checked">학생</label></span>
+                <span><label><input type="radio" name="parents" value="학부모" >학부모</label><br></span>
                 <input type = "text" name = "id" placeholder="아이디"><br>
                 <input type = "password" name = "password" placeholder="비밀번호"><br>
-                <input type = "button" value="login">
-                <input type = "reset" value="reset">
-            </form>
-        </div>
+                <br>
+                <input type = "button" value="로그인">
+            </div>
+            <!-- 비밀번호 찾기, 아이디 찾기, 회원가입 -->
+            <div class="findMember">
+                <a href="#none">회원가입</a>
+                |
+                <a href="#none">아이디 찾기</a>
+                |
+                <a href="#none">비밀번호 찾기</a>
+            </div>
+        </form>
     </div>
 </section>
 
