@@ -3,7 +3,7 @@
 <head>
     <title th:replace="~{/include/title.html::title}"></title>
 
-<!--    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">-->
+    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
     <link rel="stylesheet" th:href="@{/css/user/loginForm.css}">
 
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
@@ -20,6 +20,9 @@
         </div>
         <form th:action="@{/user/student/loginConfirm}" method="post" id = "loginForm" name = "loginForm">
             <div class = "loginForm">
+                <div class="loginConfirmResult">
+
+                </div>
                 <label class="loginRadio">
                     <input type="radio" name="student" value="학생" checked="checked">
                     <span>학생</span>
@@ -39,9 +42,9 @@
             <div class="findMember">
                 <a href="#none">회원가입</a>
                 |
-                <a href="#none">아이디 찾기</a>
+                <a th:href="@{/user/member/findIDForm}">아이디 찾기</a>
                 |
-                <a href="#none">비밀번호 찾기</a>
+                <a th:href="@{/user/member/findPasswordForm}">비밀번호 찾기</a>
             </div>
         </form>
     </div>

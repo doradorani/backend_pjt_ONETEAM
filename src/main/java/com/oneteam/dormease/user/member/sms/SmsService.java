@@ -3,6 +3,7 @@ package com.oneteam.dormease.user.member.sms;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oneteam.dormease.user.member.IUserMapper;
+import com.oneteam.dormease.user.student.IStudentMapper;
 import com.oneteam.dormease.utils.GenerateCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +34,7 @@ import java.util.List;
 public class SmsService {
 
     private final IUserMapper userMapper;
+    private final IStudentMapper studentMapper;
     private final PasswordEncoder passwordEncoder;
 
     private final String doesNotExistDataInDatabase = "1";
@@ -163,6 +165,7 @@ public class SmsService {
                 userMapper.updateParentPassword("0", smsDTO.getId(),passwordEncoder.encode(password));
             }
             smsDTO.setContent("임시 비밀번호는 "+ password + "입니다.");
+            userMapper.updateFailCount(smsDTO);
         }
         SmsResponseDTO response = buildRequestDto(smsDTO, headers);
 
