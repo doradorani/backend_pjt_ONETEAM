@@ -26,17 +26,20 @@ public class BoardService {
 
     private static int FREE_BOARD_CATEGORY_NO = 1;
 
-    public Map<String, Object> getAllFreeBoardContent(int schoolNo,int pageNum, int amount) {
+    public Map<String, Object> getAllFreeBoardContent(String schoolNo,int pageNum, int amount) {
         log.info("getAllFreeBoardContent()");
         Criteria criteria = new Criteria(pageNum, amount);
-        List<BoardDto> boardDtos = boardMapper.selectAllFreeBoardContent(schoolNo, criteria);
+        Map<String, Object> map = new HashMap<>();
+        map.put("schoolNo", schoolNo);
+        map.put("criteria", criteria);
+        List<BoardDto> boardDtos = boardMapper.selectAllFreeBoardContent(map);
         int totalCnt = boardMapper.selectCountOfContent(schoolNo);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
 
-        map.put("boardDtos", boardDtos);
-        map.put("pageMakerDto", pageMakerDto);
+        resultMap.put("boardDtos", boardDtos);
+        resultMap.put("pageMakerDto", pageMakerDto);
 
         return map;
     }
