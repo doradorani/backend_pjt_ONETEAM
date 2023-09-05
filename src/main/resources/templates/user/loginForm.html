@@ -3,7 +3,7 @@
 <head>
     <title th:replace="~{/include/title.html::title}"></title>
 
-    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/headerFooter.css}">-->
     <link rel="stylesheet" th:href="@{/css/user/loginForm.css}">
 
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
@@ -20,12 +20,16 @@
         </div>
         <form th:action="@{/user/student/loginConfirm}" method="post" id = "loginForm" name = "loginForm">
             <div class = "loginForm">
-<!--                <ul>-->
-<!--                    <li>학생 로그인</li>-->
-<!--                    <li>학부모 로그인</li>-->
-<!--                </ul>-->
-                <span><label><input type="radio" name="student" value="학생" checked="checked">학생</label></span>
-                <span><label><input type="radio" name="parents" value="학부모" >학부모</label><br></span>
+                <label class="loginRadio">
+                    <input type="radio" name="student" value="학생" checked="checked">
+                    <span>학생</span>
+                </label>
+                <label class="loginRadio">
+                    <input type="radio" name="parents" value="학부모" >
+                    <span>학부모</span>
+                </label>
+                <br>
+                <br>
                 <input type = "text" name = "id" placeholder="아이디"><br>
                 <input type = "password" name = "password" placeholder="비밀번호"><br>
                 <br>
