@@ -14,4 +14,6 @@ public interface IParentsMapper {
     int deleteParentByNo(int no);
 
     List<StudentDto> selectStudents(StudentDto studentDto);
+
+    void updateFailCount(ParentsDto parentsDto);
 }
