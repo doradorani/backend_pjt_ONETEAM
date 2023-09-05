@@ -10,20 +10,41 @@
         ) VALUES (
                     #{id}, #{password}, #{name}, #{phone}, #{mail}, #{gender}, #{zip_code}, #{address}, #{address_detail1}, #{address_detail2}, #{school_no}, #{school_name}, #{grade}, #{class_no}, #{eigen_no}, now(), now())
     </insert>
-    <select id="selectStudentByID" parameterType="String" resultType="com.oneteam.dormease.user.student.StudentDto">
+    <select id="selectStudentByID" parameterType="String">
         SELECT
-            *
+            s.*,
+            i.zip_code as school_zip_code
         FROM
+            student s
+        JOIN
+            schoolInfo i
+        ON
+            s.school_no = i.school_code
+        WHERE
+            s.id = #{id} and s.status = 1
+    </select>
+    <update id="updateFailCount" parameterType="StudentDto">
+        UPDATE
             student
+        <set>
+            <if test="no == 0">
+                fail_count = fail_count + 1
+            </if>
+            <if test="no != 0">
+                fail_count = 0
+            </if>
+        </set>
         WHERE
             id = #{id}
-    </select>
-    <delete id="deleteStudentByNo" parameterType="Integer">
-        DELETE FROM
-            student
-        WHERE
+    </update>
+    <update id="deleteStudentByNo" parameterType="Integer">
+        UPDATE
+            parents
+        SET
+            status = 0
+        where
             no = #{no}
-    </delete>
+    </update>
     <insert id="insertNewLeaveOut">
         INSERT INTO
             leave_pass(

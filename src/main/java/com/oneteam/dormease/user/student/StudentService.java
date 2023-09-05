@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Log4j2
 @Service
 public class StudentService {
@@ -26,21 +29,34 @@ public class StudentService {
         return result;
     }
 
-    public StudentDto loginConfirm(StudentDto studentDto) {
+    public Map<String, Object> loginConfirm(StudentDto studentDto) {
         log.info("loginConfirm()");
 
         StudentDto loginedStudentDto = studentMapper.selectStudentByID(studentDto.getId());
-
+        Map<String, Object> map = new HashMap<>();
         if(loginedStudentDto != null) {
             if (!passwordEncoder.matches(studentDto.getPassword(), loginedStudentDto.getPassword())) {
+                studentMapper.updateFailCount(studentDto);
+                map.put("fail_count", loginedStudentDto.getFail_count() + 1);
+                map.put("result", false);
                 loginedStudentDto = null;
             } else {
-                loginedStudentDto.setPassword(null);
+                if(loginedStudentDto.getFail_count() >=5){
+                    map.put("fail_count", loginedStudentDto.getFail_count());
+                    loginedStudentDto = null;
+                    map.put("result", false);
+                } else {
+                    loginedStudentDto.setPassword(null);
+                    studentMapper.updateFailCount(loginedStudentDto);
+                    loginedStudentDto.setFail_count(0);
+                    map.put("fail_count", 0);
+                    map.put("result", true);
+                }
             }
-
         }
+        map.put("loginedStudentDto", loginedStudentDto);
 
-        return loginedStudentDto;
+        return map;
 
     }
 

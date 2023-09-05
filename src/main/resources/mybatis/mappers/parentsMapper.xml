@@ -26,16 +26,24 @@
         </where>
     </select>
     <select id="selectParentByID">
-        select
-            *
-        from
-            parents
-        where id = #{id}
+        SELECT
+            p.*,
+            s.school_no
+        FROM
+            parents p
+        JOIN
+            student s
+        ON
+            p.student_no = s.no
+        WHERE
+            p.id = #{id}
     </select>
-    <delete id="deleteParentByNo">
-        delete from
+    <update id="deleteParentByNo">
+        UPDATE
             parents
+        SET
+            status = 0
         where
             no = #{no}
-    </delete>
+    </update>
 </mapper>

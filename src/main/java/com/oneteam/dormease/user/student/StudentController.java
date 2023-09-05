@@ -57,16 +57,12 @@ public class StudentController {
     public Object loginConfirm(StudentDto studentDto, HttpSession session) {
         log.info("loginConfirm()");
 
-        StudentDto loginedStudentDto = studentService.loginConfirm(studentDto);
-        Map<String, Object> map = new HashMap<>();
-
+         Map<String, Object> map = studentService.loginConfirm(studentDto);
+         StudentDto loginedStudentDto = (StudentDto) map.get("loginedStudentDto");
         if(loginedStudentDto != null){
             session.setAttribute("loginedStudentDto", loginedStudentDto);
             session.setMaxInactiveInterval(30*60);
-
-            map.put("result", true);
         } else {
-            map.put("result", false);
         }
 
         return map;

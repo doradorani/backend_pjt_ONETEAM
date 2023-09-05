@@ -16,12 +16,11 @@
         WHERE id = #{id}
     </select>
     <select id="selectSchoolsByName" parameterType="String">
-        SELECT DISTINCT
-            info.*,
-            excel.address
+        SELECT DISTINCT info.*,
+                        excel.address
         FROM schoolInfo info
-        JOIN school_Excel excel
-        ON info.zip_code = excel.zip_code
+                 JOIN school_Excel excel
+                      ON info.zip_code = excel.zip_code
         WHERE info.school_name LIKE CONCAT('%', #{name}, '%')
         ORDER BY info.school_name ASC;
     </select>
@@ -109,4 +108,17 @@
             </if>
         </where>
     </select>
+    <update id="updateFailCount" parameterType="SmsDTO">
+        UPDATE
+        <if test="isStudent == true">
+            student
+        </if>
+        <if test="isStudent == false">
+            parents
+        </if>
+        SET
+        fail_count = 0
+        WHERE
+        id = #{id} AND phone = #{to}
+    </update>
 </mapper>
