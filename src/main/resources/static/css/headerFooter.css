@@ -2,6 +2,7 @@
     width: 100%;
     background-color: white;
     display: block;
+    margin-bottom: 0px;
 }
 
 .headerContainer {
@@ -54,4 +55,60 @@
 .select input[type=radio]:checked+label{
     background-color: #333;
     color: #fff;
+}
+
+.headerMenuBar label.headerRadio {
+    margin-bottom: 20px;
+}
+
+.headerRadio input[type="radio"] {
+    display: flex;
+}
+
+.headerRadio input[type='radio']:first-child {
+    display: none;
+}
+
+.headerRadio input[type='radio'] + span.menuBar {
+    justify-content: space-between;
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 50px;
+    min-height: 50px;
+    margin: 2px 10px;
+    display: inline-block;
+    background: none;
+    border: white;
+    padding: 0px 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.2em;
+    font-weight: bolder;
+    cursor: pointer;
+    border-radius: 30px;
+    color: rgba(62, 62, 62, 0.8);
+}
+
+.headerRadio input[type='radio']:first-child + span:first-child {
+    margin-right: 20px;
+}
+
+.headerRadio input[type='radio']:checked + span {
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    border-bottom: transparent;
+    color: transparent;
+    -webkit-background-clip: text, border;
+    font-size: 1.4em;
+}
+
+.headerRadio input[type='radio']:hover + span {
+    font-size: 1.4em;
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    border-bottom: transparent;
+    color: transparent;
+    -webkit-background-clip: text, border;
+}
+
+.memberWrap a {
+    font-size: 0.9em;
 }

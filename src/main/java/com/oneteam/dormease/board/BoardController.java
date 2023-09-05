@@ -48,12 +48,11 @@ public class BoardController {
         } else if (loginedParentsDto != null) {
             schoolNo = loginedParentsDto.getSchool_no();
         }
-        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
-        String nextPage = "board/freeBoardListForm";
+        Map<String, Object> resultMap = boardService.getAllFreeBoardContent("1", pageNum, amount);
 
+        String nextPage = "board/freeBoardListForm";
         List<BoardDto> boardDtos = (List<BoardDto>) resultMap.get("boardDtos");
         PageMakerDto pageMakerDto = (PageMakerDto) resultMap.get("pageMakerDto");
-
         model.addAttribute("boardDtos", boardDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
 

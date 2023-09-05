@@ -38,7 +38,7 @@
     </select>
 
 
-    <select id="selectAllFreeBoardContent" parameterType="Map">
+    <select id="selectAllFreeBoardContent">
 
         SELECT
             f.*,

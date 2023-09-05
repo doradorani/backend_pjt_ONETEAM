@@ -30,6 +30,8 @@ public class LikeController {
             likeDto.setUser_id(loginedParentsDto.getId());
         }
 
-        return likeService.registLike(likeDto);
+//        return likeService.registLike(likeDto);
+        return null;
     }
+
 }

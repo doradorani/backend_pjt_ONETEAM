@@ -34,14 +34,13 @@ public class BoardService {
         map.put("criteria", criteria);
         List<BoardDto> boardDtos = boardMapper.selectAllFreeBoardContent(map);
         int totalCnt = boardMapper.selectCountOfContent(schoolNo);
+
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
-
         Map<String, Object> resultMap = new HashMap<>();
-
         resultMap.put("boardDtos", boardDtos);
         resultMap.put("pageMakerDto", pageMakerDto);
 
-        return map;
+        return resultMap;
     }
 
     public Map<String, Object> getdetailContent(int no) {
