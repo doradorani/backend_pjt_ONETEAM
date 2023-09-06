@@ -168,8 +168,7 @@ input[type="email"] {
 input[type="button"] {
     height: 40px;
     padding: 10px 20px;
-    background: linear-gradient( to bottom, #0593fc, #036bb4);
-    -webkit-background-clip: background, border;
+    background: linear-gradient(to bottom, #0593fc, #036bb4);
     color: #fff;
     border: none;
     border-radius: 5px;
