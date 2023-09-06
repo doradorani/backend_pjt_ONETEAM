@@ -4,6 +4,8 @@ import com.oneteam.dormease.user.member.sms.SmsDTO;
 import com.oneteam.dormease.user.parents.ParentsDto;
 import com.oneteam.dormease.user.school.SchoolDto;
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -31,4 +33,8 @@ public interface IUserMapper {
 
 
     void updateFailCount(SmsDTO smsDTO);
+
+    List<LeavePassDto> selectLeavePass(PageMakerDto pageMakerDto);
+
+    int selectLeavePassesCount(int no);
 }

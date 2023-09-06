@@ -1,6 +1,10 @@
 package com.oneteam.dormease.user.parents;
 
+import com.oneteam.dormease.user.member.IUserMapper;
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
+import com.oneteam.dormease.utils.pagination.Criteria;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -15,10 +19,14 @@ import java.util.Map;
 @Service
 public class ParentsService {
     private final IParentsMapper parentsMapper;
+
+    private final IUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    public ParentsService (IParentsMapper parentsMapper, PasswordEncoder passwordEncoder) {
+
+    public ParentsService(IParentsMapper parentsMapper, PasswordEncoder passwordEncoder, IUserMapper userMapper) {
         this.parentsMapper = parentsMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public int createAccountConfirm(ParentsDto parentsDto) {
@@ -36,14 +44,14 @@ public class ParentsService {
 
         ParentsDto loginedParentsDto = parentsMapper.selectParentByID(parentsDto.getId());
         Map<String, Object> map = new HashMap<>();
-        if(loginedParentsDto != null) {
+        if (loginedParentsDto != null) {
             if (!passwordEncoder.matches(parentsDto.getPassword(), loginedParentsDto.getPassword())) {
                 parentsMapper.updateFailCount(parentsDto);
                 map.put("fail_count", loginedParentsDto.getFail_count() + 1);
                 map.put("result", false);
                 loginedParentsDto = null;
             } else {
-                if(loginedParentsDto.getFail_count() >=5){
+                if (loginedParentsDto.getFail_count() >= 5) {
                     map.put("fail_count", loginedParentsDto.getFail_count());
                     loginedParentsDto = null;
                     map.put("result", false);
@@ -70,9 +78,23 @@ public class ParentsService {
     public Object searchStudents(StudentDto studentDto) {
         log.info("searchStudents()");
         Map<String, Object> map = new HashMap<>();
-        List<StudentDto> studentDtos =  parentsMapper.selectStudents(studentDto);
+        List<StudentDto> studentDtos = parentsMapper.selectStudents(studentDto);
         map.put("studentDtos", studentDtos);
 
+        return map;
+    }
+
+    public Map<String, Object> leavePassList(int no, int pageNum, int amount) {
+        log.info("leavePassList()");
+        Map<String, Object> map = new HashMap<>();
+        Criteria criteria = new Criteria(pageNum, amount);
+        int total = userMapper.selectLeavePassesCount(no);
+
+        PageMakerDto pageMakerDto = new PageMakerDto(String.valueOf(no), criteria, total);
+        List<LeavePassDto> leavePassDtos = userMapper.selectLeavePass(pageMakerDto);
+
+        map.put("pageMakerDto", pageMakerDto);
+        map.put("leavePassDtos", leavePassDtos);
         return map;
     }
 }

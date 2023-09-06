@@ -1,6 +1,7 @@
 package com.oneteam.dormease.user.student;
 
 import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
+import com.oneteam.dormease.utils.pagination.PageDefine;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -154,6 +156,36 @@ public class StudentController {
         if(result <= 0){
             nextPage = "redirect:/user/student/leaveOutForm";
         }
+
+        return nextPage;
+    }
+    /*
+     * 외박 신청 내역
+     */
+    @GetMapping("/leavePassList")
+    public String leavePassList(Model model, HttpSession session,
+                                @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
+        log.info("leavePassList()");
+
+        String nextPage = "user/student/leavePassList";
+        StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
+        Map<String,Object> map = studentService.leavePassList(loginedStudentDto.getNo(), pageNum, amount);
+
+        model.addAttribute("leavePassDtos", map.get("leavePassDtos"));
+        model.addAttribute("pageMakerDto", map.get("pageMakerDto"));
+
+        return nextPage;
+    }
+    /*
+     * 외박 신청 내역
+     */
+    @GetMapping("/deleteLeavePass")
+    public String deleteLeavePass(Model model, @RequestParam int no) {
+        log.info("deleteLeavePass()");
+        String nextPage = "user/student/deleteLeavePassResult";
+        int result = studentService.deleteLeavePass(no);
+        model.addAttribute("result", result);
 
         return nextPage;
     }

@@ -1,22 +1,28 @@
 package com.oneteam.dormease.user.student;
 
+import com.oneteam.dormease.user.member.IUserMapper;
 import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
+import com.oneteam.dormease.utils.pagination.Criteria;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
 @Service
 public class StudentService {
     private final IStudentMapper studentMapper;
+
+    private final IUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    public StudentService(IStudentMapper studentMapper, PasswordEncoder passwordEncoder) {
+    public StudentService(IStudentMapper studentMapper, PasswordEncoder passwordEncoder, IUserMapper userMapper) {
         this.studentMapper = studentMapper;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public int createAccountConfirm(StudentDto studentDto) {
@@ -74,6 +80,29 @@ public class StudentService {
         log.info("leaveOutConfirm()");
 
         int result = studentMapper.insertNewLeaveOut(leavePassDto);
+
+        return result;
+    }
+
+    public Map<String,Object> leavePassList(int no, int pageNum, int amount) {
+        log.info("leavePassList()");
+        Map<String, Object> map = new HashMap<>();
+        Criteria criteria = new Criteria(pageNum, amount);
+        int total = userMapper.selectLeavePassesCount(no);
+
+        PageMakerDto pageMakerDto = new PageMakerDto(String.valueOf(no),criteria, total);
+        List<LeavePassDto> leavePassDtos = userMapper.selectLeavePass(pageMakerDto);
+
+        map.put("pageMakerDto", pageMakerDto);
+        map.put("leavePassDtos", leavePassDtos);
+
+        return map;
+    }
+
+    public int deleteLeavePass(int no) {
+        log.info("deleteLeavePass()");
+
+        int result = studentMapper.deleteLeavePassByNo(no);
 
         return result;
     }

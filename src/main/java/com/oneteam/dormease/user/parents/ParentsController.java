@@ -1,6 +1,8 @@
 package com.oneteam.dormease.user.parents;
 
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.utils.pagination.PageDefine;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -130,6 +132,25 @@ public class ParentsController {
         map.put("result", result);
 
         return map;
+    }
+
+    /*
+     * 외박 신청 폼
+     */
+    @GetMapping("/leavePassList")
+    public String leavePassList(Model model, HttpSession session,
+                                @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
+        log.info("leavePassList()");
+
+        String nextPage = "user/parents/leavePassList";
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        Map<String, Object> map = parentsService.leavePassList(loginedParentsDto.getStudent_no(), pageNum, amount);
+
+        model.addAttribute("leavePassDtos", map.get("leavePassDtos"));
+        model.addAttribute("pageMakerDto", map.get("pageMakerDto"));
+
+        return nextPage;
     }
 
 }
