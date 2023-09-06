@@ -2,6 +2,7 @@ package com.oneteam.dormease.board;
 
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.pagination.Criteria;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface IBoardMapper {
 
     int selectCurrentBoardNo(int no);
 
-    List<BoardDto> selectAllFreeBoardContent(Map<String, Object> map);
+    List<BoardDto> selectAllFreeBoardContent(Map<String, Object> pageMakerDto);
 
     int updateContentHit(int no);
 
@@ -30,5 +31,5 @@ public interface IBoardMapper {
 
     int updateContentForDelete(int no);
 
-    int selectCountOfContent(String schoolNo);
+    int selectCountOfContent(Map<String, Object> map);
 }

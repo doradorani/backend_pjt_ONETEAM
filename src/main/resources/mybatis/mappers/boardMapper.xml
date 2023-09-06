@@ -4,46 +4,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oneteam.dormease.board.IBoardMapper">
 
-    <select id="selectAllFreeBoardContent">
-
+    <select id="selectAllFreeBoardContent" parameterType="Map">
         SELECT
-            f.*,
-            s.name
+        f.*,
+        s.name
         AS
-            student_name
+        student_name
         FROM
-            free_board f
+        free_board f
         INNER JOIN
-            student s
+        student s
         ON
-            f.student_no = s.no
+        f.student_no = s.no
         WHERE
-            f.school_no = #{schoolNo}
+        f.school_no = #{pageMakerDto.keyWord}
         AND
-            f.category_no = 1
+        f.category_no = 1
         AND
-            f.status = 1
+        f.status = 1
+        <if test="keyWord != null">
+            <if test='!search.equals("name")'>
+                AND f.${search} LIKE CONCAT('%', #{keyWord}, '%')
+            </if>
+            <if test='search.equals("name")'>
+                AND s.name LIKE CONCAT('%', #{keyWord}, '%')
+            </if>
+        </if>
         LIMIT
-            #{criteria.skip}, #{criteria.amount}
+        #{pageMakerDto.criteria.skip}, #{pageMakerDto.criteria.amount}
 
     </select>
 
-    <select id="selectCountOfContent" parameterType="String" resultType="Integer">
+    <select id="selectCountOfContent" parameterType="Map" resultType="Integer">
         SELECT
-            COUNT(*)
+        COUNT(*)
         FROM
-            free_board
+        free_board f
+        INNER JOIN
+        student s
+        ON
+        f.student_no = s.no
         WHERE
-            school_no = #{schoolNo}
+        f.school_no = #{schoolNo}
+        AND
+        f.category_no = 1
+        AND
+        f.status = 1
+        <if test="keyWord != null">
+            <if test='!search.equals("name")'>
+                AND f.${search} LIKE CONCAT('%', #{keyWord}, '%')
+            </if>
+            <if test='search.equals("name")'>
+                AND s.name LIKE CONCAT('%', #{keyWord}, '%')
+            </if>
+        </if>
     </select>
 
     <insert id="insertNewContent" parameterType="map">
 
-        INSERT INTO
-            free_board (
-            school_no, student_no, category_no, title, content, reg_date, mod_date )
-        VALUES (
-            #{studentDto.school_no}, #{studentDto.no}, 1, #{boardDto.title}, #{boardDto.content}, NOW(), NOW())
+        INSERT INTO free_board (school_no, student_no, category_no, title, content, reg_date, mod_date)
+        VALUES (#{studentDto.school_no}, #{studentDto.no}, 1, #{boardDto.title}, #{boardDto.content}, NOW(), NOW())
 
     </insert>
 
@@ -54,7 +74,7 @@
         board_no, ori_file_name, board_attach_file, dir_name)
         VALUES
         <foreach collection="list" item="item" separator=",">
-        (#{item.board_no}, #{item.ori_file_name}, #{item.board_attach_file}, #{item.dir_name})
+            (#{item.board_no}, #{item.ori_file_name}, #{item.board_attach_file}, #{item.dir_name})
         </foreach>
 
     </insert>
@@ -66,52 +86,41 @@
         from
             free_board
         ORDER BY no DESC
-        LIMIT 1
+            LIMIT 1
 
     </select>
 
     <select id="selectDetailContent" parameterType="int">
 
-        SELECT
-            f.*,
-            s.name
-        AS
-            student_name
-        FROM
-            free_board f
-        INNER JOIN
-            student s
-        ON
-            f.student_no = s.no
-        WHERE
-            f.no = #{no}
-        AND
-            f.category_no = 1
-        AND
-            f.status = 1
+        SELECT f.*,
+               s.name
+                   AS
+                   student_name
+        FROM free_board f
+                 INNER JOIN
+             student s
+             ON
+                 f.student_no = s.no
+        WHERE f.no = #{no}
+          AND f.category_no = 1
+          AND f.status = 1
 
     </select>
 
     <select id="selectUploadedFiles" parameterType="int">
 
-        SELECT
-            *
-        FROM
-            free_board_upload_file
-        WHERE
-            board_no = #{no}
+        SELECT *
+        FROM free_board_upload_file
+        WHERE board_no = #{no}
         ORDER BY no ASC
 
     </select>
 
     <select id="selectUploadedFilesForModify" parameterType="int">
 
-        SELECT
-            *
-        FROM
-            free_board_upload_file
-        WHERE
-            board_no = #{no}
+        SELECT *
+        FROM free_board_upload_file
+        WHERE board_no = #{no}
         ORDER BY no ASC
 
     </select>
@@ -120,8 +129,7 @@
 
         UPDATE
             free_board
-        SET
-            hit = hit+1
+        SET hit = hit + 1
         WHERE
             no = #{no}
 
@@ -129,10 +137,9 @@
 
     <delete id="deleteFilesForModify" parameterType="Integer">
 
-        DELETE FROM
-            free_board_upload_file
-        WHERE
-            board_no = #{board_no}
+        DELETE
+        FROM free_board_upload_file
+        WHERE board_no = #{board_no}
 
     </delete>
 
@@ -140,9 +147,8 @@
 
         UPDATE
             free_board
-        SET
-            title = #{title},
-            content = #{content},
+        SET title    = #{title},
+            content  = #{content},
             mod_date = #{mod_date}
         WHERE
             no = #{no}
@@ -153,8 +159,7 @@
 
         UPDATE
             free_board
-        SET
-            status = 0
+        SET status = 0
         WHERE
             no = #{no}
 

@@ -79,8 +79,10 @@
       console.log('page number CLICK HANDLER');
 
       let pageNum = $(this).data('pagenum');
+      let keyWord = [[${keyWord}]];
+      let search = [[${search}]];
 
-      location.href = '/board/freeBoardListForm?pageNum=' + pageNum;
+      location.href = '/board/freeBoardListForm?pageNum=' + pageNum + "&keyWord="+keyWord + "&search="+ search;
 
     });
 
@@ -90,6 +92,9 @@
 
       let targetPageNum = $('#section_wrap input[name="page_target_num"]').val();
       let totalPageNum = $('#section_wrap span.page_total_num').text();
+
+        let keyWord = [[${keyWord}]];
+        let search = [[${search}]];
 
       if (targetPageNum == '' || targetPageNum == ' ' || targetPageNum == null) {
         alert('이동하고자 하는 페이지 숫자를 입력하세요!');
@@ -110,8 +115,30 @@
 
       }
 
-      location.href = '/board/freeBoardListForm?pageNum=' + targetPageNum;
+      location.href = '/board/freeBoardListForm?pageNum=' + targetPageNum + "&keyWord="+keyWord + "&search="+ search;
 
+    });
+
+    $(document).on('click', "button.bt_search", function (){
+        console.log('bt_search BUTTON CLICK HANDLER');
+
+        var search_no = $('select[name="search_no"]').find(":selected").val();
+        var keyWord = $("#keyword").val();
+        console.log(search_no);
+        console.log(keyWord);
+        var search;
+
+        if(search_no == 1){
+            search = "title";
+        } else if (search_no == 2){
+            search = "content";
+        } else if (search_no == 3){
+            search = "name";
+        }
+        console.log(search_no);
+        console.log(search);
+
+        location.href = "/board/freeBoardListForm?search="+search+"&keyWord="+keyWord;
     });
 
   }

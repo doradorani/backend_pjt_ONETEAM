@@ -87,7 +87,7 @@ public class ProductService {
 
         List<ProductOrderDto> productOrderDtos = productMapper.paymentHistory(productListDto);
         int totalCnt = productMapper.dayCount(id);
-        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+        PageMakerDto pageMakerDto = new PageMakerDto(null, criteria, totalCnt);
 
         list.put("productOrderDtos", productOrderDtos);
         list.put("pageMakerDto", pageMakerDto);

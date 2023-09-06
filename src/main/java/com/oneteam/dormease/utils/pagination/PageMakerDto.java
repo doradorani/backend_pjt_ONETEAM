@@ -1,8 +1,5 @@
 package com.oneteam.dormease.utils.pagination;
 
-import lombok.Data;
-
-@Data
 public class PageMakerDto {
 
     private int startPage;          // 시작 페이지
@@ -13,28 +10,6 @@ public class PageMakerDto {
     private Criteria criteria;      // 현재 페이지, 페이지당 게시물 정보
 
     private String keyWord;         // 키워드
-
-    public PageMakerDto(Criteria criteria, int total) {
-
-        this.criteria = criteria;
-        this.total = total;
-
-        this.endPage = (int) (Math.ceil(criteria.getPageNum() / 10.0)) * 10;
-        this.startPage = this.endPage - 9;
-
-        int realEnd = (int) (Math.ceil(total * 1.0 / criteria.getAmount()));
-
-        if (realEnd < this.endPage)
-            this.endPage = realEnd;
-
-        this.prev = this.startPage > 1;
-        this.next = this.endPage < realEnd;
-
-        this.totalPage = total / criteria.getAmount();
-        if (total % criteria.getAmount() != 0)
-            totalPage += 1;
-
-    }
 
     public PageMakerDto(String keyWord, Criteria criteria, int total) {
 
@@ -75,6 +50,10 @@ public class PageMakerDto {
     public void setEndPage(int endPage) {
         this.endPage = endPage;
     }
+
+    public String getKeyWord() { return keyWord; }
+
+    public void setKeyWord(String keyWord) { this.keyWord = keyWord; }
 
     public boolean isPrev() {
         return prev;
