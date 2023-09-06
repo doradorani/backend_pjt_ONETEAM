@@ -1,8 +1,6 @@
 package com.oneteam.dormease.user.parents;
 
 import com.oneteam.dormease.user.student.StudentDto;
-import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
-import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.List;
 public interface IParentsMapper {
     int insertNewParent(ParentsDto parentsDto);
 
-    ParentsDto selectParentByID(String id);
+    ParentsDto selectParent(ParentsDto parentsDto);
 
     int deleteParentByNo(int no);
 
@@ -19,7 +17,5 @@ public interface IParentsMapper {
 
     void updateFailCount(ParentsDto parentsDto);
 
-    int selectLeavePassesCount(int no);
-
-    List<LeavePassDto> selectLeavePass(PageMakerDto pageMakerDto);
+    void updateParent(ParentsDto parentsDto);
 }

@@ -6,8 +6,6 @@ import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
 import com.oneteam.dormease.utils.pagination.Criteria;
 import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +40,7 @@ public class ParentsService {
     public Map<String, Object> loginConfirm(ParentsDto parentsDto) {
         log.info("loginConfirm()");
 
-        ParentsDto loginedParentsDto = parentsMapper.selectParentByID(parentsDto.getId());
+        ParentsDto loginedParentsDto = parentsMapper.selectParent(parentsDto);
         Map<String, Object> map = new HashMap<>();
         if (loginedParentsDto != null) {
             if (!passwordEncoder.matches(parentsDto.getPassword(), loginedParentsDto.getPassword())) {
@@ -96,5 +94,14 @@ public class ParentsService {
         map.put("pageMakerDto", pageMakerDto);
         map.put("leavePassDtos", leavePassDtos);
         return map;
+    }
+
+    public ParentsDto modifyAccountConfirm(ParentsDto parentsDto) {
+        log.info("modifyAccountConfirm()");
+
+        parentsMapper.updateParent(parentsDto);
+        ParentsDto loginedParentsDto = parentsMapper.selectParent(parentsDto);
+
+        return loginedParentsDto;
     }
 }

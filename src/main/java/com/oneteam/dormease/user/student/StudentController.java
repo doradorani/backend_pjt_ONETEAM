@@ -87,14 +87,17 @@ public class StudentController {
     }
 
     @PostMapping("/modifyAccountConfirm")
-    public String modifyAccountConfirm(HttpSession session, Model model){
+    public String modifyAccountConfirm(StudentDto studentDto, Model model, HttpSession session){
         log.info("modifyAccountConfirm()");
 
         String nextPage = "user/student/modifyAccountResult";
+        StudentDto loginedStudentDto = studentService.modifyAccountConfirm(studentDto);
+        if(loginedStudentDto != null){
+            session.setAttribute("loginedStudentDto",loginedStudentDto);
+            model.addAttribute("result", 1);
+        } else
+            model.addAttribute("result", 0);
 
-        StudentDto loginedStudentDto = (StudentDto)session.getAttribute("loginedStudentDto");
-
-        model.addAttribute("loginedStudentDto", loginedStudentDto);
 
         return nextPage;
     }
@@ -120,11 +123,13 @@ public class StudentController {
      */
     @GetMapping("/deleteConfirm")
     @ResponseBody
-    public Object deleteConfirm(@RequestParam int no){
+    public Object deleteConfirm(HttpSession session, @RequestParam int no){
         log.info("deleteConfirm()");
 
         int result = studentService.deleteConfirm(no);
-
+        if(result > 0){
+            session.removeAttribute("loginedStudentDto");
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("result", result);
 

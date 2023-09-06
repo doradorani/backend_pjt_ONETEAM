@@ -106,4 +106,13 @@ public class StudentService {
 
         return result;
     }
+
+    public StudentDto modifyAccountConfirm(StudentDto studentDto) {
+        log.info("modifyAccountConfirm()");
+
+        studentMapper.updateStudent(studentDto);
+        StudentDto loginedStudentDto = studentMapper.selectStudentByID(studentDto.getId());
+
+        return loginedStudentDto;
+    }
 }
