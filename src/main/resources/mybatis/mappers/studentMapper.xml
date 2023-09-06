@@ -21,8 +21,22 @@
         ON
             s.school_no = i.school_code
         WHERE
-            s.id = #{id} and s.status = 1
+            s.id = #{id} AND s.status = 1
     </select>
+    <update id="updateStudent" parameterType="StudentDto">
+    UPDATE
+        student
+    SET
+        phone = #{phone},
+        mail = #{mail},
+        gender = #{gender},
+        zip_code = #{zip_code},
+        address = #{address},
+        address_detail1 = #{address_detail1},
+        address_detail2 = #{address_detail2}
+    WHERE
+        no = #{no}
+    </update>
     <update id="updateFailCount" parameterType="StudentDto">
         UPDATE
             student
@@ -43,5 +57,15 @@
             leave_pass
         WHERE
             no = #{no}
+        AND
+            start_date <![CDATA[>]]> CURRENT_DATE()
     </delete>
+    <update id="deleteStudentByNo" parameterType="Integer">
+        UPDATE
+            student
+        SET
+            status = 0
+        where
+            no = #{no}
+    </update>
 </mapper>
