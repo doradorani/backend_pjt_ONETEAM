@@ -30,17 +30,18 @@
 
     <insert id="registProductConfirm" parameterType="java.util.List">
         insert into
-            productOrder(
-            id,
-            img,
-            name,
-            count,
-            price,
-            sum,
-            allsum,
-            reg_date,
-            mod_date
-        )
+            product_order(
+                        id,
+                        img,
+                        name,
+                        count,
+                        price,
+                        sum,
+                        allsum,
+                        reg_date,
+                        reg_date_trim,
+                        mod_date
+            )
         values
             <foreach collection="list" item="item" separator=", ">
                 (
@@ -52,10 +53,41 @@
                 #{item.sum},
                 #{item.allsum},
                 NOW(),
+                CONCAT('trim', DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')),
                 NOW()
                 )
             </foreach>
     </insert>
+
+    <select id="paymentHistory" resultType="com.oneteam.dormease.product.ProductOrderDto">
+        SELECT
+            DISTINCT reg_date, reg_date_trim, allsum
+        FROM
+            product_order
+        WHERE
+            id = #{id}
+        ORDER BY reg_date DESC
+        LIMIT #{skip}, #{amount}
+    </select>
+
+    <select id="dayCount" resultType="Integer">
+        SELECT
+            COUNT(DISTINCT reg_date)
+        FROM
+            product_order
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="detailHistory" resultType="com.oneteam.dormease.product.ProductOrderDto">
+        SELECT
+            *
+        FROM
+            product_order
+        WHERE
+            id = #{id} AND
+            reg_date like CONCAT('%',#{regDate},'%')
+    </select>
 
 
 

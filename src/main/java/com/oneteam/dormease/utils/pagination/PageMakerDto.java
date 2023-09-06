@@ -1,5 +1,8 @@
 package com.oneteam.dormease.utils.pagination;
 
+import lombok.Data;
+
+@Data
 public class PageMakerDto {
 
     private int startPage;          // 시작 페이지
@@ -72,10 +75,6 @@ public class PageMakerDto {
     public void setEndPage(int endPage) {
         this.endPage = endPage;
     }
-
-    public String getKeyWord() { return keyWord; }
-
-    public void setKeyWord(String keyWord) { this.keyWord = keyWord; }
 
     public boolean isPrev() {
         return prev;

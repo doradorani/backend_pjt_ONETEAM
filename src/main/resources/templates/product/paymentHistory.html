@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+  <link rel="stylesheet" th:href="@{/css/product/home.css}">
+  <link rel="stylesheet" th:href="@{/css/product/list.css}">
+
+  <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+  <script th:replace="~{/include/product/paymentHistory_js.html::js}" type="text/javascript"></script>
+
+</head>
+<body>
+
+<header th:replace="~{/include/headerNavFooter.html::header}">
+</header>
+
+<section>
+  <div id="section_wrap">
+
+    <!-- WORD START -->
+    <div class="word">
+      내역 리스트<br>
+      total &nbsp;&nbsp; <span th:text="${pageMakerDto.total}"></span>
+    </div>
+    <!-- WORD END -->
+
+    <!-- SEARCH START -->
+<!--    <div class="search_wrap">-->
+<!--      <div class="search_area">-->
+<!--        <input type="text" name="keyword">-->
+<!--        <button onclick="search();">Search</button>-->
+<!--      </div>-->
+<!--    </div>-->
+    <!-- SEARCH END -->
+
+<!--    <div class="search_all_wrap">-->
+<!--      <a th:href="@{/product/productNotice}">전체 보기</a>-->
+<!--    </div>-->
+
+    <div id="paymentHistory" class="product_list">
+      <div th:each="productOrderDto : ${productOrderDtos}">
+
+        <div class="reg_date" th:id="${productOrderDto.reg_date}">
+          <div class="reg_date_trim" th:id="${productOrderDto.reg_date_trim}">
+            <span class="reg_date" th:text="${productOrderDto.reg_date}"></span>
+            <span class="allsum" th:text="'최종 가격 : ' + ${productOrderDto.allsum}"></span>
+          </div>
+
+
+        </div>
+        <br>
+
+      </div>
+    </div>
+
+    <br><br>
+
+    <!-- PAGENATION START -->
+    <div class="page_wrap">
+
+      <div class="page_number">
+
+      </div>
+
+    </div>
+    <!-- PAGENATION END -->
+
+  </div>
+</section>
+
+
+</body>
+</html>

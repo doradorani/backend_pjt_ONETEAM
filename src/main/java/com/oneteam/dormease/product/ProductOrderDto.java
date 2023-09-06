@@ -15,6 +15,8 @@ public class ProductOrderDto {
     private @SQLInjectionSafe int sum;                  //COMMENT '상품 별 총 합계'
     private @SQLInjectionSafe int allsum;               //COMMENT '총 합계'
     private @SQLInjectionSafe String reg_date;          //COMMENT '등록 날짜'
+    private @SQLInjectionSafe String reg_date_trim;     //COMMENT '등록 날짜 공백제거'
     private @SQLInjectionSafe String mod_date;          //COMMENT '수정 날짜'
+
 
 }
