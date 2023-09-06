@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.spring6.processor.SpringUErrorsTagProcessor;
 
 import java.util.Map;
 
@@ -158,7 +159,16 @@ public class UserController {
 
     }
    
+    /*
+     * 회원가입 분기처리 페이지
+     */
+    @GetMapping("/beforeCreateAccount")
+    public String beforeCreateAccount() {
+        log.info("beforeCreateAccount()");
+        String nextPage = "user/beforeCreateAccount";
 
+        return nextPage;
+    }
 
 
 }

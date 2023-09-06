@@ -17,11 +17,12 @@ body {
 .section-wrap > div {
     display: inline-block;
     align-items: flex-start;
-    margin-top: 100px;
+    margin-top: 15px;
 }
 
 .flex {
     display: flex;
+    /*margin-bottom: 20px; !* 두 요소 사이의 공백 조정 *!*/
 }
 
 .flex > div{
