@@ -45,8 +45,8 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     //
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // CK editor
-    implementation group: 'org.webjars', name: 'ckeditor', version: '4.16.1'
+    // CK editor 5
+
 
     // HTTPCOMPONENTS (NAVER CLOUD SMS)
     // https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
