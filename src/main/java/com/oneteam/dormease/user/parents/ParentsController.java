@@ -1,15 +1,14 @@
 package com.oneteam.dormease.user.parents;
 
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.utils.pagination.PageDefine;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring6.processor.SpringObjectTagProcessor;
 
-import javax.swing.text.html.parser.Parser;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,8 @@ import java.util.Map;
 @RequestMapping("/user/parents")
 public class ParentsController {
     private final ParentsService parentsService;
-    public ParentsController (ParentsService parentsService) {
+
+    public ParentsController(ParentsService parentsService) {
         this.parentsService = parentsService;
     }
 
@@ -35,6 +35,7 @@ public class ParentsController {
         return nextPage;
 
     }
+
     @GetMapping("/searchStudents")
     @ResponseBody
     public Object searchStudents(StudentDto studentDto) {
@@ -66,18 +67,13 @@ public class ParentsController {
     public Object loginConfirm(ParentsDto parentsDto, HttpSession session) {
         log.info("loginConfirm()");
 
-        ParentsDto loginedParentsDto = parentsService.loginConfirm(parentsDto);
-
-        Map<String, Object> map = new HashMap<>();
-
-        if(loginedParentsDto != null){
+        Map<String, Object> map = parentsService.loginConfirm(parentsDto);
+        ParentsDto loginedParentsDto = (ParentsDto) map.get("loginedParentsDto");
+        if (loginedParentsDto != null) {
             session.setAttribute("loginedParentsDto", loginedParentsDto);
-            session.setMaxInactiveInterval(30*60);
-            map.put("result", true);
-        } else {
-            map.put("result", false);
+            session.setMaxInactiveInterval(30 * 60);
         }
-    return map;
+        return map;
 
     }
 
@@ -85,43 +81,42 @@ public class ParentsController {
      * 회원 수정
      */
     @GetMapping("/modifyAccountForm")
-    public String modifyAccountForm(HttpSession session, Model model){
+    public String modifyAccountForm(HttpSession session, Model model) {
         log.info("modifyAccountForm()");
-
-        String nextPage = "/user/parents/modifyAccountForm";
-
-        ParentsDto loginedParentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
-
-        model.addAttribute("loginedparentsDto", loginedParentsDto);
+        String nextPage = "user/parents/modifyAccountForm";
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        model.addAttribute("loginedParentsDto", loginedParentsDto);
 
         return nextPage;
     }
 
     @PostMapping("/modifyAccountConfirm")
-    public String modifyAccountConfirm(HttpSession session, Model model){
+    public String modifyAccountConfirm(HttpSession session, Model model, ParentsDto parentsDto) {
         log.info("modifyAccountConfirm()");
 
-        String nextPage = "/user/parents/modifyAccountResult";
+        String nextPage = "user/parents/modifyAccountResult";
 
-        ParentsDto loginedParentsDto = (ParentsDto)session.getAttribute("loginedparentsDto");
-
-        model.addAttribute("loginedparentsDto", loginedParentsDto);
+        ParentsDto loginedParentsDto = parentsService.modifyAccountConfirm(parentsDto);
+        if(loginedParentsDto != null){
+            session.setAttribute("loginedParentsDto", loginedParentsDto);
+            session.setMaxInactiveInterval(30 * 60);
+            model.addAttribute("result", 1);
+        } else
+            model.addAttribute("result", 0);
 
         return nextPage;
     }
-
-
 
     /*
      * 로그 아웃
      */
     @GetMapping("/logoutConfirm")
-    public String logoutConfirm(HttpSession session){
+    public String logoutConfirm(HttpSession session) {
         log.info("logoutConfirm()");
 
         String nextPage = "redirect:/";
 
-        session.removeAttribute("loginedparentsDto");
+        session.removeAttribute("loginedParentsDto");
 
         return nextPage;
     }
@@ -131,15 +126,36 @@ public class ParentsController {
      */
     @GetMapping("/deleteConfirm")
     @ResponseBody
-    public Object deleteConfirm(@RequestParam int no){
+    public Object deleteConfirm(HttpSession session,@RequestParam int no) {
         log.info("deleteConfirm()");
-
         int result = parentsService.deleteConfirm(no);
-
+        if(result > 0){
+            session.removeAttribute("loginedParentsDto");
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("result", result);
 
+
         return map;
+    }
+
+    /*
+     * 외박 신청 폼
+     */
+    @GetMapping("/leavePassList")
+    public String leavePassList(Model model, HttpSession session,
+                                @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
+        log.info("leavePassList()");
+
+        String nextPage = "user/parents/leavePassList";
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        Map<String, Object> map = parentsService.leavePassList(loginedParentsDto.getStudent_no(), pageNum, amount);
+
+        model.addAttribute("leavePassDtos", map.get("leavePassDtos"));
+        model.addAttribute("pageMakerDto", map.get("pageMakerDto"));
+
+        return nextPage;
     }
 
 }

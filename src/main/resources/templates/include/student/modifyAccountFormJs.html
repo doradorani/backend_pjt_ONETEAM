@@ -1,4 +1,4 @@
-<script th:fragment="js" type="text/javascript">
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
 
   $(document).ready(function() {
     console.log('DOCUMENT READY!!');
@@ -32,24 +32,31 @@
 
     });
 
+    phoneValue();
 
-    // let form = document.modifyAccountForm;
-    //
-    // let loginedStudentDto = [[${session.loginedStudentDto}]];
-    //
-    // let phone = loginedStudentDto.phone;
-    //
-    // form.phone3.value = phone.substring(phone.length - 4, phone.length);
-    // form.phone1.value = phone.substring(0,3);
-    // form.phone2.value = phone.substring(3,phone.length - form.phone3.value.length);
-    //
-    // $("#phone1 option").val("010").prop("selected", true);
-    // $("#phone1 option").val("011").prop("selected", true);
-    // $("#phone1 option").val("016").prop("selected", true);
-    // $("#phone1 option").val("017").prop("selected", true);
-    // $("#phone1 option").val("019").prop("selected", true);
+}
+function phoneValue(){
+      console.log("phoneValue()");
 
+    let form = document.modifyAccountForm;
 
+    let loginedStudentDto = [[${session.loginedStudentDto}]];
+
+    let phone = loginedStudentDto.phone;
+    var mail = loginedStudentDto.mail;
+    var mails = mail.split('@');
+
+    var phone3 = phone.substring(phone.length - 4, phone.length);
+    var phone1 = phone.substring(0,3);
+    var phone2 = phone.substring(3 ,(phone.length - phone3.length));
+
+    form.phone1.value = phone1;
+    $("#phone1").val(phone1).prop("selected", true);
+
+    $('input[name="phone3"]').val(phone3);
+    $('input[name="phone2"]').val(phone2);
+    $('input[name="mail1"]').val(mails[0]);
+    $("select[name='mail2']").val(mails[1]).prop("selected", true);
 }
 
 
@@ -63,12 +70,6 @@ function modifyAccountConfirm() {
         form.id.focus();
     } else if(form.password.value == ''){
         alert("비밀번호를 입력해주세요!");
-        form.password.focus();
-    } else if(form.password_again.value == ''){
-        alert("비밀번호 확인을 다시 입력해주세요!");
-        form.password_again.focus();
-    } else if(form.password.value != form.password_again.value){
-        alert("비밀번호와 비밀번호 확인이 맞지 않습니다.");
         form.password.focus();
     } else if(form.name.value == ''){
         alert("이름을 입력해주세요!");
@@ -103,9 +104,15 @@ function modifyAccountConfirm() {
     } else if(form.eigen_no.value == ''){
         alert("번호를 입력해주세요!");
         form.eigen_no.focus();
+    } else if(form.zip_code.value == ''){
+        alert("주소를 입력해주세요!");
+        form.zip_code.focus();
     } else if(form.address.value == ''){
         alert("주소를 입력해주세요!");
         form.address.focus();
+    } else if(form.address_detail1.value == ''){
+        alert("주소를 입력해주세요!");
+        form.address_detail1.focus();
     } else {
         form.phone.value = (form.phone1.value + form.phone2.value + form.phone3.value);
         form.mail.value =(form.mail1.value + '@'+ form.mail2.value);
@@ -140,7 +147,6 @@ function modifyAccountConfirm() {
                   location.href = "/";
               } else {
                   alert("탈퇴를 실패했습니다.");
-                  location.href = "redirect:/user/student/modifyAccountForm";
               }
 
           },

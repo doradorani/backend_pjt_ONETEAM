@@ -209,14 +209,48 @@ body {
     max-width: 150px;
 }
 
-.loginForm label {
-    display: block;
-    margin-bottom: 10px;
+.loginForm label.loginRadio {
+    margin-bottom: 20px;
 }
 
-.loginForm input[type="radio"] {
-    margin-right: 5px;
+.loginRadio input[type="radio"] {
+    display: flex;
 }
+
+.loginRadio input[type='radio']:first-child {
+    display: none;
+}
+
+.loginRadio input[type='radio'] + span {
+    justify-content: space-between;
+    max-width: 180px;
+    min-width: 180px;
+    max-height: 50px;
+    min-height: 50px;
+    margin: 2px 10px;
+    display: inline-block;
+    background: none;
+    border: 1px solid #dfdfdf;
+    padding: 0px 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    color: rgba(62, 62, 62, 0.8);
+}
+
+.loginRadio input[type='radio']:first-child + span:first-child {
+    margin-right: 20px;
+}
+
+.loginRadio input[type='radio']:checked + span {
+    border: 1px solid #3085d6;
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    color: #fff;
+}
+
 
 .loginForm input[type="text"],
 .loginForm input[type="password"] {
@@ -231,25 +265,25 @@ body {
 .loginForm input[type="button"] {
     width: 100%;
     padding: 10px;
-    background-color: #095ca4;
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
     border: none;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 7px;
     font-size: 1.2em;
+    border-radius: 7px;
 }
 
 .findMember {
     text-align: center;
     font-size: 0.9em;
-    color: #095ca4;
+    color: #3085d6;
     margin-top: 20px;
 }
 
 .findMember a {
     text-decoration: none;
-    color: #095ca4;
+    color: #036bb4;
     margin: 0 10px;
 }
 

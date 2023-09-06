@@ -4,6 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oneteam.dormease.board.IBoardMapper">
 
+    <select id="selectAllFreeBoardContent">
+
+        SELECT
+            f.*,
+            s.name
+        AS
+            student_name
+        FROM
+            free_board f
+        INNER JOIN
+            student s
+        ON
+            f.student_no = s.no
+        WHERE
+            f.school_no = #{schoolNo}
+        AND
+            f.category_no = 1
+        AND
+            f.status = 1
+        LIMIT
+            #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="selectCountOfContent" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            free_board
+        WHERE
+            school_no = #{schoolNo}
+    </select>
+
     <insert id="insertNewContent" parameterType="map">
 
         INSERT INTO
@@ -34,31 +67,6 @@
             free_board
         ORDER BY no DESC
         LIMIT 1
-
-    </select>
-
-
-    <select id="selectAllFreeBoardContent" parameterType="Integer">
-
-        SELECT
-            f.*,
-            s.name
-        AS
-            student_name
-        FROM
-            free_board f
-        INNER JOIN
-            student s
-        ON
-            f.student_no = s.no
-        WHERE
-            f.school_no = #{schoolNo}
-        AND
-            f.category_no = 1
-        AND
-            f.status = 1
-        LIMIT
-            #{criteria.pageNum}, #{criteria.skip}
 
     </select>
 
@@ -95,7 +103,6 @@
         ORDER BY no ASC
 
     </select>
-
 
     <select id="selectUploadedFilesForModify" parameterType="int">
 
@@ -153,12 +160,4 @@
 
     </update>
 
-    <select id="selectCountOfContent" parameterType="Integer" resultType="Integer">
-        SELECT
-            COUNT(*)
-        FROM
-            free_board
-        WHERE
-            school_no = #{schoolNo}
-    </select>
 </mapper>

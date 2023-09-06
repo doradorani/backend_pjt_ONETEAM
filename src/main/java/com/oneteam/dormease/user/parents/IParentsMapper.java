@@ -9,9 +9,13 @@ import java.util.List;
 public interface IParentsMapper {
     int insertNewParent(ParentsDto parentsDto);
 
-    ParentsDto selectParentByID(String id);
+    ParentsDto selectParent(ParentsDto parentsDto);
 
     int deleteParentByNo(int no);
 
     List<StudentDto> selectStudents(StudentDto studentDto);
+
+    void updateFailCount(ParentsDto parentsDto);
+
+    void updateParent(ParentsDto parentsDto);
 }

@@ -28,13 +28,13 @@
         SELECT *
         FROM student
         WHERE
-            no = #{no}
+            no = #{no} and status = 1
     </select>
     <select id="selectParentByNo" parameterType="String">
         SELECT *
         FROM parents
         WHERE
-            no = #{no}
+            no = #{no} and status = 1
     </select>
     <update id="updateStudentPassword" parameterType="String">
         UPDATE
@@ -121,4 +121,24 @@
         WHERE
         id = #{id} AND phone = #{to}
     </update>
+    <select id="selectLeavePassesCount" parameterType="Integer" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            leave_pass
+        WHERE
+            student_no = #{no}
+    </select>
+    <select id="selectLeavePass" parameterType="PageMakerDto" resultType="LeavePassDto">
+        SELECT
+            *
+        FROM
+            leave_pass
+        <if test="keyWord != null">
+        WHERE
+            student_no = #{keyWord}
+        </if>
+        LIMIT
+            #{criteria.skip}, #{criteria.amount}
+    </select>
 </mapper>
