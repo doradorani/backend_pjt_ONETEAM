@@ -9,33 +9,13 @@ public class PageMakerDto {
     private int totalPage;          // 전체 페이지 수
     private Criteria criteria;      // 현재 페이지, 페이지당 게시물 정보
 
-    private String keyWord;         // 키워드
+    private String keyWord1;         // 키워드
+    private String keyWord2;         // 키워드
 
-    public PageMakerDto(Criteria criteria, int total) {
+    public PageMakerDto(String keyWord1,String keyWord2, Criteria criteria, int total) {
 
-        this.criteria = criteria;
-        this.total = total;
-
-        this.endPage = (int) (Math.ceil(criteria.getPageNum() / 10.0)) * 10;
-        this.startPage = this.endPage - 9;
-
-        int realEnd = (int) (Math.ceil(total * 1.0 / criteria.getAmount()));
-
-        if (realEnd < this.endPage)
-            this.endPage = realEnd;
-
-        this.prev = this.startPage > 1;
-        this.next = this.endPage < realEnd;
-
-        this.totalPage = total / criteria.getAmount();
-        if (total % criteria.getAmount() != 0)
-            totalPage += 1;
-
-    }
-
-    public PageMakerDto(String keyWord, Criteria criteria, int total) {
-
-        this.keyWord = keyWord;
+        this.keyWord1 = keyWord1;
+        this.keyWord2 = keyWord2;
 
         this.criteria = criteria;
         this.total = total;
@@ -73,9 +53,12 @@ public class PageMakerDto {
         this.endPage = endPage;
     }
 
-    public String getKeyWord() { return keyWord; }
+    public String getKeyWord1() { return keyWord1; }
 
-    public void setKeyWord(String keyWord) { this.keyWord = keyWord; }
+    public void setKeyWord1(String keyWord1) { this.keyWord1 = keyWord1; }
+    public String getKeyWord2() { return keyWord1; }
+
+    public void setKeyWord2(String keyWord2) { this.keyWord2 = keyWord2; }
 
     public boolean isPrev() {
         return prev;

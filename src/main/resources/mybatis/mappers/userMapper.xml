@@ -134,7 +134,7 @@
             *
         FROM
             leave_pass
-        <if test="keyWord != null">
+        <if test="keyWord1 != null">
         WHERE
             student_no = #{keyWord}
         </if>

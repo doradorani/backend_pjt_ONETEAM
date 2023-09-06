@@ -4,8 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oneteam.dormease.board.IBoardMapper">
 
-    <select id="selectAllFreeBoardContent">
-
+    <select id="selectAllFreeBoardContent" parameterType="PageMakerDto">
         SELECT
             f.*,
             s.name
@@ -18,7 +17,7 @@
         ON
             f.student_no = s.no
         WHERE
-            f.school_no = #{schoolNo}
+            f.school_no = #{keyWord1}
         AND
             f.category_no = 1
         AND
