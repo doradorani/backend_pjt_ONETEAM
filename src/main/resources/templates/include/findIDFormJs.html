@@ -31,7 +31,7 @@
             isStudent = 0;
         });
 
-        $("#sectionWrap div.findIDForm input[value='인증번호 발송']").on('click', function () {
+        $("#sectionWrap div.findIDForm input[value='인증번호']").on('click', function () {
             console.log("인증번호 발송 CLICK HANDLER!!!");
 
             let form = document.findIDForm;
@@ -54,8 +54,8 @@
 
         });
 
-        $("#sectionWrap div.findIDForm input[value='아이디 찾기']").on('click', function () {
-            console.log("아이디 찾기 CLICK HANDLER!!!");
+        $("#sectionWrap div.findIDForm input[value='확인']").on('click', function () {
+            console.log("확인 CLICK HANDLER!!!");
 
             findIDConfirm();
         });
@@ -142,11 +142,15 @@
             success: function (data) {
                 console.log('AJAX SUCCESS - ajax_sendAuthenticationMessage()');
                 if (data == '1') {
+                    clearInterval(timer);
+                    document.querySelector('#timer').textContent = "";
                     alert("입력한 정보가 올바르지 않습니다!");
+                    isRunning = false;
                 } else {
+                    $("input.sendBtn").val('재발송');
                     $("span.authInput").children().remove();
                     let appendTag = "";
-                    appendTag += '<br><input type="text" name="auth_no" placeholder="인증번호를 입력해주세요">';
+                    appendTag += '<br><input type="text" name="auth_no" placeholder="인증번호를 입력해주세요">'
 
                     $("span.authInput").append(appendTag);
                 }

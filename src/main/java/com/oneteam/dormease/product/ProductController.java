@@ -2,6 +2,8 @@ package com.oneteam.dormease.product;
 
 import com.oneteam.dormease.user.school.SchoolDto;
 import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.utils.pagination.PageDefine;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -97,17 +99,48 @@ public class ProductController {
     }
 
     /*
-     * 결제 내역 확인
+     * 내역 확인
      */
-    @PostMapping("/paymentHistory")
-    public String paymentHistory(ProductOrderDto productOrder){
+    @GetMapping("/paymentHistory")
+    public String paymentHistory(HttpSession session,
+                                 Model model,
+                                 @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PRODUCT_PAGE_NUMBER) int pageNum,
+                                 @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_PRODUCT_AMOUNT) int amount) {
         log.info("paymentHistory()");
 
         String nextPage = "product/paymentHistory";
 
+        StudentDto loginedStudentDto = new StudentDto(); //테스트용
+        loginedStudentDto.setId("test"); //테스트용
 
+        //페이지와 DTO 동시 관리
+        Map<String, Object> listPage = productService.paymentHistory(loginedStudentDto.getId(), pageNum, amount);
+
+        List<ProductOrderDto> productOrderDtos = (List<ProductOrderDto>) listPage.get("productOrderDtos");
+        PageMakerDto pageMakerDto = (PageMakerDto) listPage.get("pageMakerDto");
+
+        model.addAttribute("productOrderDtos", productOrderDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
 
         return nextPage;
+    }
+
+    /*
+     * 상세 내역 (ajax)
+     */
+    @PostMapping("/detailHistory")
+    @ResponseBody
+    public Object detailHistory(@RequestBody Map<String, String> msgMap, HttpSession session) {
+        log.info("detailHistory()");
+
+        String reg_date = msgMap.get("reg_date");
+
+        StudentDto loginedStudentDto = new StudentDto(); //테스트용
+        loginedStudentDto.setId("test"); //테스트용
+
+        Map<String, Object> resultMap = productService.detailHistory(loginedStudentDto.getId(), reg_date);
+
+        return resultMap;
     }
 
 
