@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+
+  <!-- 상품 테이블 임시 css -->
+  <link rel="stylesheet" th:href="@{/css/product/home.css}">
+
+  <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+  <script th:replace="~{/include/product/allProduct_js.html::js}" type="text/javascript"></script>
+  <script th:replace="~{/include/product/selectProduct_js.html::js}" type="text/javascript"></script>
+
+  <script th:src="@{/js/product/registProductForm.js}" type="text/javascript"></script>
+  <script th:src="@{/js/product/findProduct.js}" type="text/javascript"></script>
+
+</head>
+<body>
+
+  <header th:replace="~{/include/headerNavFooter.html::header}">
+  </header>
+
+  <section>
+    <div id="section_wrap">
+
+
+      <div class="word">
+        등록 상품 리스트 (우리 학교 리스트)<br>
+      </div>
+
+      <div id="registProductForm">
+        <input type="text" name="product_name" placeholder="INPUT PRODUCT NAME">
+        <input type="button" value="find product" onclick="findProduct();"><br><br>
+        <input type="button" value="전체 보기" onclick="allfindProduct();"><br><br>
+      </div>
+
+      <div id="selectProduct">
+        <table>
+
+        </table>
+      </div>
+
+      <div id="checkedProduct">
+        <ul>
+
+        </ul>
+      </div>
+
+      <div id="priceSum">
+        <span id="sum" data-sum="0"> 합계 : 0 원 </span>
+      </div>
+
+      <div id="registProduct">
+        <form th:action="@{/product/registProductConfirm}" name="registProductForm" method="post">
+          <input type="hidden" name="zip_code" th:value="${schoolDto.zip_code}">
+          <input type="hidden" name="id" th:value="${loginedStudentDto.id}">
+          <input type="hidden" name="sum" th:value="0">
+
+          <input type="button" value="regist product" onclick="registProductConfirm();">
+        </form>
+      </div>
+
+
+    </div>
+  </section>
+
+
+</body>
+</html>

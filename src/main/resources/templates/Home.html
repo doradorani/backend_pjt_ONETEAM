@@ -62,7 +62,17 @@
                 </div>
                 <a th:href="@{/board/freeBoardListForm}">자유 게시판</a>
                 <a th:href="@{/board/writeContentForm}">게시판 작성</a>
+
+                <!-- Student Product 관련 추가 -->
+                <div class="wrap">
+                    <a th:href="@{/product/mySchoolProductForm}">우리 학교 매점</a>
+                </div>
+                <div class="wrap">
+                    <a th:href="@{/product/paymentHistory}">결제 내역</a>
+                </div>
             </div>
+
+
         </div>
     </section>
 <!--    <div class="wrap" th:if="${session.loginedStudentDto == null}">-->
