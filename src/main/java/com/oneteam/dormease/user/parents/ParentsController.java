@@ -83,25 +83,26 @@ public class ParentsController {
     @GetMapping("/modifyAccountForm")
     public String modifyAccountForm(HttpSession session, Model model) {
         log.info("modifyAccountForm()");
-
-        String nextPage = "/user/parents/modifyAccountForm";
-
+        String nextPage = "user/parents/modifyAccountForm";
         ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
-
         model.addAttribute("loginedParentsDto", loginedParentsDto);
 
         return nextPage;
     }
 
     @PostMapping("/modifyAccountConfirm")
-    public String modifyAccountConfirm(HttpSession session, Model model) {
+    public String modifyAccountConfirm(HttpSession session, Model model, ParentsDto parentsDto) {
         log.info("modifyAccountConfirm()");
 
-        String nextPage = "/user/parents/modifyAccountResult";
+        String nextPage = "user/parents/modifyAccountResult";
 
-        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
-
-        model.addAttribute("loginedParentsDto", loginedParentsDto);
+        ParentsDto loginedParentsDto = parentsService.modifyAccountConfirm(parentsDto);
+        if(loginedParentsDto != null){
+            session.setAttribute("loginedParentsDto", loginedParentsDto);
+            session.setMaxInactiveInterval(30 * 60);
+            model.addAttribute("result", 1);
+        } else
+            model.addAttribute("result", 0);
 
         return nextPage;
     }
@@ -125,11 +126,15 @@ public class ParentsController {
      */
     @GetMapping("/deleteConfirm")
     @ResponseBody
-    public Object deleteConfirm(@RequestParam int no) {
+    public Object deleteConfirm(HttpSession session,@RequestParam int no) {
         log.info("deleteConfirm()");
         int result = parentsService.deleteConfirm(no);
+        if(result > 0){
+            session.removeAttribute("loginedParentsDto");
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("result", result);
+
 
         return map;
     }

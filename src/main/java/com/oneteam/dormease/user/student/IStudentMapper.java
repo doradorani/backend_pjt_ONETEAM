@@ -17,4 +17,6 @@ public interface IStudentMapper {
 
     void updateFailCount(StudentDto studentDto);
     int deleteLeavePassByNo(int no);
+
+    int updateStudent(StudentDto studentDto);
 }
