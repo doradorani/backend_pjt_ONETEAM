@@ -82,6 +82,7 @@ public class BoardService {
             boardMapper.insertNewFile(uploadedFileDtos);
         }
         result = boardMapper.insertNewContent(boardDtoMap);
+
         return result;
     }
 

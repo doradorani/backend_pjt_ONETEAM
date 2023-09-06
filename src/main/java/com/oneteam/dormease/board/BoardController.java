@@ -48,7 +48,7 @@ public class BoardController {
         } else if (loginedParentsDto != null) {
             schoolNo = loginedParentsDto.getSchool_no();
         }
-        Map<String, Object> resultMap = boardService.getAllFreeBoardContent("1", pageNum, amount);
+        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
 
         String nextPage = "board/freeBoardListForm";
         List<BoardDto> boardDtos = (List<BoardDto>) resultMap.get("boardDtos");

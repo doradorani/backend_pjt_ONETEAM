@@ -89,9 +89,48 @@
 </section>
 
 <script src="/webjars/ckeditor/4.16.1/standard/ckeditor.js"></script>
-<script th:inline="javascript">
-  CKEDITOR.replace('editor');
+<!--  CK Editor START-->
+<script>
+  ClassicEditor.create(document.querySelector('#editor'),{
+    toolbar: [
+      'exportPdf', 'exportWord', '|',
+      'heading', '|',
+      'alignment',
+      'bold',
+      'italic',
+      'link',
+      'fontSize',
+      'highlight',
+      'strikethrough',
+      'underline',
+      // 'blockQuote',
+      '-', // break point
+      'imageUpload',
+      'imageStyle:full',
+      'insertTable',
+      'fontColor',
+      'fontBackgroundColor',
+      'undo',
+      'redo',
+    ],
+    language: "ko",
+    ckfinder : {
+      uploadUrl: "/image/upload"
+    }
+  }).then(editor => {
+    $('#submitBtn').click(function () {
+      writePost(editor);
+    })
+  })
+  .error(error => {
+    console.log(error);
+  })
 </script>
+<style>
+  .ck-editor__editable { height: 400px; }
+  .ck-content { font-size: 13px; }
+</style>
+<!--CK Editor END-->
 
 </body>
 </html>
