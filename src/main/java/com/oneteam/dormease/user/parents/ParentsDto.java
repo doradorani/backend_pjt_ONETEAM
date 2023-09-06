@@ -11,6 +11,7 @@ public class ParentsDto {
     private @SQLInjectionSafe String password;         // COMMENT '학부모 비밀번호'
     private @SQLInjectionSafe int student_no;          // COMMENT '학생 번호'
     private @SQLInjectionSafe int relation;            // COMMENT '학부모 관계'
+    private @SQLInjectionSafe int fail_count;          // COMMENT '로그인 실패 횟수'
     private @SQLInjectionSafe String phone;            // COMMENT '학부모 전화 번호'
     private @SQLInjectionSafe String mail;             // COMMENT '학부모 메일'
     private @SQLInjectionSafe String zip_code;         // COMMENT '학부모 집 우편번호'

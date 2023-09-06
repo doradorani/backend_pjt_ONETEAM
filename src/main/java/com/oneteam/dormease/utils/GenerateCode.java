@@ -8,8 +8,10 @@ public class GenerateCode {
     public static String generateAuthNo() {
         java.util.Random generator = new java.util.Random();
         generator.setSeed(System.currentTimeMillis());
-        return String.valueOf( generator.nextInt(1000000) % 1000000);
+        int randomNumber = (generator.nextInt(1000000) % 1000000);
+        String formattedNumber = String.format("%06d", randomNumber);
 
+        return formattedNumber;
     }
 
     public static String generateRamdomPassword() {

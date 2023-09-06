@@ -14,7 +14,8 @@ public class LeavePassDto {
     private String content;             // COMMENT '외출 사유'
     private int admin_approval;         // COMMENT '관리자 승인'
     private String start_date;          // COMMENT '출발 날짜'
-    private String end_date;            // COMMENT '복귀 날짜'
+    private String end_date;            // COMMENT '예상 복귀 날짜'
+    private String comeback_date;            // COMMENT '실제 복귀 날짜'
     private String reg_date;            // COMMENT '외출증 등록 날짜'
     private String mod_date;            // COMMENT '외출증 수정 날짜'
 }

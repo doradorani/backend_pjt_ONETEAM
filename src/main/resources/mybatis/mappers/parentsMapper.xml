@@ -25,6 +25,20 @@
             </if>
         </where>
     </select>
+    <update id="updateFailCount">
+        UPDATE
+        parents
+        <set>
+            <if test="no == 0">
+                fail_count = fail_count + 1
+            </if>
+            <if test="no != 0">
+                fail_count = 0
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
     <select id="selectParentByID">
         SELECT
             p.*,

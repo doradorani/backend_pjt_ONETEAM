@@ -121,4 +121,22 @@
         WHERE
         id = #{id} AND phone = #{to}
     </update>
+    <select id="selectLeavePassesCount" parameterType="Integer" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            leave_pass
+        WHERE
+            student_no = #{no}
+    </select>
+    <select id="selectLeavePass" parameterType="PageMakerDto" resultType="LeavePassDto">
+        SELECT
+            *
+        FROM
+            leave_pass
+        WHERE
+            student_no = #{keyWord}
+        LIMIT
+            #{criteria.skip}, #{criteria.amount}
+    </select>
 </mapper>
