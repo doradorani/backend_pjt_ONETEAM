@@ -23,36 +23,32 @@
 
     <!-- WORD START -->
     <div class="word">
-      내역 리스트<br>
-      total &nbsp;&nbsp; <span th:text="${pageMakerDto.total}"></span>
+      <div class="title">내역 리스트</div>
+      <div class="total">total &nbsp;
+        <span th:text="${pageMakerDto.total}"></span>
+      </div>
     </div>
     <!-- WORD END -->
 
-    <!-- SEARCH START -->
-<!--    <div class="search_wrap">-->
-<!--      <div class="search_area">-->
-<!--        <input type="text" name="keyword">-->
-<!--        <button onclick="search();">Search</button>-->
-<!--      </div>-->
-<!--    </div>-->
-    <!-- SEARCH END -->
-
-<!--    <div class="search_all_wrap">-->
-<!--      <a th:href="@{/product/productNotice}">전체 보기</a>-->
-<!--    </div>-->
-
     <div id="paymentHistory" class="product_list">
-      <div th:each="productOrderDto : ${productOrderDtos}">
+      <div class="container" th:each="productOrderDto : ${productOrderDtos}">
 
         <div class="reg_date" th:id="${productOrderDto.reg_date}">
           <div class="reg_date_trim" th:id="${productOrderDto.reg_date_trim}">
-            <span class="reg_date" th:text="${productOrderDto.reg_date}"></span>
-            <span class="allsum" th:text="'최종 가격 : ' + ${productOrderDto.allsum}"></span>
+            <div class="main">
+              <span class="rdate" th:text="${#strings.substring(productOrderDto.reg_date, 0, 10)}"></span>
+              <span class="allsum" th:text="'최종 가격 : ' + ${productOrderDto.allsum}"></span>
+            </div>
+
+
+            <div class="product_info">
+
+            </div>
           </div>
 
 
+
         </div>
-        <br>
 
       </div>
     </div>
