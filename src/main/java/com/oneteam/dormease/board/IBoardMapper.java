@@ -16,7 +16,7 @@ public interface IBoardMapper {
 
     int selectCurrentBoardNo(int no);
 
-    List<BoardDto> selectAllFreeBoardContent(int schoolNo, Criteria criteria);
+    List<BoardDto> selectAllFreeBoardContent(Map<String, Object> map);
 
     int updateContentHit(int no);
 
@@ -30,5 +30,5 @@ public interface IBoardMapper {
 
     int updateContentForDelete(int no);
 
-    int selectCountOfContent(int schoolNo);
+    int selectCountOfContent(String schoolNo);
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class NoticeDto {
     private @SQLInjectionSafe int no;                     // COMMENT '공지사항 번호',
-    private @SQLInjectionSafe int school_no;              // COMMENT '공지사항 개시 학교 번호'
+    private @SQLInjectionSafe String school_no;              // COMMENT '공지사항 개시 학교 번호'
     private @SQLInjectionSafe String title;               // COMMENT '공지사항 제목'
     private @SQLInjectionSafe String content;             // COMMENT '공지사항 내용'
     private @SQLInjectionSafe int hit;                    // COMMENT '공지사항 조회 수'

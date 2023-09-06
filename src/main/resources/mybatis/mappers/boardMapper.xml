@@ -38,7 +38,7 @@
     </select>
 
 
-    <select id="selectAllFreeBoardContent" parameterType="Integer">
+    <select id="selectAllFreeBoardContent">
 
         SELECT
             f.*,
@@ -58,7 +58,7 @@
         AND
             f.status = 1
         LIMIT
-            #{criteria.pageNum}, #{criteria.skip}
+            #{criteria.skip}, #{criteria.amount}
 
     </select>
 
@@ -153,7 +153,7 @@
 
     </update>
 
-    <select id="selectCountOfContent" parameterType="Integer" resultType="Integer">
+    <select id="selectCountOfContent" parameterType="String" resultType="Integer">
         SELECT
             COUNT(*)
         FROM

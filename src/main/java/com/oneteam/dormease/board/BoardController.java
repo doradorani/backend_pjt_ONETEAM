@@ -1,6 +1,7 @@
 package com.oneteam.dormease.board;
 
 import com.oneteam.dormease.board.reply.ReplyService;
+import com.oneteam.dormease.user.parents.ParentsDto;
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.UploadFileService;
@@ -40,13 +41,18 @@ public class BoardController {
                                     @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("freeBoardListForm()");
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
-        int schoolNo = Integer.parseInt(loginedStudentDto.getSchool_no());
-        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
-        String nextPage = "board/freeBoardListForm";
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        String schoolNo = null;
+        if (loginedStudentDto != null) {
+            schoolNo = loginedStudentDto.getSchool_no();
+        } else if (loginedParentsDto != null) {
+            schoolNo = loginedParentsDto.getSchool_no();
+        }
+        Map<String, Object> resultMap = boardService.getAllFreeBoardContent("1", pageNum, amount);
 
+        String nextPage = "board/freeBoardListForm";
         List<BoardDto> boardDtos = (List<BoardDto>) resultMap.get("boardDtos");
         PageMakerDto pageMakerDto = (PageMakerDto) resultMap.get("pageMakerDto");
-
         model.addAttribute("boardDtos", boardDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
 
@@ -57,8 +63,15 @@ public class BoardController {
      * 게시글 디테일 페이지
      */
     @GetMapping("/detailContentForm")
-    public String detailContentForm(@RequestParam("no") int no, Model model) {
+    public String detailContentForm(@RequestParam("no") int no, Model model, HttpSession session) {
         log.info("detailContentForm()");
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        if (loginedParentsDto != null) {
+            int ReadAllow = 1;
+            Model checkForReadAllow = null;
+            checkForReadAllow.addAttribute("ReadAllow" , ReadAllow);
+            return "board/accountNotAllowed";
+        }
         String nextPage = "board/detailContentForm";
         Map<String, Object> boardAndReplyMap = boardService.getdetailContent(no);
         model.addAttribute("boardAndReplyMap", boardAndReplyMap);
@@ -70,8 +83,14 @@ public class BoardController {
      * 게시글 작성 페이지
      */
     @GetMapping("/writeContentForm")
-    public String writeContentForm() {
+    public String writeContentForm(HttpSession session, Model model) {
         log.info("writeContentForm()");
+        ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
+        if (loginedParentsDto != null) {
+            int WriteAllow = 1;
+            model.addAttribute("WriteAllow" , WriteAllow);
+            return "board/accountNotAllowed";
+        }
         String nextpage = "board/writeContentForm";
 
         return nextpage;

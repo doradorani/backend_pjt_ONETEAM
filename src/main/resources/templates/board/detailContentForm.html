@@ -61,6 +61,10 @@
           </ul>
         </div>
         <div class="button-container">
+          <td id="like">
+            <button type="button" class="btn" id="likebtn" th:classappend="${ltlike == 1} ? 'btn-danger' : 'btn-light'">좋아요</button>
+            <input type="hidden" id="likecheck" th:value="${ltlike}" />
+          </td>
           <input type="submit" value="수정" th:if="${session.loginedStudentDto.no==boardAndReplyMap.boardDto.student_no}">
           <input type="submit" value="삭제" onclick="deleteContentConfirm()">
           <input type="button" value="취소" onclick="location.href='/board/freeBoardListForm';">

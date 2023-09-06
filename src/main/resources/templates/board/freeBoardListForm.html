@@ -22,8 +22,8 @@
                         <option value='2'>내용으로 검색</option>
                         <option value='3'>작성자로 검색</option>
                     </select>
-<!--                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />-->
-<!--                    <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>-->
+                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />
+                    <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
                 </div>
             </form>
 
@@ -43,7 +43,6 @@
                         <tr th:each="boardDto : ${boardDtos}">
                             <td th:text="${boardDto.no}"></td>
                             <td>
-<!--                                <a th:href="@{/board/detailContentForm(no=${boardDto.no},hit=${boardDto.hit})}" th:text="${boardDto.title}"></a>-->
                                 <a th:href="@{/board/detailContentForm(no=${boardDto.no})}" th:text="${boardDto.title}"></a>
                             </td>
                             <td th:text="${boardDto.student_name}"></td>
