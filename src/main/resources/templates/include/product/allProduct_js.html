@@ -1,0 +1,69 @@
+<script th:fragment="js" type="text/javascript">
+
+  $(document).ready(function(){
+    console.log("allproduct_js READY!!");
+
+      let zip_code = $('#section_wrap #registProduct input[name="zip_code"]').val();
+
+      ajax_allProduct(zip_code);
+  });
+
+  function ajax_allProduct(zipCode){
+      console.log('ajax_allProduct()');
+
+      let msgDto = {
+          zipCode : zipCode
+      }
+
+      $.ajax({
+          url: '/product/mySchoolProduct',
+          method: 'POST',
+          data: JSON.stringify(msgDto),
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
+          success: function(data) {
+              console.log('AJAX SUCCESS - mySchoolProduct()');
+
+              if(data.productDtos.length == 0)
+                  alert('상품을 찾을 수 없습니다.');
+
+              else{
+                  $("#selectProduct table").children().remove();
+
+                  for (let i = 0; i < data.productDtos.length; i += 7) {
+                      let appendTag = "<tr>";
+
+                      for (let j = i; j < i + 7 && j < data.productDtos.length; j++) {
+                          appendTag += "<td>";
+                          appendTag += "<a href='#none' class='add_product' data-product-name='" + data.productDtos[j].product_name;
+                          appendTag += "' data-product-price='" + data.productDtos[j].product_price;
+                          if(data.productDtos[j].img == ''){
+                              appendTag += "' data-img='default/default.jpg'>";
+                              appendTag += '<img width="100" height="100" src="/dormEaseUploadImg/admin/product/default/default.jpg">';
+                          }
+                          else {
+                              appendTag += "' data-img='" + data.productDtos[j].img + "'>";
+                              appendTag += '<img width="100" height="100" src="/dormEaseUploadImg/admin/product/' + data.productDtos[j].img + '">';
+                          }
+                          appendTag += '<span class="name">' + data.productDtos[j].product_name + '</span>'
+                          appendTag += '<span class="price">' + data.productDtos[j].product_price + '</span>'
+                          appendTag += "</a>";
+                          appendTag += "</td>";
+                      }
+
+                      appendTag += "</tr>";
+                      $("#selectProduct table").append(appendTag);
+                  }
+              }
+
+          },
+          error: function(data) {
+              console.log('AJAX ERROR - selectAllProduct()');
+
+              alert('상품을 찾을 수 없습니다.');
+          }
+      });
+  }
+
+
+</script>
