@@ -90,7 +90,7 @@ public class StudentService {
         Criteria criteria = new Criteria(pageNum, amount);
         int total = userMapper.selectLeavePassesCount(no);
 
-        PageMakerDto pageMakerDto = new PageMakerDto(String.valueOf(no),null,criteria, total);
+        PageMakerDto pageMakerDto = new PageMakerDto(String.valueOf(no),criteria, total);
         List<LeavePassDto> leavePassDtos = userMapper.selectLeavePass(pageMakerDto);
 
         map.put("pageMakerDto", pageMakerDto);

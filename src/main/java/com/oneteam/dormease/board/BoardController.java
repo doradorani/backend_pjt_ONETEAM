@@ -37,6 +37,8 @@ public class BoardController {
      */
     @GetMapping("/freeBoardListForm")
     public String freeBoardListForm(HttpSession session, Model model,
+                                    @RequestParam(value="keyWord", required = false) String keyWord,
+                                    @RequestParam(value="search", required = false) String search,
                                     @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                     @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("freeBoardListForm()");
@@ -48,10 +50,12 @@ public class BoardController {
         } else if (loginedParentsDto != null) {
             schoolNo = loginedParentsDto.getSchool_no();
         }
-        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo, pageNum, amount);
+        Map<String, Object> resultMap = boardService.getAllFreeBoardContent(schoolNo,keyWord, search, pageNum, amount);
         String nextPage = "board/freeBoardListForm";
         model.addAttribute("boardDtos", resultMap.get("boardDtos"));
         model.addAttribute("pageMakerDto", resultMap.get("pageMakerDto"));
+        model.addAttribute("search", resultMap.get("search"));
+        model.addAttribute("keyWord", resultMap.get("keyWord"));
 
         return nextPage;
     }

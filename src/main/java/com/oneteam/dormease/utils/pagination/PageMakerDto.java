@@ -9,13 +9,11 @@ public class PageMakerDto {
     private int totalPage;          // 전체 페이지 수
     private Criteria criteria;      // 현재 페이지, 페이지당 게시물 정보
 
-    private String keyWord1;         // 키워드
-    private String keyWord2;         // 키워드
+    private String keyWord;         // 키워드
 
-    public PageMakerDto(String keyWord1,String keyWord2, Criteria criteria, int total) {
+    public PageMakerDto(String keyWord, Criteria criteria, int total) {
 
-        this.keyWord1 = keyWord1;
-        this.keyWord2 = keyWord2;
+        this.keyWord = keyWord;
 
         this.criteria = criteria;
         this.total = total;
@@ -53,12 +51,9 @@ public class PageMakerDto {
         this.endPage = endPage;
     }
 
-    public String getKeyWord1() { return keyWord1; }
+    public String getKeyWord() { return keyWord; }
 
-    public void setKeyWord1(String keyWord1) { this.keyWord1 = keyWord1; }
-    public String getKeyWord2() { return keyWord1; }
-
-    public void setKeyWord2(String keyWord2) { this.keyWord2 = keyWord2; }
+    public void setKeyWord(String keyWord) { this.keyWord = keyWord; }
 
     public boolean isPrev() {
         return prev;

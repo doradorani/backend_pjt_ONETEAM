@@ -17,7 +17,7 @@ public interface IBoardMapper {
 
     int selectCurrentBoardNo(int no);
 
-    List<BoardDto> selectAllFreeBoardContent(PageMakerDto pageMakerDto);
+    List<BoardDto> selectAllFreeBoardContent(Map<String, Object> pageMakerDto);
 
     int updateContentHit(int no);
 
@@ -31,5 +31,5 @@ public interface IBoardMapper {
 
     int updateContentForDelete(int no);
 
-    int selectCountOfContent(String schoolNo);
+    int selectCountOfContent(Map<String, Object> map);
 }
