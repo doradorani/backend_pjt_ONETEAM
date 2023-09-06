@@ -1,5 +1,7 @@
 package com.oneteam.dormease.product;
 
+import com.oneteam.dormease.utils.pagination.Criteria;
+import com.oneteam.dormease.utils.pagination.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +71,37 @@ public class ProductService {
         }
 
         item.put("mySchoolProductDtos", mySchoolProductDtos);
+
+        return item;
+    }
+
+    //내역 확인
+    public Map<String, Object> paymentHistory(String id, int pageNum, int amount) {
+        log.info("paymentHistory()");
+
+        Map<String, Object> list = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        ProductListDto productListDto = new ProductListDto(criteria.getSkip(), amount);
+        productListDto.setId(id);
+
+        List<ProductOrderDto> productOrderDtos = productMapper.paymentHistory(productListDto);
+        int totalCnt = productMapper.dayCount(id);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        list.put("productOrderDtos", productOrderDtos);
+        list.put("pageMakerDto", pageMakerDto);
+
+        return list;
+    }
+
+    public Map<String, Object> detailHistory(String id, String regDate) {
+        log.info("detailHistory()");
+
+        Map<String, Object> item = new HashMap<>();
+        List<ProductOrderDto> productOrderDtos = productMapper.detailHistory(id, regDate);
+
+        item.put("productOrderDtos", productOrderDtos);
 
         return item;
     }
