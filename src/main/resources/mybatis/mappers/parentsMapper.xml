@@ -39,7 +39,7 @@
         WHERE
         id = #{id}
     </update>
-    <select id="selectParent" parameterType="ParentsDto">
+    <select id="selectParent" parameterType="ParentsDto" resultType="ParentsDto">
         SELECT
             p.*,
             s.school_no,

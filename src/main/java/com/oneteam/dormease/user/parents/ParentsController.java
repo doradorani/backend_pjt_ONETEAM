@@ -91,6 +91,10 @@ public class ParentsController {
         return nextPage;
     }
 
+    /*
+     * 회원 수정 확인
+     */
+
     @PostMapping("/modifyAccountConfirm")
     public String modifyAccountConfirm(HttpSession session, Model model, ParentsDto parentsDto) {
         log.info("modifyAccountConfirm()");
@@ -141,7 +145,7 @@ public class ParentsController {
     }
 
     /*
-     * 외박 신청 폼
+     * 학생 외박 내역 리스트
      */
     @GetMapping("/leavePassList")
     public String leavePassList(Model model, HttpSession session,

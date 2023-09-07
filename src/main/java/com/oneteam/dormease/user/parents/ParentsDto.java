@@ -16,7 +16,7 @@ public class ParentsDto {
     private @SQLInjectionSafe String mail;             // COMMENT '학부모 메일'
     private @SQLInjectionSafe String zip_code;         // COMMENT '학부모 집 우편번호'
     private @SQLInjectionSafe String school_no;        // COMMENT '학생 학교 번호'
-    private @SQLInjectionSafe String school_name;        // COMMENT '학생 학교 번호'
+    private @SQLInjectionSafe String school_name;      // COMMENT '학생 학교 번호'
     private @SQLInjectionSafe int student_grade;        // COMMENT '학생 학년'
     private @SQLInjectionSafe int student_class;        // COMMENT '학생 반'
     private @SQLInjectionSafe String address;          // COMMENT '학부모 주소'

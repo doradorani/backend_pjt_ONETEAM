@@ -26,6 +26,36 @@
 
             location.href = "/user/student/leavePassList?pageNum=" + pageNum;
         });
+        // 페이지 번호 입력 시
+        $(document).on('click', '#sectionWrap > div.page_wrap > div.page_goto a.goto_page_btn', function() {
+            console.log('page_goto BUTTON CLICK HANDLER');
+
+            let targetPageNum = $('#sectionWrap input[name="page_target_num"]').val();
+            let totalPageNum = $('#sectionWrap span.page_total_num').text();
+
+            let keyWord = [[${keyWord}]];
+            let search = [[${search}]];
+
+            if (targetPageNum == '' || targetPageNum == ' ' || targetPageNum == null) {
+                alert('이동하고자 하는 페이지 숫자를 입력하세요!');
+                $('#sectionWrap input[name="page_target_num"]').focus();
+                return;
+
+            } else if (parseInt(targetPageNum) < 1) {
+                alert('1페이지 미만은 존재하지 않습니다!');
+                $('#sectionWrap input[name="page_target_num"]').val('');
+                $('#sectionWrap input[name="page_target_num"]').focus();
+                return;
+
+            } else if (parseInt(targetPageNum) > parseInt(totalPageNum)) {
+                alert(totalPageNum + '을(를) 초과할 수 없습니다!');
+                $('#sectionWrap input[name="page_target_num"]').val('');
+                $('#sectionWrap input[name="page_target_num"]').focus();
+                return;
+
+            }
+                location.href = '/user/student/board/freeBoardListForm?pageNum='+targetPageNum;
+        });
     }
 
     function setPage() {

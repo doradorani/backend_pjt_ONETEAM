@@ -63,8 +63,8 @@
                         <option value="016">016</option>
                         <option value="019">019</option>
                     </select>-
-                    <input type= "text" name = "phone2" oninput="filterKey();">-
-                    <input type = "text" name = "phone3" oninput="filterKey();"><br>
+                    <input type= "text" name = "phone2" oninput="filterKey(this);">-
+                    <input type = "text" name = "phone3" oninput="filterKey(this);"><br>
                 </div>
                 <div class="mail_box">
                     <div>
@@ -138,7 +138,7 @@
                     <div>
                         번호
                     </div>
-                    <input type="text" name="eigen_no" oninput="filterKey();"><br>
+                    <input type="text" name="eigen_no" oninput="filterKey(this);"><br>
                 </div>
                 </div>
                 <input type = "button" value="가입하기" onclick="createAccountConfirm();">
