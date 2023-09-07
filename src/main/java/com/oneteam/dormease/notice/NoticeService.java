@@ -1,9 +1,6 @@
 package com.oneteam.dormease.notice;
 
-import com.oneteam.dormease.board.reply.IReplyMapper;
-import com.oneteam.dormease.board.reply.ReplyDto;
-import com.oneteam.dormease.notice.INoticeMapper;
-import com.oneteam.dormease.user.student.StudentDto;
+import com.oneteam.dormease.board.BoardDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.pagination.Criteria;
 import com.oneteam.dormease.utils.pagination.PageMakerDto;
@@ -23,41 +20,38 @@ public class NoticeService {
         this.noticeMapper = noticeMapper;
     }
 
-//    private static int NOTICE_BOARD_CATEGORY_NO = 0;
+    public Map<String, Object> getAllNoticeContent(String schoolNo, String keyWord, String search, int pageNum, int amount) {
+        log.info("getAllNoticeContent()");
+        Criteria criteria = new Criteria(pageNum, amount);
+        Map<String, Object> map = new HashMap<>();
+        map.put("keyWord", keyWord);
+        map.put("search", search);
+        map.put("schoolNo", schoolNo);
+        int totalCnt = noticeMapper.selectCountOfNotice(map);
+        PageMakerDto pageMakerDto = new PageMakerDto(schoolNo, criteria, totalCnt);
+        map.put("pageMakerDto", pageMakerDto);
+        List<NoticeDto> noticeDtos = noticeMapper.selectAllNoticeContent(map);
+        map.remove("schoolNo");
+        map.put("noticeDtos", noticeDtos);
 
-//    public Map<String, Object> getAllNoticeContent(String schoolNo,int pageNum, int amount) {
-//        log.info("getAllFreeBoardContent()");
-//        Criteria criteria = new Criteria(pageNum, amount);
-//        List<NoticeDto> boardDtos = noticeMapper.selectAllNoticeContent(schoolNo, criteria);
-//        int totalCnt = noticeMapper.selectCountOfNotice(schoolNo);
-//        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
-//
-//        Map<String, Object> map = new HashMap<>();
-//
-//        map.put("boardDtos", boardDtos);
-//        map.put("pageMakerDto", pageMakerDto);
-//
-//        return map;
-//    }
-//
-//    public Map<String, Object> getdetailContent(int no) {
-//        log.info("getdetailContent()");
-//
-//        NoticeDto noticeDto = new NoticeDto();
-//        List<ReplyDto> replyDtos = new ArrayList<>();
-//        List<UploadFileDto> uploadedFiles = new ArrayList<>();
-//        Map<String, Object> boardAndReplyMap = new HashMap();
-//        int result = noticeMapper.updateContentHit(no);
-//
-//        if (result > 0) {
-//            boardDto = noticeMapper.selectDetailContent(no);
-//            replyDtos = noticeMapper.selectReplies(no);
-//            uploadedFiles = noticeMapper.selectUploadedFiles(no);
-//        }
-//        boardAndReplyMap.put("boardDto", boardDto);
-//        boardAndReplyMap.put("replyDtos", replyDtos);
-//        boardAndReplyMap.put("uploadedFiles", uploadedFiles);
-//
-//        return boardAndReplyMap;
-//    }
+        return map;
+    }
+
+    public Map<String, Object> getDetailContent(int no) {
+        log.info("getDetailContent()");
+
+        NoticeDto noticeDto = new NoticeDto();
+        List<UploadFileDto> uploadedFiles = new ArrayList<>();
+        Map<String, Object> noticeMap = new HashMap();
+        int result = noticeMapper.updateContentHit(no);
+
+        if (result > 0) {
+            noticeDto = noticeMapper.selectDetailContent(no);
+            uploadedFiles = noticeMapper.selectUploadedFiles(no);
+        }
+        noticeMap.put("noticeDto", noticeDto);
+        noticeMap.put("uploadedFiles", uploadedFiles);
+
+        return noticeMap;
+    }
 }
