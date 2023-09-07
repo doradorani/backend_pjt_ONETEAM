@@ -11,7 +11,8 @@
         FROM
             product_regist
         WHERE
-            zip_code = #{zip_code}
+            zip_code = #{zip_code} AND
+            status = 1
         ORDER BY
             no
     </select>
@@ -23,7 +24,8 @@
             product_regist
         WHERE
             zip_code = #{zipCode} AND
-            product_name like CONCAT('%',#{productName},'%')
+            product_name like CONCAT('%',#{productName},'%') AND
+            status = 1
         ORDER BY
             no
     </select>

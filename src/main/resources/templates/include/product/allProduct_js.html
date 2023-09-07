@@ -24,10 +24,30 @@
           success: function(data) {
               console.log('AJAX SUCCESS - mySchoolProduct()');
 
-              if(data.productDtos.length == 0)
-                  alert('상품을 찾을 수 없습니다.');
+              let noProduct = document.getElementById('noProduct');
+              let registProductForm = document.getElementById('registProductForm');
+              let selectProduct = document.getElementById('selectProduct');
+              let checkedProduct = document.getElementById('checkedProduct');
+              let priceSum = document.getElementById('priceSum');
+              let registProduct = document.getElementById('registProduct');
+
+              if(data.productDtos.length == 0){
+                  noProduct.style.display = 'block';
+                  registProductForm.style.display = 'none';
+                  selectProduct.style.display = 'none';
+                  checkedProduct.style.display = 'none';
+                  priceSum.style.display = 'none';
+                  registProduct.style.display = 'none';
+              }
+
 
               else{
+                  registProductForm.style.display = 'block';
+                  selectProduct.style.display = 'block';
+                  checkedProduct.style.display = 'block';
+                  priceSum.style.display = 'block';
+                  registProduct.style.display = 'block';
+
                   $("#selectProduct table").children().remove();
 
                   for (let i = 0; i < data.productDtos.length; i += 7) {
