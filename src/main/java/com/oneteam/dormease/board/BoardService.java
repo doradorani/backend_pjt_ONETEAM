@@ -43,8 +43,8 @@ public class BoardService {
         return map;
     }
 
-    public Map<String, Object> getdetailContent(int no) {
-        log.info("getdetailContent()");
+    public Map<String, Object> getDetailContent(int no) {
+        log.info("getDetailContent()");
 
         BoardDto boardDto = new BoardDto();
         List<ReplyDto> replyDtos = new ArrayList<>();
