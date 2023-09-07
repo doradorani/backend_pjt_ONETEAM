@@ -2,6 +2,7 @@ package com.oneteam.dormease.user.member.sms;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 @Log4j2
 @Controller
 @RequestMapping("/sms")
+@Tag(name = "Sms", description = "sms 전송 API")
 public class SmsController {
 
     private final SmsService smsService;

@@ -2,6 +2,7 @@ package com.oneteam.dormease.utils.likebutton;
 
 import com.oneteam.dormease.user.parents.ParentsDto;
 import com.oneteam.dormease.user.student.StudentDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Log4j2
 @Controller
 @RequestMapping("/like")
+@Tag(name = "Like", description = "좋아요 API")
 public class LikeController {
     private final LikeService likeService;
     public LikeController(LikeService likeService) {

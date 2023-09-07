@@ -2,6 +2,7 @@ package com.oneteam.dormease.utils.ckeditor;
 
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.UploadFileService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Log4j2
 @Controller
+@Tag(name = "Image", description = "이미지 API")
 public class ImageController {
     private final ImageService imageService;
     private final UploadFileService uploadFileService;

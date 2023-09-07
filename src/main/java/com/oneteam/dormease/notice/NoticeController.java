@@ -3,6 +3,7 @@ package com.oneteam.dormease.notice;
 import com.oneteam.dormease.user.parents.ParentsDto;
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.pagination.PageDefine;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Map;
 @Log4j2
 @Controller
 @RequestMapping("/notice")
+@Tag(name = "Notice", description = "공지사항 API")
 public class NoticeController {
     private final NoticeService noticeService;
     public NoticeController(NoticeService noticeService) {
