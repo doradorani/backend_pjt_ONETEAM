@@ -86,7 +86,9 @@ public class StudentController {
 
         return nextPage;
     }
-
+    /*
+     * 회원 수정 확인
+     */
     @PostMapping("/modifyAccountConfirm")
     public String modifyAccountConfirm(StudentDto studentDto, Model model, HttpSession session){
         log.info("modifyAccountConfirm()");
@@ -102,9 +104,6 @@ public class StudentController {
 
         return nextPage;
     }
-
-
-
     /*
      * 로그 아웃
      */
@@ -149,7 +148,7 @@ public class StudentController {
         return nextPage;
     }
     /*
-     * 외박 신청 컨펌
+     * 외박 신청 확인
      */
     @PostMapping("/leaveOutConfirm")
     public String leaveOutConfirm(LeavePassDto leavePassDto, Model model) {
@@ -178,7 +177,7 @@ public class StudentController {
         return nextPage;
     }
     /*
-     * 외박 신청 내역
+     * 외박 신청 내역 삭제
      */
     @GetMapping("/deleteLeavePass")
     public String deleteLeavePass(Model model, @RequestParam int no) {
