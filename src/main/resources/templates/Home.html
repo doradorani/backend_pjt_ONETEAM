@@ -41,9 +41,9 @@
                     <h2>Login to Cozy Nest</h2>
                     <form th:if="${session.loginedStudentDto == null && session.loginedParentsDto == null}">
                         <button type="button" onclick="location.href='/user/member/loginForm';">Cozy Nest 로그인</button>
+                        <span><a th:href="@{/user/member/beforeCreateAccount}">회원가입</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                         <span><a th:href="@{/user/member/findIDForm}">아이디 찾기</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span><a th:href="@{/user/member/findPasswordForm}">비밀번호 찾기</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span><a th:href="@{/user/member/beforeCreateAccount}">회원가입</a></span>
+                        <span><a th:href="@{/user/member/findPasswordForm}">비밀번호 찾기</a></span>
                     </form>
                 </div>
                 <div class="point-container">
