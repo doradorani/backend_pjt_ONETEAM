@@ -31,14 +31,23 @@
               $("#registProduct form input[type='hidden']:last").after(inputTag);
 
               let appendTag = "<li id='" + productName_trim + "' class='addProduct'>";
-              appendTag += '<img width="50" height="50" src="/dormEaseUploadImg/admin/product/' +  img + '">';
+              appendTag += '<div class="productImage">';
+              appendTag += '<img width="50" height="50" src="/dormEaseUploadImg/admin/product/' + img + '">';
+              appendTag += '</div>';
+              appendTag += '<div class="productInfo">';
+              appendTag += '<div class="topRow">';
               appendTag += '<span class="productName">' + '상품 명 : ' + productName + '</span>';
-              appendTag += '<input type="button" value="↑" onclick="upCountProduct(\'' + productName + '\', \'' + productName_trim + '\')">';
               appendTag += '<span class="cnt" data-cnt="0">' + '수량 : 0' + '</span>';
-              appendTag += '<input type="button" value="↓" onclick="downCountProduct(\'' + productName + '\', \'' + productName_trim + '\')">';
+              appendTag += '<input type="button" value="+" onclick="upCountProduct(\'' + productName + '\', \'' + productName_trim + '\')"> &nbsp;&nbsp;';
+              appendTag += '<input type="button" value="-" onclick="downCountProduct(\'' + productName + '\', \'' + productName_trim + '\')">';
+              appendTag += '</div>';
+              appendTag += '<div class="bottomRow">';
               appendTag += '<span class="productPrice" data-price="' + productPrice + '" data-prices="' + productPrice + '">' + '가격 : ' + productPrice + '</span>';
-              appendTag += "<span><a href='#none' class='remove_product'>X</a></span>";
-              appendTag += "</li>";
+              appendTag += "<span><a href='#none' class='remove_product'>삭제</a></span>";
+              appendTag += '</div>';
+              appendTag += '</div>';
+              appendTag += '</li>';
+
               $("#checkedProduct ul").append(appendTag);
 
               upCountProduct(productName, productName_trim);
