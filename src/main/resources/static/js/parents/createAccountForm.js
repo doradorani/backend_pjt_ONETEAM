@@ -1,9 +1,20 @@
-function filterKey(){
-    console.log("filterKey() CALLED!!!");
 
-    let filterNum = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+function filterKey(inputElement) {
+    console.log("filterKey(this) CALLED!!!");
 
-    this.value(filterNum);
+    let inputValue = inputElement.value;
+
+    if (inputValue) {
+        // 입력값에 숫자 이외의 문자가 있는지 확인
+        if (/\D/.test(inputValue)) {
+            // 오류 메시지 표시
+            alert("숫자만 입력할 수 있습니다.");
+
+            // 입력값에서 숫자 이외의 문자를 제거하고 다시 설정
+            let filterNum = inputValue.replace(/\D/g, '');
+            inputElement.value = filterNum; // 값을 다시 설정
+        }
+    }
 }
 
 function createAccountConfirm() {
