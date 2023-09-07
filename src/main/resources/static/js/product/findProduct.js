@@ -2,7 +2,7 @@ function findProduct(){
     console.log('findProduct()');
 
     let findProductName = $("#registProductForm input[type='text']").val();
-    let zip_code = $('#section_wrap #registProduct input[name="zip_code"]').val();
+    let zip_code = $('#wrap section #sectionWrap #registProduct input[name="zip_code"]').val();
 
     if(findProductName == ''){
         alert('Input Please Product');
@@ -16,7 +16,7 @@ function findProduct(){
 function allfindProduct(){
     console.log('allfindProduct()');
 
-    let zip_code = $('#section_wrap #registProduct input[name="zip_code"]').val();
+    let zip_code = $('#wrap section #sectionWrap #registProduct input[name="zip_code"]').val();
 
     let findProductName = "";
     ajax_addProduct(zip_code, findProductName);
