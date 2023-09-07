@@ -1,5 +1,6 @@
 package com.oneteam.dormease.user.student;
 
+import com.oneteam.dormease.user.parents.ParentsDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -13,9 +14,9 @@ public class StudentInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
 
-        if(loginedStudentDto == null) {
+        if(loginedStudentDto != null ) {
 
-            String message = "alert('가입된 학생만 사용이 가능합니다.');";
+            String message = "alert('권한이 없습니다!');";
 
             // 응답에 JavaScript 코드를 출력하고 문자 인코딩 설정
             response.setContentType("text/html; charset=UTF-8");
@@ -26,9 +27,9 @@ public class StudentInterceptor implements HandlerInterceptor {
             // JavaScript가 실행된 이후에 일정 시간(0.1초 후)에 리디렉션을 수행
             out.println("<script>setTimeout(function() { location.href = '" + request.getContextPath() + "/'; }, 100);</script>");
             response.sendRedirect("/user/loginForm");
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 }
