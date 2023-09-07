@@ -152,17 +152,13 @@ public class StudentController {
      * 외박 신청 컨펌
      */
     @PostMapping("/leaveOutConfirm")
-    public String leaveOutConfirm(LeavePassDto leavePassDto) {
+    public String leaveOutConfirm(LeavePassDto leavePassDto, Model model) {
         log.info("leaveOutConfirm()");
 
-        String nextPage = "/user/student/leaveOutList";
-        nextPage = "Home";
+        String nextPage = "user/student/leavePassResult";
 
         int result = studentService.leaveOutConfirm(leavePassDto);
-        if(result <= 0){
-            nextPage = "redirect:/user/student/leaveOutForm";
-        }
-
+        model.addAttribute("result", result);
         return nextPage;
     }
     /*
@@ -173,11 +169,9 @@ public class StudentController {
                                 @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                 @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("leavePassList()");
-
         String nextPage = "user/student/leavePassList";
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
         Map<String,Object> map = studentService.leavePassList(loginedStudentDto.getNo(), pageNum, amount);
-
         model.addAttribute("leavePassDtos", map.get("leavePassDtos"));
         model.addAttribute("pageMakerDto", map.get("pageMakerDto"));
 
