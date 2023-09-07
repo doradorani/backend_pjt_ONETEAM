@@ -1,7 +1,5 @@
 package com.oneteam.dormease.notice;
 
-import com.oneteam.dormease.notice.NoticeDto;
-import com.oneteam.dormease.notice.NoticeService;
 import com.oneteam.dormease.user.parents.ParentsDto;
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.pagination.PageDefine;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -30,20 +27,25 @@ public class NoticeController {
      */
     @GetMapping("/noticeListForm")
     public String noticeListForm(HttpSession session, Model model,
+                                 @RequestParam(value="keyWord", required = false) String keyWord,
+                                 @RequestParam(value="search", required = false) String search,
                                  @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                  @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("noticeListForm()");
+        String nextPage = "notice/noticeListForm";
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
         ParentsDto loginedParentsDto = (ParentsDto) session.getAttribute("loginedParentsDto");
         String schoolNo = null;
         if (loginedStudentDto != null) {
             schoolNo = loginedStudentDto.getSchool_no();
         } else if (loginedParentsDto != null) {
-//            schoolNo = loginedParentsDto.getSchool_no();
+            schoolNo = loginedParentsDto.getSchool_no();
         }
-//        List<NoticeDto> noticeDtos = noticeService.getAllNoticeContent(schoolNo);
-        String nextPage = "notice/noticeListForm";
-//        model.addAttribute("noticeDtos", noticeDtos);
+        Map<String, Object> resultMap = noticeService.getAllNoticeContent(schoolNo,keyWord, search, pageNum, amount);
+        model.addAttribute("pageMakerDto", resultMap.get("pageMakerDto"));
+        model.addAttribute("search", resultMap.get("search"));
+        model.addAttribute("keyWord", resultMap.get("keyWord"));
+        model.addAttribute("noticeDtos", resultMap.get("noticeDtos"));
 
         return nextPage;
     }
@@ -55,8 +57,8 @@ public class NoticeController {
     public String detailContentForm(@RequestParam("no") int no, Model model) {
         log.info("detailContentForm()");
         String nextPage = "notice/detailContentForm";
-//        Map<String, Object> noticeAndReplyMap = noticeService.getdetailContent(no);
-//        model.addAttribute("noticeAndReplyMap", noticeAndReplyMap);
+        Map<String, Object> noticeAndReplyMap = noticeService.getDetailContent(no);
+        model.addAttribute("noticeAndReplyMap", noticeAndReplyMap);
 
         return nextPage;
     }

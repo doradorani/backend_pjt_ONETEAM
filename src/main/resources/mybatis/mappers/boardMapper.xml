@@ -12,12 +12,12 @@
         student_name
         FROM
         free_board f
-        INNER JOIN
+        JOIN
         student s
         ON
         f.student_no = s.no
         WHERE
-        f.school_no = #{pageMakerDto.keyWord}
+        f.school_no = #{schoolNo}
         AND
         f.category_no = 1
         AND
@@ -40,7 +40,7 @@
         COUNT(*)
         FROM
         free_board f
-        INNER JOIN
+        JOIN
         student s
         ON
         f.student_no = s.no
@@ -83,7 +83,7 @@
 
         SELECT
             no
-        from
+        FROM
             free_board
         ORDER BY no DESC
             LIMIT 1
@@ -97,7 +97,7 @@
                    AS
                    student_name
         FROM free_board f
-                 INNER JOIN
+                 JOIN
              student s
              ON
                  f.student_no = s.no
