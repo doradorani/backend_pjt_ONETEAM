@@ -27,11 +27,12 @@ public class UserInterceptor implements HandlerInterceptor {
             out.flush();
 
             // JavaScript가 실행된 이후에 일정 시간(0.1초 후)에 리디렉션을 수행
-            out.println("<script>setTimeout(function() { location.href = '" + request.getContextPath() + "/'; }, 100);</script>");
-            response.sendRedirect("/user/loginForm");
+            out.println("<script>setTimeout(function() { location.href = '" + request.getContextPath() + "/user/member/loginForm'; }, 100);</script>");
             return false;
+
         } else {
             return true;
+
         }
     }
 
