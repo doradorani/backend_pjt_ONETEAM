@@ -47,10 +47,10 @@ function ajax_addProduct(zipCode, name){
             else{
                 $("#selectProduct table").children().remove();
 
-                for (let i = 0; i < data.mySchoolProductDtos.length; i += 7) {
+                for (let i = 0; i < data.mySchoolProductDtos.length; i += 5) {
                     let appendTag = "<tr>";
 
-                    for (let j = i; j < i + 7 && j < data.mySchoolProductDtos.length; j++) {
+                    for (let j = i; j < i + 5 && j < data.mySchoolProductDtos.length; j++) {
                         appendTag += "<td>";
                         appendTag += "<a href='#none' class='add_product' data-product-name='" + data.mySchoolProductDtos[j].product_name;
                         appendTag += "' data-product-price='" + data.mySchoolProductDtos[j].product_price;

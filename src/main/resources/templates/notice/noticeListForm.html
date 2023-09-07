@@ -20,8 +20,8 @@
   <nav th:replace="~{/include/headerNavFooter.html::nav}">
   </nav>
   <section id="sectionWrap">
-      <div class="search-container">
-         <form>
+        <div class="search-container">
+          <form>
             <select name="search_no">
               <option value='1'>제목으로 검색</option>
               <option value='2'>내용으로 검색</option>
@@ -48,7 +48,7 @@
                 <tr th:each="noticeDto : ${noticeDtos}">
                   <td th:text="${noticeDto.no}"></td>
                   <td>
-                    <a th:href="@{/notice/detailContentForm(no=${noticeDto.no})}" th:text="${noticeDto.title}"></a>
+                    <a th:href="@{/notice/detailNoticeForm(no=${noticeDto.no})}" th:text="${noticeDto.title}"></a>
                   </td>
                   <td th:text="${noticeDto.admin_name}"></td>
                 <td th:text="${#strings.substring(noticeDto.reg_date, 0, 10)}"></td>
@@ -74,7 +74,6 @@
             <input type="number" name="page_target_num">&nbsp; &#47; <span class="page_total_num"></span>
             <a class="goto_page_btn" href="#none">Go to page</a>
           </div>
-
         </div>
         <!-- PAGENATION END -->
     </section>

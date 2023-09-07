@@ -58,7 +58,7 @@ public class NoticeController {
     @GetMapping("/detailContentForm")
     public String detailContentForm(@RequestParam("no") int no, Model model) {
         log.info("detailContentForm()");
-        String nextPage = "notice/detailContentForm";
+        String nextPage = "notice/detailNoticeForm";
         Map<String, Object> noticeAndReplyMap = noticeService.getDetailContent(no);
         model.addAttribute("noticeAndReplyMap", noticeAndReplyMap);
 
