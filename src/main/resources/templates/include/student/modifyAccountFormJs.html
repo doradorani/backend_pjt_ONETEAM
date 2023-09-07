@@ -12,7 +12,7 @@
   function init() {
     console.log("init CALLED!!!");
 
-    $("#sectionWrap > div.modifyAccountForm > form > input[type = 'button'].delete").on('click', function (){
+    $("#sectionWrap > div.modifyAccountForm > form > input[value = '계정 삭제']").on('click', function (){
         console.log("delete CLICK HANDLER!!!");
 
         let no = $(this).data('no');

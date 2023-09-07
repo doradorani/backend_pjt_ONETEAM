@@ -65,7 +65,9 @@ button.bt_search:hover {
     border-collapse: collapse;
     margin-top: 20px;
 }
-
+.content_list > tbody > tr {
+    height: 35px;
+}
 .content_list th, .content_list td {
     border: 1px solid #ddd;
     padding: 8px;

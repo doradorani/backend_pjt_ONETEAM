@@ -77,7 +77,6 @@
                 default:
                     url = "/";                          // 기본 페이지 URL
             }
-
             // 페이지 이동
             window.location.href = url;
         });
@@ -96,14 +95,14 @@
             <tbody>
                 <tr>
                     <td>
-                        <a>
+                        <a th:href="@{/notice/noticeListForm}">
                             공지사항
                         </a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a>
+                        <a th:href="@{/board/freeBoardListForm}">
                             자유게시판
                         </a>
                     </td>
