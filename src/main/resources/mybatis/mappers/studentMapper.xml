@@ -68,4 +68,11 @@
         where
             no = #{no}
     </update>
+    <insert id="insertNewLeaveOut" parameterType="LeavePassDto">
+        INSERT INTO
+            leave_pass (
+            school_no, dormitory, student_no, student_id, student_name, student_grade, content, admin_approval, start_date, end_date, reg_date, mod_date
+        ) VALUES (
+                     #{school_no}, #{dormitory}, #{student_no}, #{student_id}, #{student_name}, #{student_grade}, #{content}, #{admin_approval}, #{start_date}, #{end_date}, now(), now())
+    </insert>
 </mapper>
