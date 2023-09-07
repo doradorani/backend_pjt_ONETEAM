@@ -24,7 +24,12 @@ section {
     /*max-width: 1300px;*/
     padding: 20px;
 }
-
+.content_list {
+    width: 1000px;
+}
+form[name="detailContentForm"] {
+    width: 1000px;
+}
 /* 검색 폼 스타일 */
 .search-container {
     display: flex;
@@ -56,9 +61,20 @@ button.bt_search:hover {
 .content_list {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
+.content_title {
+    padding-left: 20px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.3em;
+    background-color: #f4f9ff;
+}
+.content_text {
+    padding-left: 20px;
+    height: 500px;
+}
 /* 컨텐츠 리스트 스타일 */
 .content_list table {
     width: 1000px;
@@ -151,72 +167,55 @@ button.bt_search:hover {
     background-color: #0056b3;
 }
 
-/* page UI START */
-div.page_wrap {
-    width: 98%;
-    margin: 0 auto 50px;
-    text-align: center;
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    color: transparent;
+    -webkit-background-clip: text, border;
+    margin-bottom: 10px;
+}
+.reply_list > div > span {
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.reply_comment {
+    font-size: 1.1em;
+}
+input[value='수정'],
+input[value='삭제'],
+input[value='취소'] {
+    width: 70px;
+    background: linear-gradient(to bottom, #0593fc, #036bb4);
+    color: white;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* 버튼들을 우측 정렬합니다. */
+    gap: 10px; /* 버튼 사이의 간격을 조절합니다. */
+    margin-bottom: 15px;
 }
 
-div.page_number {
-    display: inline-block;
+.write_reply_container input[type="text"] {
+    width: 87%;
+    padding: 9px;
+    font-size: 16px;
+    border-radius: 9px;
 }
 
-
-
-div.page_number a {
-    width: 46px;
-    height: 46px;
-    line-height: 46px;
-    text-decoration: none;
-    display: inline-block;
-    margin: 0 3px;
-    color: #3c3c3c;
-    background-color: #fff;
-    border: 1px solid #ccc;
+input[value='댓글 작성'] {
+    width: 100px;
+    background: linear-gradient(to bottom, #0593fc, #036bb4);
+    color: white;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
-
-div.page_number a:hover {
-    background-color: #e3e6e8;
-}
-
-a.selectedPageNum {
-    color: #fff;
-    font-weight: bolder;
-    border: 1px solid #232f3d;
-    background-color: #232f3d;
-}
-
-div.page_goto {
-    display: inline-block;
-    margin: 0 0 0 2px;
-    padding: 9px 6px 5px 15px;
-    border-radius: 7px;
-    background-color: rgba(200, 216, 235, .3);
-}
-
-input[name='page_target_num'] {
-    width: 60px; height: 25px;
-    margin: 3px 0 4px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bolder;
-}
-
-div.page_goto > a {
-    padding: 3px 10px 8px;
-    margin: 0 11px 0 5px;
-    border: 1px solid #424f60;
-    background-color: #424f60;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bolder;
-}
-
-div.page_goto > a:hover {
-    border: 1px solid #232f3d;
-    background-color: #232f3d;
-}
-/* page UI END */

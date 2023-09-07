@@ -83,31 +83,30 @@
         });
     });
 </script>
-
 <nav th:fragment="nav">
     <div id="navWrap"> &nbsp;&nbsp;
         <table>
             <thead>
-                <tr>
-                    <th th:text="${session.loginedStudentDto.school_name}">
-                    </th>
-                </tr>
+            <tr>
+                <th th:text="${session.loginedStudentDto.school_name}">
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <a>
-                            공지사항
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a>
-                            자유게시판
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <a th:href="@{/notice/noticeListForm}">
+                        공지사항
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a th:href="@{/board/freeBoardListForm}">
+                        자유게시판
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

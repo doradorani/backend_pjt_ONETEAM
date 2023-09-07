@@ -55,11 +55,11 @@ public class NoticeController {
     /*
      * 게시글 디테일 페이지
      */
-    @GetMapping("/detailContentForm")
-    public String detailContentForm(@RequestParam("no") int no, Model model) {
-        log.info("detailContentForm()");
-        String nextPage = "notice/detailContentForm";
-        Map<String, Object> noticeAndReplyMap = noticeService.getDetailContent(no);
+    @GetMapping("/detailNoticeForm")
+    public String detailNoticeForm(@RequestParam("no") int no, Model model) {
+        log.info("detailNoticeForm()");
+        String nextPage = "notice/detailNoticeForm";
+        Map<String, Object> noticeAndReplyMap = noticeService.getDetailNotice(no);
         model.addAttribute("noticeAndReplyMap", noticeAndReplyMap);
 
         return nextPage;

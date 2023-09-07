@@ -30,10 +30,11 @@ body {
 }
 
 .notice-container,
-.leave-pass-container {
+.eng-word-container {
     margin: 10px 10px;
-    min-width: 370px;
-    max-width: 370px;
+    /*padding: auto;*/
+    min-width: 450px;
+    max-width: 450px;
     min-height: 250px;
     max-height: 250px;
     background-color: white;
@@ -41,15 +42,13 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
-.leave-pass-container{
 
-}
-
-.board-container {
+.timetable-container,
+.menu-container {
     margin: 10px 10px;
     /*padding: auto;*/
-    min-width: 530px;
-    max-width: 530px;
+    min-width: 450px;
+    max-width: 450px;
     min-height: 250px;
     max-height: 250px;
     background-color: white;
@@ -71,6 +70,7 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
+h2.
 
 .point-container {
     margin: 10px 10px;

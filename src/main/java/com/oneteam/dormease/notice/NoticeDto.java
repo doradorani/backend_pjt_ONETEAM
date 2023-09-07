@@ -8,6 +8,7 @@ public class NoticeDto {
     private @SQLInjectionSafe int no;                     // COMMENT '공지사항 번호',
     private @SQLInjectionSafe String school_no;           // COMMENT '공지사항 게시 학교 번호'
     private @SQLInjectionSafe String admin_name;          // COMMENT '공지사항 게시 학교 관리자 이름'
+    private @SQLInjectionSafe int admin_no;          // COMMENT '공지사항 게시 학교 관리자 이름'
     private @SQLInjectionSafe String title;               // COMMENT '공지사항 제목'
     private @SQLInjectionSafe String content;             // COMMENT '공지사항 내용'
     private @SQLInjectionSafe int hit;                    // COMMENT '공지사항 조회 수'

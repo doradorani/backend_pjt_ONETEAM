@@ -1,6 +1,5 @@
 package com.oneteam.dormease.notice;
 
-import com.oneteam.dormease.board.BoardDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.pagination.Criteria;
 import com.oneteam.dormease.utils.pagination.PageMakerDto;
@@ -37,8 +36,8 @@ public class NoticeService {
         return map;
     }
 
-    public Map<String, Object> getDetailContent(int no) {
-        log.info("getDetailContent()");
+    public Map<String, Object> getDetailNotice(int no) {
+        log.info("getDetailNotice()");
 
         NoticeDto noticeDto = new NoticeDto();
         List<UploadFileDto> uploadedFiles = new ArrayList<>();
