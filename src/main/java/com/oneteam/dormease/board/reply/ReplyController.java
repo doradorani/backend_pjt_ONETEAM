@@ -1,6 +1,7 @@
 package com.oneteam.dormease.board.reply;
 
 import com.oneteam.dormease.user.student.StudentDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.Map;
 @Log4j2
 @Controller
 @RequestMapping("/reply")
+@Tag(name = "Reply", description = "게시글 댓글 API")
 public class ReplyController {
     private final ReplyService replyService;
     public ReplyController(ReplyService replyService) {

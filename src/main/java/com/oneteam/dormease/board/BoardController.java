@@ -5,6 +5,10 @@ import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.UploadFileDto;
 import com.oneteam.dormease.utils.UploadFileService;
 import com.oneteam.dormease.utils.pagination.PageDefine;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,7 @@ import java.util.Map;
 @Log4j2
 @Controller
 @RequestMapping("/board")
+@Tag(name = "Board", description = "자유게시판 API")
 public class BoardController {
     private final BoardService boardService;
     private final UploadFileService uploadFileService;
@@ -27,10 +32,18 @@ public class BoardController {
         this.uploadFileService = uploadFileService;
     }
 
+    /**
+     * [VIEW] 자유 게시판 리스트
+     *
+     * @param 어떤 부분 검색, 키워드, 페이지 넘버, 양
+     * @return 페이지
+     */
+
     /*
      * 자유 게시판 게시글 리스트 페이지
      */
     @GetMapping("/freeBoardListForm")
+    @Operation(summary = "자유 게시판 게시글 리스트 페이지", description = "자유 게시판 게시글 리스트 페이지", tags = {"View"})
     public String freeBoardListForm(HttpSession session, Model model,
                                     @RequestParam(value="keyWord", required = false) String keyWord,
                                     @RequestParam(value="search", required = false) String search,
@@ -96,6 +109,11 @@ public class BoardController {
      * 게시글 작성 컨펌
      */
     @PostMapping("/writeContentConfirm")
+    @Operation(summary = "게시글 작성 확인", description = "게시글 작성 확인")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "ok"),
+//            @ApiResponse(code = 404, message = "page not found!")
+//    })
     public String writeContentConfirm(@RequestParam(value = "files", required = false)  List<MultipartFile> files,
                                       HttpSession session,
                                       Model model,

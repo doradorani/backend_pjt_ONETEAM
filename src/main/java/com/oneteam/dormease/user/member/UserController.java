@@ -1,17 +1,18 @@
 package com.oneteam.dormease.user.member;
 
 import com.oneteam.dormease.user.member.sms.SmsDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring6.processor.SpringUErrorsTagProcessor;
 
 import java.util.Map;
 
 @Controller
 @Log4j2
 @RequestMapping("/user/member")
+@Tag(name = "User", description = "사용자 공통 API")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService) {

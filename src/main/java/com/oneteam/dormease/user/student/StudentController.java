@@ -2,6 +2,7 @@ package com.oneteam.dormease.user.student;
 
 import com.oneteam.dormease.user.student.leavePass.LeavePassDto;
 import com.oneteam.dormease.utils.pagination.PageDefine;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Log4j2
 @Controller
 @RequestMapping("/user/student")
+@Tag(name = "Student", description = "학생 API")
 public class StudentController {
     private final StudentService studentService;
     public StudentController(StudentService studentService) {
