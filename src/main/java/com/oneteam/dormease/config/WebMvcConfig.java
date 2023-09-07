@@ -1,5 +1,6 @@
 package com.oneteam.dormease.config;
 
+import com.oneteam.dormease.product.ProductInterceptor;
 import com.oneteam.dormease.user.member.UserInterceptor;
 import com.oneteam.dormease.user.parents.ParentsInterceptor;
 import com.oneteam.dormease.product.ProductOrderDto;
@@ -22,26 +23,29 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new ProductOrderDto.ProductInterceptor())
-                .addPathPatterns(
-                        "/product/**"
-                );
-        registry.addInterceptor(new StudentInterceptor())
-                        .addPathPatterns(
-                                "/user/parents/**"
-                        )
-                        .excludePathPatterns( "/user/parents/createAccountForm","/user/parents/createAccountConfirm","/user/parents/loginConfirm", "/user/parents/logoutConfirm");
-        registry.addInterceptor(new ParentsInterceptor())
-                .addPathPatterns(
-                        "/board/**", "/reply/**", "/user/student/**"
-                )
-                .excludePathPatterns( "/user/student/createAccountForm","/user/student/createAccountConfirm","/user/student/loginConfirm", "/user/student/searchStudents", "/user/student/logoutConfirm");
+    public void addInterceptors (InterceptorRegistry registry) {
+
         registry.addInterceptor(new UserInterceptor())
                 .addPathPatterns(
-                        "/user/student/**","/notice/**", "/image/upload", "/download", "/user/parents/**"
+                        "/user/student/**","/notice/**", "/image/upload", "/download", "/user/parents/**", "/product/**", "/board/**", "/reply/**"
                 )
-                .excludePathPatterns( "/user/parents/createAccountForm","/user/parents/createAccountConfirm","/user/parents/loginConfirm", "/user/parents/searchStudents", "/user/student/createAccountForm","/user/student/createAccountConfirm","/user/student/loginConfirm", "/user/student/searchStudents", "/user/student/logoutConfirm", "/user/parents/logoutConfirm");
+                .excludePathPatterns( "/user/parents/createAccountForm",
+                        "/user/parents/createAccountConfirm",
+                        "/user/parents/loginConfirm",
+                        "/user/parents/searchStudents",
+                        "/user/student/createAccountForm",
+                        "/user/student/createAccountConfirm",
+                        "/user/student/loginConfirm",
+                        "/user/student/searchStudents",
+                        "/user/student/logoutConfirm",
+                        "/user/parents/logoutConfirm",
+                        "/user/student/leaveOutForm",
+                        "/user/student/leaveOutConfirm"
+                );
+        registry.addInterceptor(new ProductInterceptor())
+                .addPathPatterns(
+                        "/product/**", "/board/**", "/reply/**", "/user/student/leaveOutForm"
+                );
     }
 
 }
