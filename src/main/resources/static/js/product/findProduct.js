@@ -2,7 +2,7 @@ function findProduct(){
     console.log('findProduct()');
 
     let findProductName = $("#registProductForm input[type='text']").val();
-    let zip_code = $('#section_wrap #registProduct input[name="zip_code"]').val();
+    let zip_code = $('#wrap section #sectionWrap #registProduct input[name="zip_code"]').val();
 
     if(findProductName == ''){
         alert('Input Please Product');
@@ -16,7 +16,7 @@ function findProduct(){
 function allfindProduct(){
     console.log('allfindProduct()');
 
-    let zip_code = $('#section_wrap #registProduct input[name="zip_code"]').val();
+    let zip_code = $('#wrap section #sectionWrap #registProduct input[name="zip_code"]').val();
 
     let findProductName = "";
     ajax_addProduct(zip_code, findProductName);
@@ -47,10 +47,10 @@ function ajax_addProduct(zipCode, name){
             else{
                 $("#selectProduct table").children().remove();
 
-                for (let i = 0; i < data.mySchoolProductDtos.length; i += 7) {
+                for (let i = 0; i < data.mySchoolProductDtos.length; i += 5) {
                     let appendTag = "<tr>";
 
-                    for (let j = i; j < i + 7 && j < data.mySchoolProductDtos.length; j++) {
+                    for (let j = i; j < i + 5 && j < data.mySchoolProductDtos.length; j++) {
                         appendTag += "<td>";
                         appendTag += "<a href='#none' class='add_product' data-product-name='" + data.mySchoolProductDtos[j].product_name;
                         appendTag += "' data-product-price='" + data.mySchoolProductDtos[j].product_price;
