@@ -152,17 +152,13 @@ public class StudentController {
      * 외박 신청 컨펌
      */
     @PostMapping("/leaveOutConfirm")
-    public String leaveOutConfirm(LeavePassDto leavePassDto) {
+    public String leaveOutConfirm(LeavePassDto leavePassDto, Model model) {
         log.info("leaveOutConfirm()");
 
-        String nextPage = "/user/student/leaveOutList";
-        nextPage = "Home";
+        String nextPage = "user/student/leavePassResult";
 
         int result = studentService.leaveOutConfirm(leavePassDto);
-        if(result <= 0){
-            nextPage = "redirect:/user/student/leaveOutForm";
-        }
-
+        model.addAttribute("result", result);
         return nextPage;
     }
     /*
