@@ -51,16 +51,26 @@ function ajax_detailHistory(reg_date){
                 let product = data.productOrderDtos[i];
 
                 let appendTag = "<div class='product'>";
+
+                appendTag += "<div class='img'>";
                 appendTag += '<img width="100" height="100" src="/dormEaseUploadImg/admin/product/' + product.img + '">';
-                appendTag += "<div class='info'>";
-                appendTag += "<span class='name'>이름 : " + product.name + "</span>";
-                appendTag += "<span class='count'>가격 : " + product.count + "</span>";
-                appendTag += "<span class='price'>수량 : " + product.price + "</span>";
-                appendTag += "<span class='sum'>총 가격 : " + product.sum + "</span>";
-                appendTag += "</div>";
                 appendTag += "</div>";
 
-                $(".reg_date_trim#" + product.reg_date_trim).append(appendTag);
+                appendTag += "<div class='info'>";
+
+                appendTag += "<div class='product_name'>";
+                appendTag += "<span class='name'>이름 : " + product.name + "</span>";
+                appendTag += "</div>";
+
+                appendTag += "<div class='detail'>";
+                appendTag += "<span class='count'>가격 : " + product.price + "</span>";
+                appendTag += "<span class='price'>수량 : " + product.count + "</span>";
+                appendTag += "<span class='sum'>총 가격 : " + product.sum + "</span>";
+                appendTag += "</div>";
+
+                appendTag += "</div>";
+
+                $(".reg_date_trim#" + product.reg_date_trim + " .product_info").append(appendTag);
             }
         },
         error: function(data) {

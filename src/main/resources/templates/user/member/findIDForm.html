@@ -12,8 +12,8 @@
 
 </head>
 <body>
-<section>
-    <div id="sectionWrap">
+<div id="wrap">
+    <section id="sectionWrap">
         <div class="logo">
             <a th:href="@{/}">
                 <img src="/imgs/no_background_logo_test.png" >
@@ -69,12 +69,9 @@
                 <a th:href="@{/user/member/findPasswordForm}">비밀번호 찾기</a>
             </div>
         </form>
-    </div>
-</section>
-
-<footer th:replace="~{/include/headerNavFooter.html::footer}">
-
-</footer>
-
+    </section>
+    <footer th:replace="~{/include/headerNavFooter.html::footer}">
+    </footer>
+</div>
 </body>
 </html>
