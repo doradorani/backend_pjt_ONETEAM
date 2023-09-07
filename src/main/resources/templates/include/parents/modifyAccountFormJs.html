@@ -3,8 +3,9 @@
   $(document).ready(function() {
     console.log('DOCUMENT READY!!');
 
-      init();
 
+      phoneValue();
+      init();
 
 
   });
@@ -12,8 +13,8 @@
   function init() {
     console.log("init CALLED!!!");
 
-    $("#sectionWrap > div.modifyAccountForm > form > input[type = 'button'].delete").on('click', function (){
-        console.log("delete CLICK HANDLER!!!");
+    $("div.btn_container input.delete").on('click', function (){
+        console.log("계정 삭제 CLICK HANDLER!!!");
 
         let no = $(this).data('no');
 
@@ -32,7 +33,7 @@
 
     });
 
-    phoneValue();
+
 
 }
 function phoneValue(){
@@ -53,10 +54,10 @@ function phoneValue(){
     form.phone1.value = phone1;
     $("#phone1").val(phone1).prop("selected", true);
 
-    $('input[name="phone3"]').val(phone3);
-    $('input[name="phone2"]').val(phone2);
-    $('input[name="mail1"]').val(mails[0]);
-    $("select[name='mail2']").val(mails[1]).prop("selected", true);
+    $('div.phone_box input[name="phone3"]').val(phone3);
+    $('div.phone_box input[name="phone2"]').val(phone2);
+    $('div.mail_box input[name="mail1"]').val(mails[0]);
+    $("div.mail_box select[name='mail2']").val(mails[1]).prop("selected", true);
 }
 
 

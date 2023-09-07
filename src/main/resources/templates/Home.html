@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title th:replace="~{/include/title.html::title}"></title>
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
@@ -73,8 +72,6 @@
                     <a th:href="@{/product/paymentHistory}">결제 내역</a>
                 </div>
             </div>
-
-
         </div>
     </section>
 <!--    <div class="wrap" th:if="${session.loginedStudentDto == null}">-->
