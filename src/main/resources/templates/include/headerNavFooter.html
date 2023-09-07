@@ -4,9 +4,9 @@
                 <a th:href="@{/}">
                     <img src="/imgs/no_background_logo_test.png">
                 </a>
-                <div class="schoolName" th:if="${session.loginedStudentDto != null}">
-                    <span th:text="${session.loginedStudentDto.school_name}"></span>
-                </div>
+<!--                <div class="schoolName" th:if="${session.loginedStudentDto != null}">-->
+<!--                    <span th:text="${session.loginedStudentDto.school_name}"></span>-->
+<!--                </div>-->
                 <div class="headerMenuBar">
                     <label class="headerRadio" for="home">
                         <input type="radio" id="home" name="headerMenu" value="홈">
@@ -86,6 +86,30 @@
 
 <nav th:fragment="nav">
     <div id="navWrap"> &nbsp;&nbsp;
+        <table>
+            <thead>
+                <tr>
+                    <th th:text="${session.loginedStudentDto.school_name}">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a>
+                            공지사항
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a>
+                            자유게시판
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </nav>
 

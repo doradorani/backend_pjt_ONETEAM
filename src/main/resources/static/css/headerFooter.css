@@ -40,6 +40,42 @@ html, body {
     display: flex;
     gap: 10px;
 }
+#navWrap > table {
+    color:white;
+    width: 220px;
+    border-collapse: collapse;
+    border: none;
+    border-radius: 9px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+#navWrap > table td:hover {
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    color: transparent;
+    -webkit-background-clip: text, border;
+}
+#navWrap > table td > a:hover {
+    background: linear-gradient( to bottom, #0593fc, #036bb4);
+    color: transparent;
+    -webkit-background-clip: text, border;
+}
+#navWrap > table th {
+    background: linear-gradient(to bottom, #0593fc, #036bb4);
+}
+#navWrap > table td {
+    color: #036bb4;
+    background-color: #f4f9ff;
+}
+#navWrap > table td ,
+#navWrap > table th {
+    height: 50px;
+    border-bottom: black;
+    border-top: black;
+}
+#navWrap td > a {
+    color: #036bb4;
+}
 
 .memberWrap {
     margin-left: auto;
@@ -118,7 +154,6 @@ html, body {
 .headerRadio input[type='radio']:hover + span {
     font-size: 1.4em;
     background: linear-gradient( to bottom, #0593fc, #036bb4);
-    border-bottom: transparent;
     color: transparent;
     -webkit-background-clip: text, border;
 }
