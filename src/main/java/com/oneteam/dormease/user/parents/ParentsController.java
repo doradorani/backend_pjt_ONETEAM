@@ -2,7 +2,7 @@ package com.oneteam.dormease.user.parents;
 
 import com.oneteam.dormease.user.student.StudentDto;
 import com.oneteam.dormease.utils.pagination.PageDefine;
-import com.oneteam.dormease.utils.pagination.PageMakerDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import java.util.Map;
 @Log4j2
 @Controller
 @RequestMapping("/user/parents")
+@Tag(name = "Parents", description = "학부모 API")
 public class ParentsController {
     private final ParentsService parentsService;
 

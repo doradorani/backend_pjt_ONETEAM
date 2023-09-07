@@ -1,5 +1,6 @@
 package com.oneteam.dormease.utils;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,6 +18,7 @@ import java.nio.file.Paths;
 
 @Log4j2
 @Controller
+@Tag(name = "DownloadFile", description = "파일 다운로드 API")
 public class DownloadFileController {
     // 파일 저장 경로
     private static final String DOWNLOAD_DIR = "c:/dormease/freeboard/upload";
