@@ -29,24 +29,10 @@ public class ProductController {
      * 우리 학교 상품 보기
      */
     @GetMapping("/mySchoolProductForm")
-    public String mySchoolProductForm(HttpSession session, Model model){
+    public String mySchoolProductForm(){
         log.info("mySchoolProductForm()");
 
         String nextPage = "product/mySchoolProductForm";
-
-//        StudentDto loginedStudentDto = (StudentDto)session.getAttribute("loginedStudentDto");
-//        if(loginedStudentDto == null){
-//            //로그인을 해주어야 nextPage로 이동
-//            return "redirect:/";
-//        }
-
-        SchoolDto schoolDto = new SchoolDto();
-        schoolDto.setZip_code("24286"); //테스트용
-        StudentDto loginedStudentDto = new StudentDto(); //테스트용
-        loginedStudentDto.setId("test"); //테스트용
-
-        model.addAttribute("schoolDto", schoolDto);     //추후엔 집코드를 logined에 붙여줄 예정
-        model.addAttribute("loginedStudentDto", loginedStudentDto);
 
         return nextPage;
     }
@@ -95,7 +81,7 @@ public class ProductController {
 
         int result = productService.registProductConfirm(productOrder, name, price, cnt, img);
 
-        return "redirect:/product/mySchoolProductForm";
+        return "redirect:/product/paymentHistory";
     }
 
     /*
@@ -110,8 +96,7 @@ public class ProductController {
 
         String nextPage = "product/paymentHistory";
 
-        StudentDto loginedStudentDto = new StudentDto(); //테스트용
-        loginedStudentDto.setId("test"); //테스트용
+        StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
 
         //페이지와 DTO 동시 관리
         Map<String, Object> listPage = productService.paymentHistory(loginedStudentDto.getId(), pageNum, amount);
@@ -135,8 +120,7 @@ public class ProductController {
 
         String reg_date = msgMap.get("reg_date");
 
-        StudentDto loginedStudentDto = new StudentDto(); //테스트용
-        loginedStudentDto.setId("test"); //테스트용
+        StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
 
         Map<String, Object> resultMap = productService.detailHistory(loginedStudentDto.getId(), reg_date);
 

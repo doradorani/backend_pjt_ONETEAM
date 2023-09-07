@@ -31,37 +31,40 @@
         등록 상품 리스트 (우리 학교 리스트)<br>
       </div>
 
-      <div id="registProductForm">
+      <div id="registProductForm" style="display: none;">
         <input type="text" name="product_name" placeholder="INPUT PRODUCT NAME">
         <input type="button" value="find product" onclick="findProduct();"><br><br>
         <input type="button" value="전체 보기" onclick="allfindProduct();"><br><br>
       </div>
 
-      <div id="selectProduct">
+      <div id="selectProduct" style="display: none;">
         <table>
 
         </table>
       </div>
 
-      <div id="checkedProduct">
+      <div id="checkedProduct" style="display: none;">
         <ul>
 
         </ul>
       </div>
 
-      <div id="priceSum">
+      <div id="priceSum" style="display: none;">
         <span id="sum" data-sum="0"> 합계 : 0 원 </span>
       </div>
 
-      <div id="registProduct">
+      <div id="registProduct" style="display: none;">
         <form th:action="@{/product/registProductConfirm}" name="registProductForm" method="post">
-          <input type="hidden" name="zip_code" th:value="${schoolDto.zip_code}">
-          <input type="hidden" name="id" th:value="${loginedStudentDto.id}">
+          <input type="hidden" name="zip_code" th:value="${session.loginedStudentDto.school_zip_code}">
+          <input type="hidden" name="id" th:value="${session.loginedStudentDto.id}">
           <input type="hidden" name="sum" th:value="0">
 
           <input type="button" value="regist product" onclick="registProductConfirm();">
         </form>
       </div>
+
+      <!--   등록 가능 상품이 없다면 기존 none 처리한 해당 div를 block처리   -->
+      <div id="noProduct" style="display: none;">등록 가능한 상품이 없습니다</div>
 
 
     </div>

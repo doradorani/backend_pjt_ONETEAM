@@ -31,7 +31,9 @@
     <!-- WORD END -->
 
     <div id="paymentHistory" class="product_list">
-      <div class="container" th:each="productOrderDto : ${productOrderDtos}">
+      <div class="container"
+           th:if="${#lists.size(productOrderDtos) > 0}"
+           th:each="productOrderDto : ${productOrderDtos}">
 
         <div class="reg_date" th:id="${productOrderDto.reg_date}">
           <div class="reg_date_trim" th:id="${productOrderDto.reg_date_trim}">
@@ -40,17 +42,18 @@
               <span class="allsum" th:text="'최종 가격 : ' + ${productOrderDto.allsum}"></span>
             </div>
 
-
             <div class="product_info">
 
             </div>
           </div>
 
-
-
         </div>
-
       </div>
+
+      <div class="container" th:unless="${#lists.size(productOrderDtos) > 0}">
+        <div class="no_item">내역이 없습니다.</div>
+      </div>
+
     </div>
 
     <br><br>
