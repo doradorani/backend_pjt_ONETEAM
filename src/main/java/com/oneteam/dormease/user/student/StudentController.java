@@ -169,11 +169,9 @@ public class StudentController {
                                 @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                 @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount) {
         log.info("leavePassList()");
-
         String nextPage = "user/student/leavePassList";
         StudentDto loginedStudentDto = (StudentDto) session.getAttribute("loginedStudentDto");
         Map<String,Object> map = studentService.leavePassList(loginedStudentDto.getNo(), pageNum, amount);
-
         model.addAttribute("leavePassDtos", map.get("leavePassDtos"));
         model.addAttribute("pageMakerDto", map.get("pageMakerDto"));
 
