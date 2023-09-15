@@ -28,6 +28,7 @@
                 AND a.name LIKE CONCAT('%', #{keyWord}, '%')
             </if>
         </if>
+        ORDER BY status DESC, no DESC
         LIMIT
         #{pageMakerDto.criteria.skip}, #{pageMakerDto.criteria.amount}
 

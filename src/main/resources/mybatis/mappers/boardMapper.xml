@@ -30,6 +30,7 @@
                 AND s.name LIKE CONCAT('%', #{keyWord}, '%')
             </if>
         </if>
+        ORDER BY NO DESC
         LIMIT
         #{pageMakerDto.criteria.skip}, #{pageMakerDto.criteria.amount}
 
