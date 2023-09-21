@@ -66,7 +66,7 @@ public class UserController {
     public String updatePasswordForm(@RequestParam int no, @RequestParam boolean isStudent, Model model) {
         log.info("updatePasswordForm()");
 
-        String nextPage = "/user/member/updatePasswordForm";
+        String nextPage = "user/member/updatePasswordForm";
 
         model.addAttribute("no", no);
         model.addAttribute("isStudent", isStudent);

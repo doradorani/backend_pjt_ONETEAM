@@ -9,9 +9,9 @@
   <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
   <link rel="stylesheet" th:href="@{/css/product/mySchoolProductForm.css}">
 
-  <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-  <script th:replace="~{/include/product/allProduct_js.html::js}" type="text/javascript"></script>
-  <script th:replace="~{/include/product/selectProduct_js.html::js}" type="text/javascript"></script>
+  <script th:replace="~{include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+  <script th:replace="~{include/product/allProduct_js.html::js}" type="text/javascript"></script>
+  <script th:replace="~{include/product/selectProduct_js.html::js}" type="text/javascript"></script>
 
   <script th:src="@{/js/product/findProduct.js}" type="text/javascript"></script>
   <script th:src="@{/js/product/registProductForm.js}" type="text/javascript"></script>
@@ -19,11 +19,11 @@
 
 </head>
 <body>
-  <header th:replace="~{/include/headerNavFooter.html::header}">
+  <header th:replace="~{include/headerNavFooter.html::header}">
   </header>
 
   <div id="wrap">
-    <nav th:replace="~{/include/headerNavFooter.html::nav}">
+    <nav th:replace="~{include/headerNavFooter.html::nav}">
     </nav>
     <section>
       <div id="sectionWrap">

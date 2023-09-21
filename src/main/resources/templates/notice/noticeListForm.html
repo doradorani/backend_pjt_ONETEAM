@@ -7,17 +7,17 @@
   <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
   <link rel="stylesheet" th:href="@{/css/board/boardListForm.css}">
 
-  <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-  <script th:replace="~{/include/noticeListJs.html::js}" type="text/javascript"></script>
+  <script th:replace="~{include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+  <script th:replace="~{include/noticeListJs.html::js}" type="text/javascript"></script>
 
 </head>
 <body>
 
-<header th:replace="~{/include/headerNavFooter.html::header}">
+<header th:replace="~{include/headerNavFooter.html::header}">
 </header>
 
 <div id = "wrap">
-  <nav th:replace="~{/include/headerNavFooter.html::nav}">
+  <nav th:replace="~{include/headerNavFooter.html::nav}">
   </nav>
   <section id="sectionWrap">
     <div class="search-container">
@@ -77,7 +77,7 @@
     </div>
     <!-- PAGENATION END -->
   </section>
-  <footer th:replace="~{/include/headerNavFooter.html::footer}">
+  <footer th:replace="~{include/headerNavFooter.html::footer}">
   </footer>
 </div>
 </body>

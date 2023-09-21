@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:replace="~{/include/title.html::title}">
+    <title th:replace="~{include/title.html::title}">
 
     </title>
 
@@ -9,15 +9,15 @@
     <link rel="stylesheet" th:href="@{/css/headerFooter.css}">
     <link rel="stylesheet" th:href="@{/css/user/student/modifyAccountForm.css}">
 
-    <script th:replace="~{/include/use_console.html::js}" type="text/javascript"></script>
-    <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-    <script th:replace="~{/include/parents/modifyAccountFormJs.html::js}" type="text/javascript"></script>
+    <script th:replace="~{include/use_console.html::js}" type="text/javascript"></script>
+    <script th:replace="~{include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{include/parents/modifyAccountFormJs.html::js}" type="text/javascript"></script>
 
 
 </head>
 <body>
 
-<header th:replace="~{/include/headerNavFooter.html::header}">
+<header th:replace="~{include/headerNavFooter.html::header}">
 </header>
 <section>
     <div id="wrap">
@@ -130,7 +130,7 @@
                 </form>
             </div>
         </section>
-        <footer th:replace="~{/include/headerNavFooter.html::footer}">
+        <footer th:replace="~{include/headerNavFooter.html::footer}">
         </footer>
     </div>
 </section>
